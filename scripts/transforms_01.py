@@ -93,11 +93,11 @@ t1_offset = np.array([[-0.5, -0.75], [-1.5, 0.0], [-0.5, -0.75]])
 fig, ax = plt.subplots(1, 1)
 set_spines(ax)
 plot_triangle(ax, t1, label_offsets=t1_offset)
-fig.savefig("triangle_01.png")
+fig.savefig("triangle_01_translate_00.png")
 
 # %%
 
-t = np.array([8, 5])
+t = np.array([9, 5])
 fig, ax = plt.subplots(1, 1)
 set_spines(ax)
 plot_triangle(ax, t1, label_offsets=t1_offset)
@@ -128,7 +128,7 @@ plot_triangle(ax, t2, label_offsets=t1_offset,
               labels=True)
 for c, ofs in zip(t1, [(-0.25, 0.5), None, None]):
     plot_vector(ax, c + t, c, color='g', label_offset=ofs, label=False)
-fig.savefig("triangle_01_translate_02.png")
+fig.savefig("triangle_01_translate_03.png")
 
 # %%
 
@@ -137,6 +137,6 @@ set_spines(ax)
 plot_triangle(ax, t2, label_offsets=t1_offset,
               facecolor=(0.5, 0.0, 0.5, 0.5),
               labels=True)
-fig.savefig("triangle_01_translate_03.png")
+fig.savefig("triangle_01_translate_04.png")
 
 # %%
