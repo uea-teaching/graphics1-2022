@@ -228,6 +228,22 @@ But recall, we need to translate every vertex in our model by the same vector fo
 
 ![The model is in a new position.](assets/png/triangle_01_translate_04.png)
 
+---
+
+::: {style="font-size: 2.5em"}
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} x \\ y \end{bmatrix} +
+\begin{bmatrix} t_x \\ t_y \end{bmatrix}
+$$
+
+:::
+
+::: notes
+Emphasise that translation is the addition of a translation vector.
+:::
+
 # Rotation
 
 We stated earlier, that the mathematical entity used to perform a transformations to the vector coordinates is a _matrix_.
@@ -281,4 +297,136 @@ Notice that the direction of angle is anticlockwise, which is positive rotation 
 
 So tan is equal to r. Be cautious when using tan in your code, consider the plot of tan...
 
+:::
+
+## Matrix multiplication
+
+Matrix multiplication is performed row by column:
+
+$$
+\begin{bmatrix} ax + by \\ cx + dy \end{bmatrix} =
+\begin{bmatrix} a~ ~b \\ c~ ~d \end{bmatrix} \times
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
+
+- Number of columns in the first operand **must** equal the number of rows in the second operand.
+
+## Rotation Matrix {data-auto-animate="true"}
+
+Deriving the rotation matrix using trigonometric identities.
+
+::: notes
+
+let's look at the derivation - we can do this by looking at what happens when we rotate a model.
+
+:::
+
+---
+
+![A model in the plane](assets/png/rotate_01.png)
+
+---
+
+![consider one vertex](assets/png/rotate_02.png)
+
+---
+
+![angle between the $x$ axis](assets/png/rotate_03.png)
+
+---
+
+![rotation about the origin](assets/png/rotate_04.png)
+
+---
+
+![a second rotation](assets/png/rotate_05.png)
+
+---
+
+![sum of two angles](assets/png/rotate_06.png)
+
+---
+
+![$r$ and $r'$](assets/png/rotate_07.png)
+
+---
+
+$$
+r = \begin{bmatrix} x \\ y \end{bmatrix} =
+    \begin{bmatrix} \cos \beta \\ \sin \beta \end{bmatrix}
+$$
+
+$$
+r' = \begin{bmatrix} x' \\ y' \end{bmatrix} =
+     \begin{bmatrix} \cos (\alpha + \beta) \\
+     \sin (\alpha + \beta) \end{bmatrix}
+$$
+
+## Ptolomy's identity {data-auto-animate="true"}
+
+The sum of two angles:
+
+$$\cos (\alpha + \beta) = \cos \alpha ~ \cos \beta - \sin \alpha ~ \sin \beta$$
+$$\sin (\alpha + \beta) = \sin \alpha ~ \cos \beta + \cos \alpha ~ \sin \beta$$
+
+## Rotation Matrix Derivation {data-auto-animate="true"}
+
+using the identities:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha ~ \cos \beta - \sin \alpha ~ \sin \beta \\
+\sin \alpha ~ \cos \beta + \cos \alpha ~ \sin \beta
+\end{bmatrix}
+$$
+
+## Rotation Matrix Derivation {data-auto-animate="true"}
+
+recall:
+
+$$
+\begin{bmatrix} x \\ y \end{bmatrix} =
+\begin{bmatrix} \cos \beta \\ \sin \beta \end{bmatrix}
+$$
+
+substitute $x$ and $y$:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix}
+x \cos \alpha - y \sin \alpha \\
+x \sin \alpha + y \cos \alpha
+\end{bmatrix}
+$$
+
+## Rotation Matrix Derivation {data-auto-animate="true"}
+
+as a matrix multiplication:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha - \sin \alpha \\
+\sin \alpha + \cos \alpha
+\end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
+
+---
+
+::: {style="font-size: 2.5em"}
+
+$$
+R =
+\begin{bmatrix}
+\cos \alpha - \sin \alpha \\
+\sin \alpha + \cos \alpha
+\end{bmatrix}
+$$
+
+:::
+
+::: notes
+finally we can derive the rotation matrix. Please remember this forever :)
 :::
