@@ -430,3 +430,13 @@ $$
 ::: notes
 finally we can derive the rotation matrix. Please remember this forever :)
 :::
+
+# Summary
+
+- Types of transformations
+- Translation
+- Rotation
+
+Reading:
+
+- Hearn, D. et al. (2004). Computer Graphics with OpenGL.
