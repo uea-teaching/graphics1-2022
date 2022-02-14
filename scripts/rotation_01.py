@@ -28,7 +28,7 @@ fig, ax = plt.subplots(1, 1)
 set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
 point_label(ax, (0, 0))
 plot_triangle(ax, t1, label_offsets=None, labels=False)
-fig.savefig("rotate_00.png")
+fig.savefig("rotate_01.png")
 
 # %%
 
@@ -41,13 +41,6 @@ def cos_sin(ax, p, x='x', y='y'):
     ax.text(-0.5, p[1], y, ha='center', va='center', fontsize=12)
     ax.plot([0, p[0]], [0, p[1]], '-k', lw=1.2)
 
-
-fig, ax = plt.subplots(1, 1)
-set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
-point_label(ax, (0, 0))
-plot_triangle(ax, t1, label_offsets=None, labels=False)
-cos_sin(ax, t1[0])
-fig.savefig("rotate_01.png")
 
 # %%
 
