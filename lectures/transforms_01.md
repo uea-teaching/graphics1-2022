@@ -58,7 +58,8 @@ Types of transformation preserve **geometric properties** of the object.
 ::: incremental
 
 - _Translation_ and _Rotation_
-- preserves the signed Euclidean distance between every pair of points
+- preserves the Euclidean distance between every pair of points
+- preserves "handedness" of the object
 
 :::
 
