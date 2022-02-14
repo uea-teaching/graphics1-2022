@@ -28,6 +28,7 @@ fig, ax = plt.subplots(1, 1)
 set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
 point_label(ax, (0, 0))
 plot_triangle(ax, t1, label_offsets=None, labels=False)
+fig.savefig("rotate_00.png")
 
 # %%
 
@@ -46,6 +47,7 @@ set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
 point_label(ax, (0, 0))
 plot_triangle(ax, t1, label_offsets=None, labels=False)
 cos_sin(ax, t1[0])
+fig.savefig("rotate_01.png")
 
 # %%
 
@@ -54,6 +56,7 @@ set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
 point_label(ax, (0, 0))
 plot_triangle(ax, t1, label_offsets=None, labels=False)
 cos_sin(ax, t1[0])
+fig.savefig("rotate_02.png")
 
 # %%
 
@@ -74,6 +77,7 @@ point_label(ax, (0, 0))
 plot_triangle(ax, t1, label_offsets=None, labels=False)
 cos_sin(ax, t1[0])
 angle_arrow(ax, p1=(6, 0), p2=(5, 2), r=0.2, text=r"$\beta$")
+fig.savefig("rotate_03.png")
 
 # %%
 
@@ -85,6 +89,7 @@ cos_sin(ax, t1[0])
 angle_arrow(ax, p1=(6, 0), p2=(5, 2), r=0.2, text=r"$\beta$")
 c = Circle((0, 0), radius=radius, color='k', fill=False)
 ax.add_patch(c)
+fig.savefig("rotate_04.png")
 
 # %%
 
@@ -92,18 +97,21 @@ fig, ax = plt.subplots(1, 1)
 set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
 point_label(ax, (0, 0))
 plot_triangle(ax, t1, label_offsets=None, labels=False)
-plot_triangle(ax, t2, label_offsets=None, labels=False)
+plot_triangle(ax, t2, label_offsets=None, labels=False,
+              facecolor=(0.5, 0, 0.5, 0.2))
 cos_sin(ax, t1[0])
 angle_arrow(ax, p1=(6, 0), p2=(5, 2), r=0.2, text=r"$\beta$")
 c = Circle((0, 0), radius=radius, color='k', fill=False)
 ax.add_patch(c)
+fig.savefig("rotate_05.png")
 
 # %%
 
 fig, ax = plt.subplots(1, 1)
 set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
 point_label(ax, (0, 0))
-plot_triangle(ax, t1, label_offsets=None, labels=False)
+plot_triangle(ax, t1, label_offsets=None, labels=False,
+              facecolor=(0.5, 0, 0.5, 0.2))
 plot_triangle(ax, t2, label_offsets=None, labels=False)
 cos_sin(ax, t1[0])
 angle_arrow(ax, p1=(6, 0), p2=(5, 2), r=0.2, text=r"$\beta$")
@@ -112,3 +120,19 @@ angle_arrow(ax, p1=(6, 2.2), p2=(5, 4.3), r=0.25, text=r"$\alpha$")
 
 c = Circle((0, 0), radius=radius, color='k', fill=False)
 ax.add_patch(c)
+fig.savefig("rotate_06.png")
+
+# %%
+
+fig, ax = plt.subplots(1, 1)
+set_spines(ax, x_range=(-1, 20), y_range=(-1, 13))
+point_label(ax, (0, 0))
+cos_sin(ax, t1[0])
+angle_arrow(ax, p1=(6, 0), p2=(5, 2), r=0.2, text=r"$\beta$")
+cos_sin(ax, t2[0], "x'", "y'")
+angle_arrow(ax, p1=(6, 2.2), p2=(5, 4.3), r=0.25, text=r"$\alpha$")
+ax.text(t1[0][0] + 0.25, t1[0][1] + 0.25, r"$r$", fontsize=12)
+ax.text(t2[0][0] + 0.25, t2[0][1] + 0.25, r"$r'$", fontsize=12)
+
+fig.savefig("rotate_07.png")
+# %%
