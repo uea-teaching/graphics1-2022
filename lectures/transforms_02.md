@@ -196,7 +196,7 @@ Hence, from now on, we will consider scaling in its generalised form where both 
 
 ## Shearing {data-auto-animate="true"}
 
-Shearing is an operation that moves vertices parallel to an axis.
+Shearing is an operation that moves vertices parallel to an axis, scaled by the distance from that axis.
 
 ## Shearing {data-auto-animate="true"}
 
@@ -207,3 +207,25 @@ $$
 \begin{bmatrix} 1~ ~\lambda \\ 0~ ~1 \end{bmatrix}
 \begin{bmatrix} x \\ y \end{bmatrix}
 $$
+
+---
+
+![model to shear](assets/png/scaling_01.png)
+
+---
+
+![shearing parallel x, $\lambda=2$](assets/png/shear_x.png)
+
+---
+
+To shear parallel to the $y$ axis:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} 1~ ~0 \\ \lambda~ ~1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
+
+---
+
+![shearing parallel y, $\lambda=1$](assets/png/shear_y.png)
