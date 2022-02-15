@@ -139,11 +139,11 @@ which are connected to form polygons or _faces_.
 
 ## Object Representation {data-auto-animate="true"}
 
-Question: How do we represent a vertex?
+Question: How do we represent a vertex mathematically?
 
 ::: incremental
 
-- A **vector** of the vertex coordinates.
+- A column **vector** of the vertex coordinates.
 
 :::
 
