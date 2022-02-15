@@ -408,8 +408,8 @@ as a matrix multiplication:
 $$
 \begin{bmatrix} x' \\ y' \end{bmatrix} =
 \begin{bmatrix}
-\cos \alpha - \sin \alpha \\
-\sin \alpha + \cos \alpha
+\cos \alpha &-\sin \alpha \\
+\sin \alpha &~\cos \alpha
 \end{bmatrix}
 \begin{bmatrix} x \\ y \end{bmatrix}
 $$
@@ -421,8 +421,8 @@ $$
 $$
 R =
 \begin{bmatrix}
-\cos \alpha - \sin \alpha \\
-\sin \alpha + \cos \alpha
+\cos \alpha &-\sin \alpha \\
+\sin \alpha &~\cos \alpha
 \end{bmatrix}
 $$
 
