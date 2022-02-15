@@ -57,7 +57,7 @@ set_spines(ax, x_range=(-12, 12), y_range=(-8, 8))
 plot_triangle(ax, t0, label_offsets=t0_offset,
               facecolor=(0.5, 0.0, 0.5, 0.2))
 plot_triangle(ax, t3, label_offsets=t0_offset)
-fig.savefig("scaling_04.png")
+fig.savefig("shear_x.png")
 
 # %%
 
@@ -69,4 +69,4 @@ set_spines(ax, x_range=(-12, 12), y_range=(-8, 8))
 plot_triangle(ax, t0, label_offsets=t0_offset,
               facecolor=(0.5, 0.0, 0.5, 0.2))
 plot_triangle(ax, t4, label_offsets=t0_offset)
-fig.savefig("scaling_05.png")
+fig.savefig("shear_y.png")
