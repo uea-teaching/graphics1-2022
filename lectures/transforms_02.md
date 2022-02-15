@@ -75,6 +75,8 @@ $$
 R^TR = I, RR^T = I
 $$
 
+Where $I$ is the identity matrix.
+
 ::: notes
 The transpose of a matrix is to write the columns of the matrix as rows.
 :::
@@ -89,7 +91,7 @@ This can be really useful in debugging your code.
 
 ## Inverse Rotation Matrices {data-auto-animate="true"}
 
-Therefore the inverse of a _rotation_ matrix **is** the _transpose_ of the rotation matrix.
+Therefore the _inverse_ of a rotation matrix **is** the _transpose_ of the rotation matrix.
 
 $$
 R^{-1} = R^T
@@ -97,7 +99,7 @@ $$
 
 ## Inverse Rotation Matrices {data-auto-animate="true"}
 
-Therefore the inverse of a _rotation_ matrix **is** the _transpose_ of the rotation matrix.
+Therefore the _inverse_ of a rotation matrix **is** the _transpose_ of the rotation matrix.
 
 $$
 \begin{bmatrix}
@@ -113,3 +115,8 @@ $$
 -\sin \alpha &\cos \alpha
 \end{bmatrix}
 $$
+
+::: notes
+You can see this is also equivalent to rotating in the opposite direction.
+This is trivial in 2D, but in 3D, it is not.
+:::
