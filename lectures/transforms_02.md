@@ -229,3 +229,61 @@ $$
 ---
 
 ![shearing parallel y, $\lambda=1$](assets/png/shear_y.png)
+
+## Reflection {data-auto-animate="true"}
+
+Reflection is an operation that imposes _symmetry_ across an axis.
+
+## Reflection {data-auto-animate="true"}
+
+To reflect across the $y$ axis:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} -1& 0 \\ ~ ~0& 1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
+
+---
+
+![model to reflect](assets/png/scaling_01.png)
+
+---
+
+![reflection across $y$ axis](assets/png/reflect_x.png)
+
+::: notes
+we could say the model is flipped left to right.
+:::
+
+## Reflection {data-auto-animate="true"}
+
+To reflect across the $x$ axis:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} 1& \hfill 0 \\ 0& \hfill -1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
+
+---
+
+![reflection across $x$ axis](assets/png/reflect_y.png)
+
+::: notes
+we could say the model is flipped top to bottom.
+:::
+
+## Reflection {data-auto-animate="true"}
+
+To reflect across the $x=y$ axis:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} 0& ~1 \\ 1& ~0 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
+
+---
+
+![reflection across $x=y$ axis](assets/png/reflect_xy.png)
