@@ -161,6 +161,10 @@ The mathematical entity used to perform a transformation to the vector of n vert
 
 A _square matrix_ of size $n$ x $n$, where $n$ is the dimension of the vertex vector.
 
+::: notes
+Although we need to move through the lecture a way before we get to this goal.
+:::
+
 # 2D Transformations
 
 - Assume a 2D _plane_ with coordinates $x$ and $y$.
