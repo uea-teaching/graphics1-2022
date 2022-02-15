@@ -36,7 +36,7 @@ Where $R$ is the rotation matrix and $v$ is a vertex.
 
 ## Properties of Rotation Matrices {data-auto-animate="true"}
 
-- Rotation matrices are square
+Rotation matrices are square
 
 ::: notes
 square means the dimensions are nxn.
@@ -48,8 +48,12 @@ We can represent rotations with alternate entities, but they are not rotation ma
 
 The determinant of a rotation matrix is 1
 
+::: incremental
+
 - because: $\cos^2(\theta) + \sin^2(\theta) = 1$
 - hint: think about the radius in the unit circle
+
+:::
 
 ::: notes
 Pythagoras' theorem
@@ -59,10 +63,14 @@ Pythagoras' theorem
 
 Rotation matrices are orthonormal
 
+::: incremental
+
 - column vectors are orthogonal
 - column vectors are unit
 - hint: think about the radius in the unit circle
 - exercise: plot the column vectors
+
+:::
 
 ::: notes
 orthogonal means the vectors are perpendicular to each other.
@@ -72,7 +80,7 @@ unit means the vectors have a magnitude of 1.
 ## Properties of Rotation Matrices {data-auto-animate="true"}
 
 $$
-R^TR = I, RR^T = I
+R^TR = I,~ ~RR^T = I
 $$
 
 Where $I$ is the identity matrix.
@@ -83,7 +91,7 @@ The transpose of a matrix is to write the columns of the matrix as rows.
 
 ## Properties of Rotation Matrices {data-auto-animate="true"}
 
-We can use all these properties to test if a matrix is a rotation matrix.
+We can use all these properties to **test** if a matrix _is_ a rotation matrix.
 
 ::: notes
 This can be really useful in debugging your code.
@@ -96,6 +104,10 @@ Therefore the _inverse_ of a rotation matrix **is** the _transpose_ of the rotat
 $$
 R^{-1} = R^T
 $$
+
+::: notes
+We do not need to calculate the inverse using the adjunct and cofactors, or by elimination, etc.
+:::
 
 ## Inverse Rotation Matrices {data-auto-animate="true"}
 
@@ -179,8 +191,19 @@ In the non-uniform example, notice that all vertices are scaled in the $y$ direc
 
 ## Non-Uniform Scaling {data-auto-animate="true"}
 
-We notice that _uniform_ scaling is nothing more than a special case of non-uniform scaling where $s_x = s_y$ (in 2D), hence from now on we will consider scaling in its generalised form where both uniform and non-uniform are possible.
+Notice that _uniform_ scaling is nothing more than a special case of non-uniform scaling where $s_x = s_y$.
+Hence, from now on, we will consider scaling in its generalised form where both uniform and non-uniform are possible.
 
 ## Shearing {data-auto-animate="true"}
 
 Shearing is an operation that moves vertices parallel to an axis.
+
+## Shearing {data-auto-animate="true"}
+
+To shear parallel to the $x$ axis:
+
+$$
+\begin{bmatrix} x' \\ y' \end{bmatrix} =
+\begin{bmatrix} 1~ ~\lambda \\ 0~ ~1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+$$
