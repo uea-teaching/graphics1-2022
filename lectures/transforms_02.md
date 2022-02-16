@@ -36,7 +36,7 @@ Where $R$ is the rotation matrix and $v$ is a vertex.
 
 ## Properties of Rotation Matrices {data-auto-animate="true"}
 
-Rotation matrices are square
+Rotation matrices are **square**.
 
 ::: notes
 square means the dimensions are nxn.
@@ -46,7 +46,7 @@ We can represent rotations with alternate entities, but they are not rotation ma
 
 ## Properties of Rotation Matrices {data-auto-animate="true"}
 
-The determinant of a rotation matrix is 1
+The **determinant** of a rotation matrix is 1.
 
 ::: incremental
 
@@ -62,7 +62,7 @@ Determinant: a*d - b*c
 
 ## Properties of Rotation Matrices {data-auto-animate="true"}
 
-Rotation matrices are orthonormal
+Rotation matrices are **orthonormal**.
 
 ::: incremental
 
@@ -84,7 +84,7 @@ $$
 R^TR = I,~ ~RR^T = I
 $$
 
-Where $I$ is the identity matrix.
+Where $I$ is the **identity** matrix.
 
 ::: notes
 The transpose of a matrix is to write the columns of the matrix as rows.
@@ -192,8 +192,15 @@ In the non-uniform example, notice that all vertices are scaled in the $y$ direc
 
 ## Non-Uniform Scaling {data-auto-animate="true"}
 
-Notice that _uniform_ scaling is nothing more than a special case of non-uniform scaling where $s_x = s_y$.
+_Uniform_ scaling is a special case of non-uniform scaling where:
+$$s_x = s_y$$
+
+::: notes
+
+Notice that _uniform_ scaling is nothing more than a special case of non-uniform scaling where s_x = s_y.
 Hence, from now on, we will consider scaling in its generalised form where both uniform and non-uniform are possible.
+
+:::
 
 ## Shearing {data-auto-animate="true"}
 
@@ -293,7 +300,7 @@ $$
 
 _adjective:_ "of the same kind; alike."
 
-## 2D transformations: A slight problem
+## 2D transformation problem
 
 ::: incremental
 
@@ -367,7 +374,9 @@ $$
 
 ## Homogeneous Rotation {data-auto-animate="true"}
 
-Remains a _true_ rotation matrix; **all** the properties of a rotation matrix are preserved.
+Remains a _true_ rotation matrix.
+
+- **All** the properties of a rotation matrix are preserved.
 
 $$
 \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
