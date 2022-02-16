@@ -8,7 +8,7 @@ date: February 15, 2022
 # Content
 
 - Inverse Rotations
-- Scaling and Shearing
+- Scaling, Shearing, and Reflection
 - Homogeneous Coordinates
 
 # Inverse Rotations
@@ -383,3 +383,71 @@ The inverse is the transpose, it is orthonormal.
 :::
 
 ## Homogeneous Scaling {data-auto-animate="true"}
+
+For our homogeneous 3 x 3 transformation matrix, **scaling** is now:
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+s_x& ~0&   ~0 \\
+0  & ~s_y& ~0 \\
+0  & ~0  & ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+## Homogeneous Coordinates {data-auto-animate="true"}
+
+For our homogeneous 3 x 3 transformation matrix, generally,
+the 2 x 2 matrix of the 2D elementary operations occupies the top left corner:
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+a  & ~b& ~0 \\
+c  & ~d& ~0 \\
+0  & ~0  & ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+::: notes
+this idea holds for higher dimensions too
+:::
+
+## Homogeneous Translation {data-auto-animate="true"}
+
+How do we fit a translation into our 3 x 3 matrix?
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+1  & ~0& ~t_x \\
+0  & ~1& ~t_y \\
+0  & ~0& ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+::: notes
+Finally, we arrive at the reason for introducing homogeneous coordinates.
+:::
+
+# Content
+
+- Inverse Rotations
+- Scaling, Shearing, and Reflection
+- Homogeneous Coordinates
+
+Reading:
+
+- Hearn, D. et al. (2004). Computer Graphics with OpenGL.
+
+::: notes
+We have covered quite a lot...
+We looked at the properties of rotation matrices, allowing us to compute the inverse easily.
+
+We covered other elementary operations, such as scaling, shearing, and reflection.
+
+We have introduced matrix operations for translation, giving us a unified, or homogeneous, model for 2D transformations.
+:::
