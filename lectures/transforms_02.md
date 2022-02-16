@@ -434,7 +434,7 @@ $$
 Finally, we arrive at the reason for introducing homogeneous coordinates.
 :::
 
-# Content
+# Summary
 
 - Inverse Rotations
 - Scaling, Shearing, and Reflection
