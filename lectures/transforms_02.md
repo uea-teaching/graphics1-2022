@@ -452,6 +452,7 @@ Finally, we arrive at the reason for introducing homogeneous coordinates.
 Reading:
 
 - Hearn, D. et al. (2004). Computer Graphics with OpenGL.
+- Strang, Gilbert, et al. (1993) Introduction to linear algebra.
 
 ::: notes
 We have covered quite a lot...
