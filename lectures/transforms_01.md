@@ -2,7 +2,7 @@
 title: Introduction to Transformations
 subtitle: Graphics 1 CMP-5010B
 author: Dr. David Greenwood
-date: \today
+date: February 15, 2022
 ---
 
 # Content
