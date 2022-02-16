@@ -2,7 +2,7 @@
 title: Further Transformations
 subtitle: Graphics 1 CMP-5010B
 author: Dr. David Greenwood
-date: \today
+date: February 15, 2022
 ---
 
 # Content
@@ -287,3 +287,99 @@ $$
 ---
 
 ![reflection across $x=y$ axis](assets/png/reflect_xy.png)
+
+# Homogeneous Coordinates
+
+_adjective:_ "of the same kind; alike."
+
+## 2D transformations: A slight problem
+
+::: incremental
+
+- We have so far, explored a number of elementary transformations in 2D.
+- For ease of implementation, it would be better if _translation_ could also be done using matrix multiplication.
+- Solution: **Homogeneous** Coordinates.
+
+:::
+
+::: notes
+(as we do for rotation and scaling) rather than vector addition!
+:::
+
+## Homogeneous Coordinates {data-auto-animate="true"}
+
+::: incremental
+
+- Define a new set of coordinates one dimension higher.
+- For 2D, $\mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$
+- We add a third coordinate $w$.
+
+:::
+
+::: notes
+For 3D, we add a 4th coordinate...
+:::
+
+## Homogeneous Coordinates {data-auto-animate="true"}
+
+The homogeneous coordinates relate to our 2D coordinates as follows:
+
+$$
+x_h = \frac{x}{w}~, ~y_h = \frac{y}{w}~, ~w
+$$
+
+## Homogeneous Coordinates {data-auto-animate="true"}
+
+Thus: $x = w x_h$, $y = w y_h$.
+
+::: incremental
+
+- $w$ functions as a _scaling factor_.
+- we can set $w$ to 1, so $x = x_h$, $y = y_h$
+- How do we use 3D homogeneous coordinates to represent 2D transformations?
+
+:::
+
+## Homogeneous Coordinates {data-auto-animate="true"}
+
+For a general transformation operation, we extend the matrix multiplication we have seen so far, to include the $w$ coordinate:
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+\begin{bmatrix} a~ ~b~ ~c~ \\ d~ ~e~ ~f~ \\ 0~ ~0~ ~1 \end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+## Homogeneous Rotation {data-auto-animate="true"}
+
+For our homogeneous 3 x 3 transformation matrix, **rotation** is now:
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha&        -\sin \alpha& ~0 \\
+\sin \alpha&  \hfill \cos \alpha& ~0 \\
+          0&                   0& ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+## Homogeneous Rotation {data-auto-animate="true"}
+
+Remains a _true_ rotation matrix; **all** the properties of a rotation matrix are preserved.
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha&        -\sin \alpha& ~0 \\
+\sin \alpha&  \hfill \cos \alpha& ~0 \\
+          0&                   0& ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+::: notes
+The inverse is the transpose, it is orthonormal.
+:::
+
+## Homogeneous Scaling {data-auto-animate="true"}
