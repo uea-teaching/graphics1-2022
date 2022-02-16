@@ -50,13 +50,14 @@ The determinant of a rotation matrix is 1
 
 ::: incremental
 
-- because: $\cos^2(\theta) + \sin^2(\theta) = 1$
+- because: $\cos^2 \alpha + \sin^2 \alpha = 1$
 - hint: think about the radius in the unit circle
 
 :::
 
 ::: notes
 Pythagoras' theorem
+Determinant: a*d - b*c
 :::
 
 ## Properties of Rotation Matrices {data-auto-animate="true"}
