@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. David Greenwood">
+  <meta name="dcterms.date" content="2022-02-15">
+  <title>Further Transformations</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.2.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Further Transformations</h1>
+  <p class="subtitle">Graphics 1 CMP-5010B</p>
+  <p class="author">Dr. David Greenwood</p>
+  <p class="date">February 15, 2022</p>
+</section>
+
+<section id="content" class="title-slide slide level1">
+<h1>Content</h1>
+<ul>
+<li>Inverse Rotations</li>
+<li>Scaling, Shearing, and Reflection</li>
+<li>Homogeneous Coordinates</li>
+</ul>
+</section>
+
+<section>
+<section id="inverse-rotations" class="title-slide slide level1">
+<h1>Inverse Rotations</h1>
+<div style="font-size: 2.5em">
+<p><span class="math display">\[R^{-1}\]</span></p>
+</div>
+</section>
+<section id="inverse-rotations-1" class="slide level2">
+<h2>Inverse Rotations</h2>
+<p>We commonly need to compute the inverse of a rotation, for example, in the hierarchical transformations in character animation skeletons.</p>
+</section>
+<section id="inverse-rotations-2" class="slide level2">
+<h2>Inverse Rotations</h2>
+<p><span class="math display">\[
+\begin{aligned}
+v&#39; &amp;= R v \\
+v  &amp;= R^{-1} v&#39;
+\end{aligned}
+\]</span></p>
+<p>Where <span class="math inline">\(R\)</span> is the rotation matrix and <span class="math inline">\(v\)</span> is a vertex.</p>
+</section>
+<section id="properties-of-rotation-matrices" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Properties of Rotation Matrices</h2>
+<p>Rotation matrices are <strong>square</strong>.</p>
+<aside class="notes">
+<p>square means the dimensions are nxn. BUT not all square matrices are rotation matrices. We can represent rotations with alternate entities, but they are not rotation matrices.</p>
+</aside>
+</section>
+<section id="properties-of-rotation-matrices-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Properties of Rotation Matrices</h2>
+<p>The <strong>determinant</strong> of a rotation matrix is 1.</p>
+<div>
+<ul>
+<li class="fragment">because: <span class="math inline">\(\cos^2 \alpha + \sin^2 \alpha = 1\)</span></li>
+<li class="fragment">hint: think about the radius in the unit circle</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Pythagoras’ theorem Determinant: a<em>d - b</em>c</p>
+</aside>
+</section>
+<section id="properties-of-rotation-matrices-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Properties of Rotation Matrices</h2>
+<p>Rotation matrices are <strong>orthonormal</strong>.</p>
+<div>
+<ul>
+<li class="fragment">column vectors are orthogonal</li>
+<li class="fragment">column vectors are unit</li>
+<li class="fragment">hint: think about the radius in the unit circle</li>
+<li class="fragment">exercise: plot the column vectors</li>
+</ul>
+</div>
+<aside class="notes">
+<p>orthogonal means the vectors are perpendicular to each other. unit means the vectors have a magnitude of 1.</p>
+</aside>
+</section>
+<section id="properties-of-rotation-matrices-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Properties of Rotation Matrices</h2>
+<p><span class="math display">\[
+R^TR = I,~ ~RR^T = I
+\]</span></p>
+<p>Where <span class="math inline">\(I\)</span> is the <strong>identity</strong> matrix.</p>
+<aside class="notes">
+<p>The transpose of a matrix is to write the columns of the matrix as rows.</p>
+</aside>
+</section>
+<section id="properties-of-rotation-matrices-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Properties of Rotation Matrices</h2>
+<p>We can use all these properties to <strong>test</strong> if a matrix <em>is</em> a rotation matrix.</p>
+<aside class="notes">
+<p>This can be really useful in debugging your code.</p>
+</aside>
+</section>
+<section id="inverse-rotation-matrices" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Inverse Rotation Matrices</h2>
+<p>Therefore the <em>inverse</em> of a rotation matrix <strong>is</strong> the <em>transpose</em> of the rotation matrix.</p>
+<p><span class="math display">\[
+R^{-1} = R^T
+\]</span></p>
+<aside class="notes">
+<p>We do not need to calculate the inverse using the adjunct and cofactors, or by elimination, etc.</p>
+</aside>
+</section>
+<section id="inverse-rotation-matrices-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Inverse Rotation Matrices</h2>
+<p>Therefore the <em>inverse</em> of a rotation matrix <strong>is</strong> the <em>transpose</em> of the rotation matrix.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\cos \alpha &amp;-\sin \alpha \\
+\sin \alpha &amp;~\cos \alpha
+\end{bmatrix}^{-1} =
+\begin{bmatrix}
+\cos \alpha &amp;-\sin \alpha \\
+\sin \alpha &amp;~\cos \alpha
+\end{bmatrix}^T =
+\begin{bmatrix}
+~\cos \alpha &amp;\sin \alpha \\
+-\sin \alpha &amp;\cos \alpha
+\end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>You can see this is also equivalent to rotating in the opposite direction. This is trivial in 2D, but in 3D, it is not.</p>
+</aside>
+</section></section>
+<section>
+<section id="scaling-shearing-and-reflection" class="title-slide slide level1">
+<h1>Scaling, Shearing and Reflection</h1>
+<p>for <em>Affine</em> transformations</p>
+</section>
+<section id="scaling" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scaling</h2>
+<p>We can separate scaling to uniform scaling and non-uniform scaling.</p>
+</section>
+<section id="uniform-scaling" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Uniform Scaling</h2>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix}s~ ~0 \\ 0~ ~s \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>reminder : we apply this operation to all vertices</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/scaling_01.png" alt="model to scale" /><figcaption aria-hidden="true">model to scale</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/scaling_02.png" alt="uniform scaling, s=2" /><figcaption aria-hidden="true">uniform scaling, <span class="math inline">\(s=2\)</span></figcaption>
+</figure>
+</section>
+<section id="uniform-scaling-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Uniform Scaling</h2>
+<p>In the example, notice that all vertices are scaled equally by 2.</p>
+<aside class="notes">
+<p>each x value is multiplied by 2. each y value is multiplied by 2.</p>
+</aside>
+</section>
+<section id="non-uniform-scaling" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Non-Uniform Scaling</h2>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix}s_x~ ~0 \\ 0~ ~s_y \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/scaling_01.png" alt="model to scale" /><figcaption aria-hidden="true">model to scale</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/scaling_03.png" alt="non-uniform scaling, s_x=1, s_y=2" /><figcaption aria-hidden="true">non-uniform scaling, <span class="math inline">\(s_x=1, s_y=2\)</span></figcaption>
+</figure>
+</section>
+<section id="non-uniform-scaling-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Non-Uniform Scaling</h2>
+<p>In the non-uniform example, notice that all vertices are scaled in the <span class="math inline">\(y\)</span> direction by 2 and in the <span class="math inline">\(x\)</span> direction by 1, so there is no change in <span class="math inline">\(x\)</span>.</p>
+</section>
+<section id="non-uniform-scaling-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Non-Uniform Scaling</h2>
+<p><em>Uniform</em> scaling is a special case of non-uniform scaling where: <span class="math display">\[s_x = s_y\]</span></p>
+<aside class="notes">
+<p>Notice that <em>uniform</em> scaling is nothing more than a special case of non-uniform scaling where s_x = s_y. Hence, from now on, we will consider scaling in its generalised form where both uniform and non-uniform are possible.</p>
+</aside>
+</section>
+<section id="shearing" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Shearing</h2>
+<p>Shearing is an operation that moves vertices parallel to an axis, scaled by the distance from that axis.</p>
+</section>
+<section id="shearing-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Shearing</h2>
+<p>To shear parallel to the <span class="math inline">\(x\)</span> axis:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} 1~ ~\lambda \\ 0~ ~1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/scaling_01.png" alt="model to shear" /><figcaption aria-hidden="true">model to shear</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/shear_x.png" alt="shearing parallel x, \lambda=2" /><figcaption aria-hidden="true">shearing parallel x, <span class="math inline">\(\lambda=2\)</span></figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<p>To shear parallel to the <span class="math inline">\(y\)</span> axis:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} 1~ ~0 \\ \lambda~ ~1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/shear_y.png" alt="shearing parallel y, \lambda=1" /><figcaption aria-hidden="true">shearing parallel y, <span class="math inline">\(\lambda=1\)</span></figcaption>
+</figure>
+</section>
+<section id="reflection" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Reflection</h2>
+<p>Reflection is an operation that imposes <em>symmetry</em> across an axis.</p>
+</section>
+<section id="reflection-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Reflection</h2>
+<p>To reflect across the <span class="math inline">\(y\)</span> axis:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} -1&amp; 0 \\ ~ ~0&amp; 1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/scaling_01.png" alt="model to reflect" /><figcaption aria-hidden="true">model to reflect</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/reflect_x.png" alt="reflection across y axis" /><figcaption aria-hidden="true">reflection across <span class="math inline">\(y\)</span> axis</figcaption>
+</figure>
+<aside class="notes">
+<p>we could say the model is flipped left to right.</p>
+</aside>
+</section>
+<section id="reflection-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Reflection</h2>
+<p>To reflect across the <span class="math inline">\(x\)</span> axis:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} 1&amp; \hfill 0 \\ 0&amp; \hfill -1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/reflect_y.png" alt="reflection across x axis" /><figcaption aria-hidden="true">reflection across <span class="math inline">\(x\)</span> axis</figcaption>
+</figure>
+<aside class="notes">
+<p>we could say the model is flipped top to bottom.</p>
+</aside>
+</section>
+<section id="reflection-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Reflection</h2>
+<p>To reflect across the <span class="math inline">\(x=y\)</span> axis:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} 0&amp; ~1 \\ 1&amp; ~0 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/reflect_xy.png" alt="reflection across x=y axis" /><figcaption aria-hidden="true">reflection across <span class="math inline">\(x=y\)</span> axis</figcaption>
+</figure>
+</section></section>
+<section>
+<section id="homogeneous-coordinates" class="title-slide slide level1">
+<h1>Homogeneous Coordinates</h1>
+<p><em>adjective:</em> “of the same kind; alike.”</p>
+</section>
+<section id="d-transformation-problem" class="slide level2">
+<h2>2D transformation problem</h2>
+<div>
+<ul>
+<li class="fragment">We have so far, explored a number of elementary transformations in 2D.</li>
+<li class="fragment">For ease of implementation, it would be better if <em>translation</em> could also be done using matrix multiplication.</li>
+<li class="fragment">Solution: <strong>Homogeneous</strong> Coordinates.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>(as we do for rotation and scaling) rather than vector addition!</p>
+</aside>
+</section>
+<section id="homogeneous-coordinates-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Coordinates</h2>
+<div>
+<ul>
+<li class="fragment">Define a new set of coordinates one dimension higher.</li>
+<li class="fragment">For 2D, <span class="math inline">\(\mathbb{R}^{2} \rightarrow \mathbb{R}^{3}\)</span></li>
+<li class="fragment">We add a third coordinate <span class="math inline">\(w\)</span>.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>For 3D, we add a 4th coordinate…</p>
+</aside>
+</section>
+<section id="homogeneous-coordinates-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Coordinates</h2>
+<p>The homogeneous coordinates relate to our 2D coordinates as follows:</p>
+<p><span class="math display">\[
+x_h = \frac{x}{w}~, ~y_h = \frac{y}{w}~, ~w
+\]</span></p>
+</section>
+<section id="homogeneous-coordinates-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Coordinates</h2>
+<p>Thus: <span class="math inline">\(x = w x_h\)</span>, <span class="math inline">\(y = w y_h\)</span>.</p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(w\)</span> functions as a <em>scaling factor</em>.</li>
+<li class="fragment">we can set <span class="math inline">\(w\)</span> to 1, so <span class="math inline">\(x = x_h\)</span>, <span class="math inline">\(y = y_h\)</span></li>
+<li class="fragment">How do we use 3D homogeneous coordinates to represent 2D transformations?</li>
+</ul>
+</div>
+</section>
+<section id="homogeneous-coordinates-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Coordinates</h2>
+<p>For a general transformation operation, we extend the matrix multiplication we have seen so far, to include the <span class="math inline">\(w\)</span> coordinate:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \\ 1 \end{bmatrix} =
+\begin{bmatrix} a~ ~b~ ~c~ \\ d~ ~e~ ~f~ \\ 0~ ~0~ ~1 \end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]</span></p>
+</section>
+<section id="homogeneous-rotation" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Rotation</h2>
+<p>For our homogeneous 3 x 3 transformation matrix, <strong>rotation</strong> is now:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha&amp;        -\sin \alpha&amp; ~0 \\
+\sin \alpha&amp;  \hfill \cos \alpha&amp; ~0 \\
+          0&amp;                   0&amp; ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]</span></p>
+</section>
+<section id="homogeneous-rotation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Rotation</h2>
+<p>Remains a <em>true</em> rotation matrix.</p>
+<ul>
+<li><strong>All</strong> the properties of a rotation matrix are preserved.</li>
+</ul>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha&amp;        -\sin \alpha&amp; ~0 \\
+\sin \alpha&amp;  \hfill \cos \alpha&amp; ~0 \\
+          0&amp;                   0&amp; ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>The inverse is the transpose, it is orthonormal.</p>
+</aside>
+</section>
+<section id="homogeneous-scaling" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Scaling</h2>
+<p>For our homogeneous 3 x 3 transformation matrix, <strong>scaling</strong> is now:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+s_x&amp; ~0&amp;   ~0 \\
+0  &amp; ~s_y&amp; ~0 \\
+0  &amp; ~0  &amp; ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]</span></p>
+</section>
+<section id="homogeneous-coordinates-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Coordinates</h2>
+<p>For our homogeneous 3 x 3 transformation matrix, generally, the 2 x 2 matrix of the 2D elementary operations occupies the top left corner:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+a  &amp; ~b&amp; ~0 \\
+c  &amp; ~d&amp; ~0 \\
+0  &amp; ~0  &amp; ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>this idea holds for higher dimensions too</p>
+</aside>
+</section>
+<section id="homogeneous-translation" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Homogeneous Translation</h2>
+<p>How do we fit a translation into our 3 x 3 matrix?</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \\ 1 \end{bmatrix} =
+\begin{bmatrix}
+1  &amp; ~0&amp; ~t_x \\
+0  &amp; ~1&amp; ~t_y \\
+0  &amp; ~0&amp; ~1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>Finally, we arrive at the reason for introducing homogeneous coordinates.</p>
+</aside>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+<ul>
+<li>Inverse Rotations</li>
+<li>Scaling, Shearing, and Reflection</li>
+<li>Homogeneous Coordinates</li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Hearn, D. et al. (2004). Computer Graphics with OpenGL.</li>
+<li>Strang, Gilbert, et al. (1993) Introduction to linear algebra.</li>
+</ul>
+<aside class="notes">
+<p>We have covered quite a lot… We looked at the properties of rotation matrices, allowing us to compute the inverse easily.</p>
+<p>We covered other elementary operations, such as scaling, shearing, and reflection.</p>
+<p>We have introduced matrix operations for translation, giving us a unified, or homogeneous, model for 2D transformations.</p>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+        height: 900,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // The display mode that will be used to show slides
+        display: 'block',
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
