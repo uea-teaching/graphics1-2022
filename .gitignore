@@ -10,17 +10,9 @@
 !scripts/*.py
 !scripts/*.json
 
-!labs/
-!labs/Makefile
-!labs/*.md
-!labs/*.bib
-!labs/assets/
-!labs/assets/*.jpg
-
 !lectures/
 !lectures/Makefile
 !lectures/*.md
-!labs/*.bib
 !lectures/assets/
 !lectures/assets/*.css
 
