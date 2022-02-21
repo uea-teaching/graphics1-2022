@@ -83,6 +83,9 @@
 <section id="transformations-3" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Transformations</h2>
 <p>Types of transformation preserve <strong>geometric properties</strong> of the object.</p>
+<aside class="notes">
+<p>types of transformations group elementary operations</p>
+</aside>
 </section>
 <section id="rigid-transformations" class="slide level2">
 <h2><strong>Rigid</strong> transformations</h2>
@@ -94,7 +97,7 @@
 </ul>
 </div>
 <aside class="notes">
-<p>Imagine a cardboard cut out shape, that you could push about on a surface.</p>
+<p>Euclid - a Greek mathematician, often referred to as the “founder of geometry”. Imagine a cardboard cut out shape, that you could push about on a surface.</p>
 </aside>
 </section>
 <section id="euclidean-transformations" class="slide level2">
@@ -107,7 +110,7 @@
 </ul>
 </div>
 <aside class="notes">
-<p>Imagine a cardboard cut out shape, that you could pick up and put down any way around.</p>
+<p>DON’T preserve handedness - we can flip the object! Imagine a cardboard cut out shape, that you could pick up and put down any way around.</p>
 </aside>
 </section>
 <section id="similarity-transformations" class="slide level2">
@@ -132,6 +135,10 @@
 <li class="fragment">preserves <em>lines</em> and <em>parallelism</em> of objects</li>
 </ul>
 </div>
+<aside class="notes">
+<p>etymology - “affine” has the same origins as affinity, meaning “alike”. The word affine comes from the Latin “affinis” meaning connected to or related to.</p>
+<p>A rectangle could become a parallelogram, or a square could become a rectangle. But not a trapezoid.</p>
+</aside>
 </section>
 <section id="projective-transformations" class="slide level2">
 <h2><strong>Projective</strong> transformations</h2>
@@ -142,6 +149,9 @@
 <li class="fragment"><em>Perspective</em> or <em>Orthographic</em> projection</li>
 </ul>
 </div>
+<aside class="notes">
+<p>there are other projections - perhaps found in some CAD packages.</p>
+</aside>
 </section>
 <section id="non-linear-transformations" class="slide level2">
 <h2><strong>Non-linear</strong> transformations</h2>
@@ -228,6 +238,9 @@
 \begin{bmatrix} x \\ y \end{bmatrix} +
 \begin{bmatrix} t_x \\ t_y \end{bmatrix}
 \]</span></p>
+<aside class="notes">
+<p>on notation… we say he result of this operation is a new vector of coordinates x prime and y prime.</p>
+</aside>
 </section>
 <section id="translation-2" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Translation</h2>
@@ -297,14 +310,14 @@
 </section>
 <section id="rotation-2" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Rotation</h2>
-<p>A mnemonic for rotation is <em>SOH</em>, <em>CAH</em>, <em>TOA</em>.</p>
+<p>A mnemonic for trigonometry is <em>SOH</em>, <em>CAH</em>, <em>TOA</em>.</p>
 <p><span class="math display">\[
 sin(\theta) = \frac{O}{H},~
 cos(\theta) = \frac{A}{H},~
 tan(\theta) = \frac{O}{A}
 \]</span></p>
 <aside class="notes">
-<p>recap of rotation</p>
+<p>recap of trigonometry</p>
 </aside>
 </section>
 <section id="rotation-3" class="slide level2" data-auto-animate="true">
@@ -341,6 +354,9 @@ tan(\theta) = \frac{O}{A} = \frac{y}{x}
 <ul>
 <li>Number of columns in the first operand <strong>must</strong> equal the number of rows in the second operand.</li>
 </ul>
+<aside class="notes">
+<p>Also, a quick reminder of matrix multiplication.</p>
+</aside>
 </section>
 <section id="rotation-matrix" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Rotation Matrix</h2>
@@ -378,18 +394,27 @@ tan(\theta) = \frac{O}{A} = \frac{y}{x}
 <figure>
 <img data-src="assets/png/rotate_05.png" alt="a second rotation" /><figcaption aria-hidden="true">a second rotation</figcaption>
 </figure>
+<aside class="notes">
+<p>alpha is a positive rotation in our coordinate system about the origin.</p>
+</aside>
 </section>
 <section class="slide level2">
 
 <figure>
 <img data-src="assets/png/rotate_06.png" alt="sum of two angles" /><figcaption aria-hidden="true">sum of two angles</figcaption>
 </figure>
+<aside class="notes">
+<p>alpha is a positive rotation in our coordinate system about the origin.</p>
+</aside>
 </section>
 <section class="slide level2">
 
 <figure>
 <img data-src="assets/png/rotate_07.png" alt="r and r&#39;" /><figcaption aria-hidden="true"><span class="math inline">\(r\)</span> and <span class="math inline">\(r&#39;\)</span></figcaption>
 </figure>
+<aside class="notes">
+<p>r and r’ can be described by coordinates x, y and x’ y’, and sins and cosines.</p>
+</aside>
 </section>
 <section class="slide level2">
 
@@ -402,6 +427,9 @@ r&#39; = \begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
      \begin{bmatrix} \cos (\alpha + \beta) \\
      \sin (\alpha + \beta) \end{bmatrix}
 \]</span></p>
+<aside class="notes">
+<p>r and r’ can be described by coordinates x, y and x’ y’, and sins and cosines.</p>
+</aside>
 </section>
 <section id="ptolomys-identity" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Ptolomy’s identity</h2>
@@ -418,6 +446,9 @@ r&#39; = \begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
 \sin \alpha ~ \cos \beta + \cos \alpha ~ \sin \beta
 \end{bmatrix}
 \]</span></p>
+<aside class="notes">
+<p>we can immediately use this identity in one of our equations.</p>
+</aside>
 </section>
 <section id="rotation-matrix-derivation-1" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Rotation Matrix Derivation</h2>
