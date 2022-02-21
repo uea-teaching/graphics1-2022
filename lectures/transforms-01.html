@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. David Greenwood">
+  <meta name="dcterms.date" content="2022-02-15">
+  <title>Introduction to Transformations</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.2.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Introduction to Transformations</h1>
+  <p class="subtitle">Graphics 1 CMP-5010B</p>
+  <p class="author">Dr. David Greenwood</p>
+  <p class="date">February 15, 2022</p>
+</section>
+
+<section id="content" class="title-slide slide level1">
+<h1>Content</h1>
+<ul>
+<li>What is a transformation?</li>
+<li>Types of transformations</li>
+<li>Translation</li>
+<li>Rotation</li>
+</ul>
+</section>
+
+<section>
+<section id="what-is-a-transformation" class="title-slide slide level1">
+<h1>What is a transformation</h1>
+<p>…in computer <em>graphics</em>?</p>
+</section>
+<section id="transformations" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Transformations</h2>
+<p>…in 2D Computer Graphics</p>
+<div>
+<ul>
+<li class="fragment">Two spatial dimensions</li>
+<li class="fragment">Planar world or the “plane”</li>
+<li class="fragment">Usually represented by Cartesian <strong>coordinates</strong></li>
+<li class="fragment"><span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> for objects</li>
+<li class="fragment"><span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> for textures</li>
+<li class="fragment"><span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> for images</li>
+</ul>
+</div>
+</section>
+<section id="transformations-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Transformations</h2>
+<p>Geometric transformations will map points in one <em>space</em> to points in another space:</p>
+<p><span class="math display">\[(x&#39;,y&#39;) = f(x,y)\]</span></p>
+</section>
+<section id="transformations-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Transformations</h2>
+<p>The mapping function uses elementary operations, which include:</p>
+<ul>
+<li>Translation</li>
+<li>Rotation</li>
+<li>Scaling</li>
+<li>Shear</li>
+<li>Reflection</li>
+<li>Projection</li>
+<li>Warp</li>
+</ul>
+</section>
+<section id="transformations-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Transformations</h2>
+<p>Types of transformation preserve <strong>geometric properties</strong> of the object.</p>
+</section>
+<section id="rigid-transformations" class="slide level2">
+<h2><strong>Rigid</strong> transformations</h2>
+<div>
+<ul>
+<li class="fragment"><em>Translation</em> and <em>Rotation</em></li>
+<li class="fragment">preserves the Euclidean distance between every pair of points</li>
+<li class="fragment">preserves “handedness” of the object</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Imagine a cardboard cut out shape, that you could push about on a surface.</p>
+</aside>
+</section>
+<section id="euclidean-transformations" class="slide level2">
+<h2><strong>Euclidean</strong> transformations</h2>
+<div>
+<ul>
+<li class="fragment">Translation, Rotation and <em>Reflection</em></li>
+<li class="fragment">Also known as <strong>Isometries</strong></li>
+<li class="fragment">preserves the Euclidean distance between every pair of points</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Imagine a cardboard cut out shape, that you could pick up and put down any way around.</p>
+</aside>
+</section>
+<section id="similarity-transformations" class="slide level2">
+<h2><strong>Similarity</strong> transformations</h2>
+<div>
+<ul>
+<li class="fragment">Translation, Rotation, Reflection and <em>Uniform Scaling</em></li>
+<li class="fragment">preserves the shapes of the objects</li>
+<li class="fragment">Examples of similar shapes include all squares, all circles, but not all triangles.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Some triangles are similar, and can be very useful to us, but not all triangles are similar.</p>
+</aside>
+</section>
+<section id="affine-transformations" class="slide level2">
+<h2><strong>Affine</strong> transformations</h2>
+<div>
+<ul>
+<li class="fragment">Translation, Rotation, Reflection, Scaling and <em>Shear</em></li>
+<li class="fragment">Scaling can be uniform or non-uniform</li>
+<li class="fragment">preserves <em>lines</em> and <em>parallelism</em> of objects</li>
+</ul>
+</div>
+</section>
+<section id="projective-transformations" class="slide level2">
+<h2><strong>Projective</strong> transformations</h2>
+<div>
+<ul>
+<li class="fragment"><em>Projection</em> from <span class="math inline">\(N\)</span> dimensions to a lower dimension</li>
+<li class="fragment">useful in 3D graphics but not in 2D</li>
+<li class="fragment"><em>Perspective</em> or <em>Orthographic</em> projection</li>
+</ul>
+</div>
+</section>
+<section id="non-linear-transformations" class="slide level2">
+<h2><strong>Non-linear</strong> transformations</h2>
+<div>
+<ul>
+<li class="fragment"><em>Warp</em>: non-linearly deform the object.</li>
+<li class="fragment">Example: for images we may talk about lens <em>distortion</em>.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="object-representation" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Object Representation</h1>
+<ul>
+<li>How do we represent objects in computer graphics?</li>
+</ul>
+</section>
+<section id="object-representation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Object Representation</h2>
+<p>In graphics, we represent objects using points or <em>vertices</em>, which are connected to form polygons or <em>faces</em>.</p>
+</section>
+<section id="object-representation-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Object Representation</h2>
+<p><strong>Only</strong> the <em>vertices</em> are subjected to the transformations.</p>
+</section>
+<section id="object-representation-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Object Representation</h2>
+<p>Question: How do we represent a vertex mathematically?</p>
+<div>
+<ul>
+<li class="fragment">A column <strong>vector</strong> of the vertex coordinates.</li>
+</ul>
+</div>
+</section>
+<section id="tools-for-transformations" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Tools for transformations</h2>
+<p>Transformations of an object are applied to <strong>each</strong> individual vertex of that object.</p>
+<aside class="notes">
+<p>This is important - one function is applied to all vertices for rigid transformation.</p>
+</aside>
+</section>
+<section id="tools-for-transformations-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Tools for transformations</h2>
+<p>The mathematical entity used to perform a transformation to the vector of n vertex coordinates is:</p>
+<p>A <em>square matrix</em> of size <span class="math inline">\(n\)</span> x <span class="math inline">\(n\)</span>, where <span class="math inline">\(n\)</span> is the dimension of the vertex vector.</p>
+<aside class="notes">
+<p>Although we need to move through the lecture a way before we get to this goal.</p>
+</aside>
+</section></section>
+<section>
+<section id="d-transformations" class="title-slide slide level1">
+<h1>2D Transformations</h1>
+<ul>
+<li>Assume a 2D <em>plane</em> with coordinates <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</li>
+<li>Polygonal object is a triangle with 3 <em>vertices</em>.</li>
+<li>All vertices are subject to transformations we apply.</li>
+</ul>
+</section>
+<section id="section" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/png/coordinates_2D.png" alt="The coordinate system" /><figcaption aria-hidden="true">The coordinate system</figcaption>
+</figure>
+</section>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/png/triangle_01_translate_00.png" alt="A model in the plane." /><figcaption aria-hidden="true">A model in the plane.</figcaption>
+</figure>
+<aside class="notes">
+<p>Consider the notation used here as helpful labels. When we formally define the transformations, we will use column vectors.</p>
+</aside>
+</section>
+<section id="translation" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Translation</h2>
+<p>Formally, we will represent vertex coordinates as a column vector:</p>
+<p><span class="math display">\[\begin{bmatrix} x \\ y \end{bmatrix}\]</span></p>
+</section>
+<section id="translation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Translation</h2>
+<p>Translation is performed by <strong>adding</strong> a <em>translation vector</em>.</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} x \\ y \end{bmatrix} +
+\begin{bmatrix} t_x \\ t_y \end{bmatrix}
+\]</span></p>
+</section>
+<section id="translation-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Translation</h2>
+<p>Example: Consider the vertex with coordinates <span class="math inline">\(~(-5, -2)\)</span>, that we wish to translate in the <span class="math inline">\(~x~\)</span> direction 9 units, and in the <span class="math inline">\(~y~\)</span> direction 5 units.</p>
+<p><span class="math display">\[
+\begin{bmatrix} 4 \\ 3 \end{bmatrix} =
+\begin{bmatrix} -5 \\ -2 \end{bmatrix} +
+\begin{bmatrix} 9 \\ 5 \end{bmatrix}
+\]</span></p>
+</section>
+<section id="section-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/png/triangle_01_translate_01.png" alt="Translation as a vector." /><figcaption aria-hidden="true">Translation as a vector.</figcaption>
+</figure>
+<aside class="notes">
+<p>We can show this graphically by drawing a line from the origin to the translation vector.</p>
+</aside>
+</section>
+<section id="section-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/png/triangle_01_translate_02.png" alt="Add translation vector to each vertex." /><figcaption aria-hidden="true">Add translation vector to each vertex.</figcaption>
+</figure>
+<aside class="notes">
+<p>But recall, we need to translate every vertex in our model by the same vector for rigid transformation.</p>
+</aside>
+</section>
+<section id="section-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/png/triangle_01_translate_03.png" alt="All vertices are translated." /><figcaption aria-hidden="true">All vertices are translated.</figcaption>
+</figure>
+</section>
+<section id="section-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/png/triangle_01_translate_04.png" alt="The model is in a new position." /><figcaption aria-hidden="true">The model is in a new position.</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<div style="font-size: 2.5em">
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix} x \\ y \end{bmatrix} +
+\begin{bmatrix} t_x \\ t_y \end{bmatrix}
+\]</span></p>
+</div>
+<aside class="notes">
+<p>Emphasise that translation is the addition of a translation vector.</p>
+</aside>
+</section></section>
+<section>
+<section id="rotation" class="title-slide slide level1">
+<h1>Rotation</h1>
+<p>We stated earlier, that the mathematical entity used to perform a transformations to the vector coordinates is a <em>matrix</em>.</p>
+<p>How do we use a matrix to perform a transformation?</p>
+</section>
+<section id="rotation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation</h2>
+<ul>
+<li>translation moves a single point</li>
+<li>rotation of a point is meaningless</li>
+<li>we need to perform rotations about an axis</li>
+</ul>
+</section>
+<section id="rotation-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation</h2>
+<p>A mnemonic for rotation is <em>SOH</em>, <em>CAH</em>, <em>TOA</em>.</p>
+<p><span class="math display">\[
+sin(\theta) = \frac{O}{H},~
+cos(\theta) = \frac{A}{H},~
+tan(\theta) = \frac{O}{A}
+\]</span></p>
+<aside class="notes">
+<p>recap of rotation</p>
+</aside>
+</section>
+<section id="rotation-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation</h2>
+<p>We can fit this mnemonic to our 2D plane:</p>
+<p><span class="math display">\[
+sin(\theta) = \frac{O}{H} = \frac{y}{r},~
+cos(\theta) = \frac{A}{H} = \frac{x}{r},~
+tan(\theta) = \frac{O}{A} = \frac{y}{x}
+\]</span></p>
+<p>where <span class="math inline">\(r\)</span> is the radius of a circle.</p>
+<aside class="notes">
+<p>We usually talk about a unit circle, where r = 1. If r does not equal one, it scales all values by it’s length.</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/unit_circle.png" style="width:70.0%" alt="rotation in unit circle" /><figcaption aria-hidden="true">rotation in unit circle</figcaption>
+</figure>
+<aside class="notes">
+<p>Here, the y and the vertical dashed line is sin theta, x and the horizontal dashed line is cos theta. Notice that the direction of angle is anticlockwise, which is positive rotation in our coordinate system.</p>
+<p>So tan is equal to r. Be cautious when using tan in your code, consider the plot of tan…</p>
+</aside>
+</section>
+<section id="matrix-multiplication" class="slide level2">
+<h2>Matrix multiplication</h2>
+<p>Matrix multiplication is performed row by column:</p>
+<p><span class="math display">\[
+\begin{bmatrix} ax + by \\ cx + dy \end{bmatrix} =
+\begin{bmatrix} a~ ~b \\ c~ ~d \end{bmatrix} \times
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+<ul>
+<li>Number of columns in the first operand <strong>must</strong> equal the number of rows in the second operand.</li>
+</ul>
+</section>
+<section id="rotation-matrix" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation Matrix</h2>
+<p>Deriving the rotation matrix using trigonometric identities.</p>
+<aside class="notes">
+<p>let’s look at the derivation - we can do this by looking at what happens when we rotate a model.</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_01.png" alt="A model in the plane" /><figcaption aria-hidden="true">A model in the plane</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_02.png" alt="consider one vertex" /><figcaption aria-hidden="true">consider one vertex</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_03.png" alt="angle between the x axis" /><figcaption aria-hidden="true">angle between the <span class="math inline">\(x\)</span> axis</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_04.png" alt="rotation about the origin" /><figcaption aria-hidden="true">rotation about the origin</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_05.png" alt="a second rotation" /><figcaption aria-hidden="true">a second rotation</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_06.png" alt="sum of two angles" /><figcaption aria-hidden="true">sum of two angles</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/png/rotate_07.png" alt="r and r&#39;" /><figcaption aria-hidden="true"><span class="math inline">\(r\)</span> and <span class="math inline">\(r&#39;\)</span></figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<p><span class="math display">\[
+r = \begin{bmatrix} x \\ y \end{bmatrix} =
+    \begin{bmatrix} \cos \beta \\ \sin \beta \end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+r&#39; = \begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+     \begin{bmatrix} \cos (\alpha + \beta) \\
+     \sin (\alpha + \beta) \end{bmatrix}
+\]</span></p>
+</section>
+<section id="ptolomys-identity" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Ptolomy’s identity</h2>
+<p>The sum of two angles:</p>
+<p><span class="math display">\[\cos (\alpha + \beta) = \cos \alpha ~ \cos \beta - \sin \alpha ~ \sin \beta\]</span> <span class="math display">\[\sin (\alpha + \beta) = \sin \alpha ~ \cos \beta + \cos \alpha ~ \sin \beta\]</span></p>
+</section>
+<section id="rotation-matrix-derivation" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation Matrix Derivation</h2>
+<p>using the identities:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha ~ \cos \beta - \sin \alpha ~ \sin \beta \\
+\sin \alpha ~ \cos \beta + \cos \alpha ~ \sin \beta
+\end{bmatrix}
+\]</span></p>
+</section>
+<section id="rotation-matrix-derivation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation Matrix Derivation</h2>
+<p>recall:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x \\ y \end{bmatrix} =
+\begin{bmatrix} \cos \beta \\ \sin \beta \end{bmatrix}
+\]</span></p>
+<p>substitute <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix}
+x \cos \alpha - y \sin \alpha \\
+x \sin \alpha + y \cos \alpha
+\end{bmatrix}
+\]</span></p>
+</section>
+<section id="rotation-matrix-derivation-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Rotation Matrix Derivation</h2>
+<p>as a matrix multiplication:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x&#39; \\ y&#39; \end{bmatrix} =
+\begin{bmatrix}
+\cos \alpha &amp;-\sin \alpha \\
+\sin \alpha &amp;~\cos \alpha
+\end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<div style="font-size: 2.5em">
+<p><span class="math display">\[
+R =
+\begin{bmatrix}
+\cos \alpha &amp;-\sin \alpha \\
+\sin \alpha &amp;~\cos \alpha
+\end{bmatrix}
+\]</span></p>
+</div>
+<aside class="notes">
+<p>finally we can derive the rotation matrix. Please remember this forever :)</p>
+</aside>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+<ul>
+<li>Types of transformations</li>
+<li>Translation</li>
+<li>Rotation</li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Hearn, D. et al. (2004). Computer Graphics with OpenGL.</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+        height: 900,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // The display mode that will be used to show slides
+        display: 'block',
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
