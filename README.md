@@ -21,3 +21,5 @@ There is also a Makefile in the root of this repo if you already have Docker ins
 
 - Introduction to Transformations
 - Homogeneous Coordinates
+- Combined Transformations
+- Projective Transformations
