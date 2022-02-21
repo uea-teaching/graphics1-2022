@@ -24,8 +24,6 @@
 
 !lectures/assets/png/
 !lectures/assets/png/*.png
-!lectures/assets/png/pca
-!lectures/assets/png/pca/*.png
 
 !lectures/assets/gif/
 !lectures/assets/gif/*.gif
