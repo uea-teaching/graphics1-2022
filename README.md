@@ -1,4 +1,4 @@
-# Graphics1 2021
+# Graphics1 2022
 
 ## Online
 
