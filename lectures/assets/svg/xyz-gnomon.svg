@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="900" height="700" viewBox="0, 0, 900, 700">
+  <g id="Layer_1">
+    <g>
+      <path d="M397.5,434.5 L397.5,90.7" fill-opacity="0" stroke="#3FCA00" stroke-width="5"/>
+      <path d="M402.9,90.7 L397.5,76.3 L392.1,90.7 z" fill="#3FCA00" fill-opacity="1" stroke="#3FCA00" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M397.5,434.5 L738.3,434.5" fill-opacity="0" stroke="#D11D00" stroke-width="5"/>
+      <path d="M738.3,439.9 L752.7,434.5 L738.3,429.1 z" fill="#D11D00" fill-opacity="1" stroke="#D11D00" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M397.5,434.5 L124.835,568.474" fill-opacity="0" stroke="#0085CF" stroke-width="5"/>
+      <path d="M122.453,563.627 L111.911,574.824 L127.216,573.32 z" fill="#0085CF" fill-opacity="1" stroke="#0085CF" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 127.776, 540)">
+      <tspan x="-11.664" y="11" font-family="HelveticaNeue-Bold" font-size="36" fill="#0085CF">Z</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 432, 96)">
+      <tspan x="-12.006" y="11" font-family="HelveticaNeue-Bold" font-size="36" fill="#3FCA00">Y</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 720, 410)">
+      <tspan x="-12.006" y="11" font-family="HelveticaNeue-Bold" font-size="36" fill="#D11D00">X</tspan>
+    </text>
+  </g>
+</svg>
