@@ -2,7 +2,7 @@
 title: Further Transformations
 subtitle: Graphics 1 CMP-5010B
 author: Dr. David Greenwood
-date: February 15, 2022
+date: February, 2022
 ---
 
 # Content
