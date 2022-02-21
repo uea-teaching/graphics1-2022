@@ -12,15 +12,20 @@ def set_style():
     plt.rcParams['savefig.bbox'] = 'tight'
 
 
-def set_spines(ax, x_range=(-7, 15), y_range=(-5, 10)):
+def set_spines(ax, x_range=(-7, 15), y_range=(-5, 10),
+               colour=(0.0, 0.0, 0.0), line_width=1.0):
     """move the axes to the centre and show a labelled grid."""
+
     ax.spines[['top', 'right']].set_visible(False)
     ax.spines[['left', 'bottom']].set_visible(True)
-    ax.spines[['left', 'bottom']].set_color('black')
+    ax.spines[['left', 'bottom']].set_color(colour)
+    ax.spines[['left', 'bottom']].set_linewidth(line_width)
     ax.spines[['left', 'bottom']].set_position(('data', 0))
     # arrows on ends of axes
-    ax.plot(1, 0, ">k", transform=ax.get_yaxis_transform(), clip_on=False)
-    ax.plot(0, 1, "^k", transform=ax.get_xaxis_transform(), clip_on=False)
+    ax.plot(1, 0, ">", color=colour,
+            transform=ax.get_yaxis_transform(), clip_on=False)
+    ax.plot(0, 1, "^", color=colour,
+            transform=ax.get_xaxis_transform(), clip_on=False)
     # grid
     ax.set_aspect('equal')
     x_ticks = range(x_range[0], x_range[1] + 1)
