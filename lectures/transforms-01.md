@@ -53,6 +53,10 @@ The mapping function uses elementary operations, which include:
 
 Types of transformation preserve **geometric properties** of the object.
 
+::: notes
+types of transformations group elementary operations
+:::
+
 ## **Rigid** transformations
 
 ::: incremental
@@ -64,6 +68,7 @@ Types of transformation preserve **geometric properties** of the object.
 :::
 
 ::: notes
+Euclid - a Greek mathematician, often referred to as the "founder of geometry".
 Imagine a cardboard cut out shape, that you could push about on a surface.
 :::
 
@@ -78,6 +83,7 @@ Imagine a cardboard cut out shape, that you could push about on a surface.
 :::
 
 ::: notes
+DON'T preserve handedness - we can flip the object!
 Imagine a cardboard cut out shape, that you could pick up and put down any way around.
 :::
 
@@ -105,6 +111,14 @@ Some triangles are similar, and can be very useful to us, but not all triangles 
 
 :::
 
+::: notes
+etymology - "affine" has the same origins as affinity, meaning "alike".
+The word affine comes from the Latin "affinis" meaning connected to or related to.
+
+A rectangle could become a parallelogram, or a square could become a rectangle.
+But not a trapezoid.
+:::
+
 ## **Projective** transformations
 
 ::: incremental
@@ -113,6 +127,10 @@ Some triangles are similar, and can be very useful to us, but not all triangles 
 - useful in 3D graphics but not in 2D
 - _Perspective_ or _Orthographic_ projection
 
+:::
+
+::: notes
+there are other projections - perhaps found in some CAD packages.
 :::
 
 ## **Non-linear** transformations
@@ -199,6 +217,10 @@ $$
 \begin{bmatrix} t_x \\ t_y \end{bmatrix}
 $$
 
+::: notes
+on notation... we say he result of this operation is a new vector of coordinates x prime and y prime.
+:::
+
 ## Translation {data-auto-animate="true"}
 
 Example: Consider the vertex with coordinates $~(-5, -2)$, that we wish to translate in the $~x~$ direction 9 units, and in the $~y~$ direction 5 units.
@@ -263,7 +285,7 @@ How do we use a matrix to perform a transformation?
 
 ## Rotation {data-auto-animate="true"}
 
-A mnemonic for rotation is _SOH_, _CAH_, _TOA_.
+A mnemonic for trigonometry is _SOH_, _CAH_, _TOA_.
 
 $$
 sin(\theta) = \frac{O}{H},~
@@ -272,7 +294,7 @@ tan(\theta) = \frac{O}{A}
 $$
 
 ::: notes
-recap of rotation
+recap of trigonometry
 :::
 
 ## Rotation {data-auto-animate="true"}
@@ -316,6 +338,10 @@ $$
 
 - Number of columns in the first operand **must** equal the number of rows in the second operand.
 
+::: notes
+Also, a quick reminder of matrix multiplication.
+:::
+
 ## Rotation Matrix {data-auto-animate="true"}
 
 Deriving the rotation matrix using trigonometric identities.
@@ -346,13 +372,25 @@ let's look at the derivation - we can do this by looking at what happens when we
 
 ![a second rotation](assets/png/rotate_05.png)
 
+::: notes
+alpha is a positive rotation in our coordinate system about the origin.
+:::
+
 ---
 
 ![sum of two angles](assets/png/rotate_06.png)
 
+::: notes
+alpha is a positive rotation in our coordinate system about the origin.
+:::
+
 ---
 
 ![$r$ and $r'$](assets/png/rotate_07.png)
+
+::: notes
+r and r' can be described by coordinates x, y and x' y', and sins and cosines.
+:::
 
 ---
 
@@ -366,6 +404,10 @@ r' = \begin{bmatrix} x' \\ y' \end{bmatrix} =
      \begin{bmatrix} \cos (\alpha + \beta) \\
      \sin (\alpha + \beta) \end{bmatrix}
 $$
+
+::: notes
+r and r' can be described by coordinates x, y and x' y', and sins and cosines.
+:::
 
 ## Ptolomy's identity {data-auto-animate="true"}
 
@@ -385,6 +427,10 @@ $$
 \sin \alpha ~ \cos \beta + \cos \alpha ~ \sin \beta
 \end{bmatrix}
 $$
+
+::: notes
+we can immediately use this identity in one of our equations.
+:::
 
 ## Rotation Matrix Derivation {data-auto-animate="true"}
 
