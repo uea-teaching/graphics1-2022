@@ -10,6 +10,8 @@
 !_layouts/*.html
 
 !lectures/
+!lectures/*.html
+!lectures/*.pdf
 !lectures/assets/
 !lectures/assets/*.css
 
