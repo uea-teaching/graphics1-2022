@@ -48,6 +48,9 @@
 <div style="font-size: 2.5em">
 <p><span class="math display">\[R^{-1}\]</span></p>
 </div>
+<aside class="notes">
+<p>The matrix for rotation is given by R, and its inverse is the super script -1.</p>
+</aside>
 </section>
 <section id="inverse-rotations-1" class="slide level2">
 <h2>Inverse Rotations</h2>
@@ -321,6 +324,9 @@ R^{-1} = R^T
 <section id="homogeneous-coordinates" class="title-slide slide level1">
 <h1>Homogeneous Coordinates</h1>
 <p><em>adjective:</em> “of the same kind; alike.”</p>
+<aside class="notes">
+<p>We need to introduce a new concept… because there has been a problem lurking in the background of our work so far…</p>
+</aside>
 </section>
 <section id="d-transformation-problem" class="slide level2">
 <h2>2D transformation problem</h2>
@@ -365,6 +371,9 @@ x_h = \frac{x}{w}~, ~y_h = \frac{y}{w}~, ~w
 <li class="fragment">How do we use 3D homogeneous coordinates to represent 2D transformations?</li>
 </ul>
 </div>
+<aside class="notes">
+<p>and remember, why we want to use homogeneous coordinates? To include translate as a matrix operation.</p>
+</aside>
 </section>
 <section id="homogeneous-coordinates-4" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Homogeneous Coordinates</h2>
@@ -374,6 +383,9 @@ x_h = \frac{x}{w}~, ~y_h = \frac{y}{w}~, ~w
 \begin{bmatrix} a~ ~b~ ~c~ \\ d~ ~e~ ~f~ \\ 0~ ~0~ ~1 \end{bmatrix}
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 \]</span></p>
+<aside class="notes">
+<p>we extend the matrix like so, inserting values in the abc… positions, and adding the row at the bottom (the last row of an identity matrix).</p>
+</aside>
 </section>
 <section id="homogeneous-rotation" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Homogeneous Rotation</h2>
@@ -387,6 +399,9 @@ x_h = \frac{x}{w}~, ~y_h = \frac{y}{w}~, ~w
 \end{bmatrix}
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 \]</span></p>
+<aside class="notes">
+<p>please convince yourself that the matrix multiplication is correct.</p>
+</aside>
 </section>
 <section id="homogeneous-rotation-1" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Homogeneous Rotation</h2>
@@ -419,6 +434,9 @@ s_x&amp; ~0&amp;   ~0 \\
 \end{bmatrix}
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 \]</span></p>
+<aside class="notes">
+<p>please convince yourself that the matrix multiplication is correct.</p>
+</aside>
 </section>
 <section id="homogeneous-coordinates-5" class="slide level2" data-auto-animate="true">
 <h2 data-auto-animate="true">Homogeneous Coordinates</h2>
@@ -468,6 +486,7 @@ c  &amp; ~d&amp; ~0 \\
 <p>We have covered quite a lot… We looked at the properties of rotation matrices, allowing us to compute the inverse easily.</p>
 <p>We covered other elementary operations, such as scaling, shearing, and reflection.</p>
 <p>We have introduced matrix operations for translation, giving us a unified, or homogeneous, model for 2D transformations.</p>
+<p>Next week, we will understand the power of matrix multiplication for all operations, when we combine transformations.</p>
 </aside>
 </section>
     </div>
