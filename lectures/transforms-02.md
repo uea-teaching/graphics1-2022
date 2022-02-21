@@ -19,6 +19,10 @@ $$R^{-1}$$
 
 :::
 
+::: notes
+The matrix for rotation is given by R, and its inverse is the super script -1.
+:::
+
 ## Inverse Rotations
 
 We commonly need to compute the inverse of a rotation, for example, in the hierarchical transformations in character animation skeletons.
@@ -300,6 +304,11 @@ $$
 
 _adjective:_ "of the same kind; alike."
 
+::: notes
+We need to introduce a new concept...
+because there has been a problem lurking in the background of our work so far...
+:::
+
 ## 2D transformation problem
 
 ::: incremental
@@ -348,6 +357,10 @@ Thus: $x = w x_h$, $y = w y_h$.
 
 :::
 
+::: notes
+and remember, why we want to use homogeneous coordinates? To include translate as a matrix operation.
+:::
+
 ## Homogeneous Coordinates {data-auto-animate="true"}
 
 For a general transformation operation, we extend the matrix multiplication we have seen so far, to include the $w$ coordinate:
@@ -357,6 +370,10 @@ $$
 \begin{bmatrix} a~ ~b~ ~c~ \\ d~ ~e~ ~f~ \\ 0~ ~0~ ~1 \end{bmatrix}
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 $$
+
+::: notes
+we extend the matrix like so, inserting values in the abc... positions, and adding the row at the bottom (the last row of an identity matrix).
+:::
 
 ## Homogeneous Rotation {data-auto-animate="true"}
 
@@ -371,6 +388,10 @@ $$
 \end{bmatrix}
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 $$
+
+::: notes
+please convince yourself that the matrix multiplication is correct.
+:::
 
 ## Homogeneous Rotation {data-auto-animate="true"}
 
@@ -405,6 +426,10 @@ s_x& ~0&   ~0 \\
 \end{bmatrix}
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 $$
+
+::: notes
+please convince yourself that the matrix multiplication is correct.
+:::
 
 ## Homogeneous Coordinates {data-auto-animate="true"}
 
@@ -461,4 +486,6 @@ We looked at the properties of rotation matrices, allowing us to compute the inv
 We covered other elementary operations, such as scaling, shearing, and reflection.
 
 We have introduced matrix operations for translation, giving us a unified, or homogeneous, model for 2D transformations.
+
+Next week, we will understand the power of matrix multiplication for all operations, when we combine transformations.
 :::
