@@ -66,6 +66,10 @@ Given the description of the OpenGL coordinate system, what has been the signifi
 
 :::
 
+::: notes
+wherever some vertex is in our scene, when we rotate with R, we rotate about the z-axis.
+:::
+
 ## World Coordinate System {data-auto-animate="true"}
 
 ::: columns
@@ -82,4 +86,131 @@ The WCS is represented by a _right-handed_ coordinate system, with the z-axis po
 ![right handed coordinate system](assets/svg/xyz-gnomon.svg)
 :::
 
+:::
+
+# Combined Transformations
+
+**Order** matters...
+
+::: notes
+This is the big takeaway from this lecture.
+:::
+
+## Recap: Matrix Multiplication
+
+Matrix multiplication **is** _associative_:
+
+$$ABC=A(BC)=(AB)C$$
+
+Matrix multiplication is **not** _commutative_:
+
+$$AB \neq BA$$
+
+::: notes
+Of course, we need the shape to be appropriate for multiplication.
+Emphasis - this is really important to understand - and remember.
+:::
+
+# Combined Transformations
+
+Start with two common concatenated transformations:
+
+1. _Rotate_ the model, then _translate_ it.
+2. _Translate_ the model, then _rotate_ it.
+
+::: notes
+As well as the rules of multiplication, we need to remember that the order of the transformations is important.
+REMEMBER: Rotation is about the z-axis!!
+:::
+
+# Combined Transformations
+
+Start with two common concatenated transformations:
+
+1. $$
+   \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+   \begin{bmatrix} 1  & ~0& ~t_x \\ 0  & ~1& ~t_y \\ 0  & ~0& ~1 \end{bmatrix}
+   \begin{bmatrix}
+    \cos \alpha&        -\sin \alpha& ~0 \\
+    \sin \alpha&~       ~\cos \alpha& ~0 \\
+            0&                   0& ~1
+    \end{bmatrix}
+   \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+   $$
+
+2. $$
+   \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =
+   \begin{bmatrix}
+    \cos \alpha&        -\sin \alpha& ~0 \\
+    \sin \alpha&~       ~\cos \alpha& ~0 \\
+            0&                   0& ~1
+    \end{bmatrix}
+   \begin{bmatrix} 1  & ~0& ~t_x \\ 0  & ~1& ~t_y \\ 0  & ~0& ~1 \end{bmatrix}
+   \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+   $$
+
+::: notes
+let's look at this more concretely, with two very common transforms.
+:::
+
+---
+
+Multiplying out from right to left:
+
+1. $$
+    \begin{aligned}
+    \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} &=
+    %
+    \begin{bmatrix} 1  & ~0& ~t_x \\ 0  & ~1& ~t_y \\ 0  & ~0& ~1 \end{bmatrix}
+    %
+    \begin{bmatrix}
+    x \cos \alpha - y \sin \alpha \\
+    x \sin \alpha + y \cos \alpha \\
+    1
+    \end{bmatrix} \\[10pt]
+    %
+    \Rightarrow
+    %
+    \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} &=
+    \begin{bmatrix}
+    (x \cos \alpha - y \sin \alpha) + t_x \\
+    (x \sin \alpha + y \cos \alpha) + t_y \\
+    1
+    \end{bmatrix}
+    \end{aligned}
+   $$
+
+::: notes
+let's multiply out from right to left.
+:::
+
+---
+
+Multiplying out from right to left:
+
+2. $$
+    \begin{aligned}
+    \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} &=
+    %
+   \begin{bmatrix}
+    \cos \alpha&  -\sin \alpha& ~0 \\
+    \sin \alpha&~ ~\cos \alpha& ~0 \\
+               0&            0& ~1
+    \end{bmatrix}
+    %
+    \begin{bmatrix} x + t_x \\ y + t_y \\ 1 \end{bmatrix} \\[10pt]
+    %
+    \Rightarrow
+    %
+    \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} &=
+    \begin{bmatrix}
+    (x + t_x) \cos \alpha - (y + t_y) \sin \alpha \\
+    (x + t_x) \sin \alpha + (y + t_y) \cos \alpha \\
+    1
+    \end{bmatrix}
+    \end{aligned}
+   $$
+
+::: notes
+now the 2nd equation - translate then rotate.
 :::
