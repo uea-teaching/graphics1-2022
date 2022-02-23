@@ -129,7 +129,8 @@ fig, ax = plt.subplots(1, 1)
 set_spines(ax, **spines)
 plot_rect(ax, gantry, col=FILL1)
 ax.grid(False)
-
+ax.text(-0.75, 1, s=rf'${a}s$', ha='center', va='center', fontsize=12)
+fig.savefig("articulated_base.png")
 
 # %%
 
@@ -138,12 +139,16 @@ set_spines(ax, **spines)
 plot_rect(ax, gantry, col=FILL1)
 plot_rect(ax, link1, col=FILL2)
 ax.grid(False)
+ax.text(-0.75, 1, s=rf'${a}s$', ha='center', va='center', fontsize=12)
+ax.text(1, 3.5, s=rf'${b}s$', ha='center', va='center', fontsize=12)
+ax.plot((0, 5), (2, 2), '--k', linewidth=1)
+ax.plot((p1_1[0], p1_2[0]), (p1_1[1], p1_2[1]), '--k', linewidth=1)
+
+AngleAnnotation(
+    p1_1, (p2_1[0], 2), p1_2, ax=ax, size=1000, unit='pixels',
+    textposition='outside',
+    color='k', text=rf"$\alpha={alpha}^{{\circ}}$")
+
+fig.savefig("articulated_link1.png")
 
 # %%
-
-fig, ax = plt.subplots(1, 1)
-set_spines(ax, **spines)
-plot_rect(ax, gantry, col=FILL1)
-plot_rect(ax, link1, col=FILL2)
-plot_rect(ax, link2, col=FILL3)
-ax.grid(False)
