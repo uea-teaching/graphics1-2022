@@ -81,10 +81,14 @@ def link_2(gantry_y_scale, link1_x_scale, link2_x_scale):
 
 # %%
 
-
 # example
-a, b, c, alpha, beta = 2, 1.5, 3, 30, 60
+a, b, c, alpha, beta = 2, 3, 2, 30, 45
 
 print(gantry(a))
+# %%
+
 print(link_1(a, b))
+
+# %%
+
 print(link_2(a, b, c))
