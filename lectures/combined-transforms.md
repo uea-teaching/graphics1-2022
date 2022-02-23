@@ -216,7 +216,7 @@ Multiplying out the second example from right to left:
 now the 2nd equation - translate first then rotate.
 :::
 
-# Combined Transformations
+## Combined Transformations
 
 ::: {style="font-size: 2.5em"}
 
@@ -227,3 +227,113 @@ $$
 :::
 
 The **order** of the transformations is important.
+
+# Articulated Structures
+
+Hierarchical transformations...
+
+::: notes
+we will work through a more complex example - involving a hierarchy of objects.
+Skeletons - rigs - characters.
+:::
+
+---
+
+Make the articulated structure from only the square polygon.
+
+::: columns
+
+::::: column
+![square, length = $s$](assets/png/articulated_start.png)
+:::::
+
+::::: column
+![articulated structure](assets/png/articulated_final.png)
+:::::
+
+:::
+
+::: notes
+Note: I have coloured the items just for reference.
+:::
+
+## Assumptions
+
+::: incremental
+
+- The objects are in order of their position in the hierarchy,
+  i.e. we start with the first object in the hierarchy, then the next and so on.
+- The articulations should be operative rather than static,
+  i.e for different value angles, the structure will still be connected.
+- We only use the metric $s$ in our transformation matrices.
+- The solution may not be unique.
+
+:::
+
+::: notes
+We must make some assumptions clear first.
+:::
+
+## The base {data-auto-animate="true"}
+
+::: columns
+
+::::: column
+![square, length = $s$](assets/png/articulated_start.png)
+:::::
+
+::::: column
+![part 1, the base](assets/png/articulated_base.png)
+:::::
+
+:::
+
+::: notes
+We might call this the gantry of a crane.
+We need to scale in y, and translate in y.
+:::
+
+## The base {data-auto-animate="true"}
+
+::: columns
+
+::::: column
+![The base](assets/png/articulated_base.png)
+:::::
+
+::::: column
+
+Order of transformations:
+
+1. scale in y, $~s_y = 2$
+2. translate in y, $~t_y = 1$
+
+:::::
+
+:::
+
+::: notes
+We need to scale in y, and translate in y.
+:::
+
+## The base {data-auto-animate="true"}
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}=
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & s \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 2 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+::: notes
+The order of the transformations is important.
+We apply the rightmost transformation first.
+:::
