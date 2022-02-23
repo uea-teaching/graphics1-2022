@@ -306,7 +306,7 @@ We need to scale in y, and translate in y.
 Order of transformations:
 
 1. scale in y, $~s_y = 2$
-2. translate in y, $~t_y = 1$
+2. translate in y, $~t_y = 1s$
 
 :::::
 
@@ -369,7 +369,7 @@ This is the first link part, that has some rotation.
 Order of transformations:
 
 1. scale in x, $~s_x = 3$
-2. translate in x, $~t_x = 1.5$
+2. translate in x, $~t_x = 1.5s$
 3. rotate, $~\alpha = 30^{\circ}$
 4. translate in y, $~t_y = 2$
 
@@ -411,3 +411,89 @@ $$
 $$
 
 :::
+
+## Link 2 {data-auto-animate="true"}
+
+::: columns
+
+::::: column
+![square, length = $s$](assets/png/articulated_start.png)
+:::::
+
+::::: column
+![Link 2](assets/png/articulated_final.png)
+:::::
+
+:::
+
+::: notes
+This part has it's parent's rotation, and its own rotation.
+:::
+
+## Link 2 {data-auto-animate="true"}
+
+::: columns
+
+::::: column
+![Link 2](assets/png/articulated_final.png)
+:::::
+
+::::: column
+Order of transformations:
+
+1. scale in x, $~s_x = 2$
+2. translate in x, $~t_x = s$
+3. rotate, $~\beta = 45^{\circ}$
+4. translate in x, $~t_x = 3s$
+5. rotate, $~\alpha = 30^{\circ}$
+6. translate in y, $~t_y = 2s$
+
+:::::
+
+:::
+
+::: notes
+This part has it's parent's rotation, and its own rotation.
+We have a lot of motion here.
+:::
+
+## Link 2 {data-auto-animate="true"}
+
+$$
+\begin{aligned}
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =~
+&\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 2s \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    \cos \alpha & - \sin \alpha & 0 \\
+    \sin \alpha & \cos \alpha & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & 3s \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix} \\[10pt]
+&\begin{bmatrix}
+    \cos \beta & - \sin \beta & 0 \\
+    \sin \beta & \cos \beta & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & s \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    2 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\end{aligned}
+$$
+
+_NB:_ equation runs over two lines.
