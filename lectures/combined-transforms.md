@@ -497,3 +497,115 @@ $$
 $$
 
 _NB:_ equation runs over two lines.
+
+## Articulated Arm Template {data-auto-animate="true"}
+
+There is a template solution for each of the three parts.
+
+## Articulated Arm Template {data-auto-animate="true"}
+
+Base:
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}=
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & ? \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & ? & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+::: notes
+The order of the transformations is important.
+We apply the rightmost transformation first.
+:::
+
+## Articulated Arm Template {data-auto-animate="true"}
+
+Link 1:
+
+::: {style="font-size: 0.85em"}
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}=
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & ? \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    \cos \alpha & - \sin \alpha & 0 \\
+    \sin \alpha & \cos \alpha & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & ?\\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    ? & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+:::
+
+$$ \alpha = ?^{\circ} $$
+
+## Articulated Arm Template {data-auto-animate="true"}
+
+Link 2
+
+$$
+\begin{aligned}
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} =~
+&\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & ? \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    \cos \alpha & - \sin \alpha & 0 \\
+    \sin \alpha & \cos \alpha & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & ? \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix} \\[10pt]
+&\begin{bmatrix}
+    \cos \beta & - \sin \beta & 0 \\
+    \sin \beta & \cos \beta & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & ? \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    ? & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\end{aligned}
+$$
+
+$$\alpha = ?^{\circ} ~, ~ \beta = ?^{\circ}$$
+
+# Summary
+
+- World Coordinate System
+- Combined Transformations
+- Articulated Structures
