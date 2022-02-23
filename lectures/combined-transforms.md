@@ -155,7 +155,7 @@ let's look at this more concretely, with two very common transforms.
 
 ---
 
-Multiplying out from right to left:
+Multiplying out the first example from right to left:
 
 1. $$
     \begin{aligned}
@@ -182,11 +182,12 @@ Multiplying out from right to left:
 
 ::: notes
 let's multiply out from right to left.
+Here we rotate first, then translate.
 :::
 
 ---
 
-Multiplying out from right to left:
+Multiplying out the second example from right to left:
 
 2. $$
     \begin{aligned}
@@ -212,5 +213,17 @@ Multiplying out from right to left:
    $$
 
 ::: notes
-now the 2nd equation - translate then rotate.
+now the 2nd equation - translate first then rotate.
 :::
+
+# Combined Transformations
+
+::: {style="font-size: 2.5em"}
+
+$$
+RTv \neq TRv
+$$
+
+:::
+
+The **order** of the transformations is important.
