@@ -337,3 +337,77 @@ $$
 The order of the transformations is important.
 We apply the rightmost transformation first.
 :::
+
+## Link 1 {data-auto-animate="true"}
+
+::: columns
+
+::::: column
+![square, length = $s$](assets/png/articulated_start.png)
+:::::
+
+::::: column
+![Link 1](assets/png/articulated_link1.png)
+:::::
+
+:::
+
+::: notes
+This is the first link part, that has some rotation.
+:::
+
+## Link 1 {data-auto-animate="true"}
+
+::: columns
+
+::::: column
+![Link 1](assets/png/articulated_link1.png)
+:::::
+
+::::: column
+
+Order of transformations:
+
+1. scale in x, $~s_x = 3$
+2. translate in x, $~t_x = 1.5$
+3. rotate, $~\alpha = 30^{\circ}$
+4. translate in y, $~t_y = 2$
+
+:::::
+
+:::
+
+::: notes
+We have to start being more careful about the order of the transformations.
+:::
+
+## Link 1 {data-auto-animate="true"}
+
+::: {style="font-size: 0.85em"}
+
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}=
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 2s \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    \cos \alpha & - \sin \alpha & 0 \\
+    \sin \alpha & \cos \alpha & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & 1.50s \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    3 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+:::
