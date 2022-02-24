@@ -322,7 +322,7 @@ $$
 \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}=
 \begin{bmatrix}
     1 & 0 & 0 \\
-    0 & 1 & s \\
+    0 & 1 & 1s \\
     0 & 0 & 1
 \end{bmatrix}
 \begin{bmatrix}
@@ -398,7 +398,7 @@ $$
     0 & 0 & 1
 \end{bmatrix}
 \begin{bmatrix}
-    1 & 0 & 1.50s \\
+    1 & 0 & 1.5s \\
     0 & 1 & 0 \\
     0 & 0 & 1
 \end{bmatrix}
@@ -604,8 +604,17 @@ $$
 
 $$\alpha = ?^{\circ} ~, ~ \beta = ?^{\circ}$$
 
+::: notes
+NOTE: the equation is over two lines.
+:::
+
 # Summary
 
 - World Coordinate System
 - Combined Transformations
 - Articulated Structures
+
+Reading:
+
+- Hearn, D. et al. (2004). Computer Graphics with OpenGL.
+- Strang, Gilbert, et al. (1993) Introduction to linear algebra.
