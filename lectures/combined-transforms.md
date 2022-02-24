@@ -336,6 +336,7 @@ $$
 ::: notes
 The order of the transformations is important.
 We apply the rightmost transformation first.
+Associative: ABC=A(BC)=(AB)C
 :::
 
 ## Link 1 {data-auto-animate="true"}
@@ -410,6 +411,10 @@ $$
 \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
 $$
 
+:::
+
+::: notes
+Associative: ABC=A(BC)=(AB)C
 :::
 
 ## Link 2 {data-auto-animate="true"}
@@ -618,3 +623,9 @@ Reading:
 
 - Hearn, D. et al. (2004). Computer Graphics with OpenGL.
 - Strang, Gilbert, et al. (1993) Introduction to linear algebra.
+
+::: notes
+Hopefully we have established very clearly that order matters when applying transformations.
+We used that knowledge to work through a fairly complex example.
+We showed that this complexity could be reduced with a templated solution.
+:::
