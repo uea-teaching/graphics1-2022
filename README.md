@@ -8,7 +8,6 @@ I will make the slides available online [here](https://uea-teaching.github.io/gr
 
 The content is written in `Markdown` and converted using `pandoc`.
 The slides are built using the Makefile in the lecture directory.
-There is a corresponding Makefile in the labs directory.
 
 I use some templates and defaults available at:
 
