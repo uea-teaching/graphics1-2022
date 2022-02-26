@@ -199,3 +199,24 @@ so **all** $z_i$ are equal to $d$.
 ::: notes
 and this is why we put d in the denominator earlier...
 :::
+
+## Perspective Projection
+
+$$
+\begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} =
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 1 / d & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_c \\ y_c \\ z_c \\ 1
+\end{bmatrix}
+$$
+
+::: notes
+to show the matrix again - this is the matrix that performs perspective projection from 3D to 2D.
+:::
+
+# Orthographic Projection
