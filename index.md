@@ -22,3 +22,9 @@ Lectures are available as online html or printable pdf.
 
 - Homogeneous Coordinates: [online](lectures/transforms-02.html)
   or printable [pdf](lectures/transforms-02.bmr.pdf).
+
+- Combined Transformations: [online](lectures/combined-transforms.html)
+  or printable [pdf](lectures/combined-transforms.bmr.pdf).
+
+- Projections: [online](lectures/projections.html)
+  or printable [pdf](lectures/projections.bmr.pdf).
