@@ -81,9 +81,11 @@ d = distance from camera to the projection plane (the near plane of the frustum)
 Z_c = distance from camera to the object - in camera coordinate space.
 :::
 
-## Perspective Projection {data=auto-animate="true"}
+# Perspective Projection {data=auto-animate="true"}
 
-We need to extend the idea of _homogeneous_ coordinates to 3D.
+Extend the idea of _homogeneous_ coordinates to 3D.
+
+## Perspective Projection {data=auto-animate="true"}
 
 The perspective projection is a projection from 3D to 2D, so we need a 4 x 4 matrix to transform 3D points in homogeneous coordinates.
 
@@ -113,7 +115,9 @@ $$\Rightarrow x_i = \frac{x_c}{\frac{z_c}{d}}$$
 
 ::: notes
 we want to find x_i - the image coordinate - we know the camera coordinate.
+using similar triangles...
 there is a reason why we put d in the denominator of the denominator...
+Take a strong note of x_i
 :::
 
 ## {data=auto-animate="true"}
@@ -136,4 +140,62 @@ $$\Rightarrow y_i = \frac{y_c}{\frac{z_c}{d}}$$
 
 ::: notes
 In a similar way we can find y_i in the vertical cross section.
+Take a strong note of y_i
+:::
+
+## Perspective Projection {data=auto-animate="true"}
+
+We first extend the 3x3 homogeneous matrix for 2D graphics to a 4x4 matrix for 3D graphics.
+
+---
+
+A perspective projection from 3D to 2D can then be expressed as:
+
+$$
+\begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} =
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 1 / d & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_c \\ y_c \\ z_c \\ 1
+\end{bmatrix}
+$$
+
+::: notes
+the first time we have used the 4th row...
+take note of the -1/d term... and the last zero in the 4th column.
+:::
+
+---
+
+Let's work out the matrix multiplication for each coordinate after projection:
+
+$$
+x = x_c ~, ~ y = y_c ~, ~ z = z_c ~, ~ w = \frac{z_c}{d}
+$$
+
+::: incremental
+
+- However, these are homogenous coordinates, i.e. they are scaled by a factor of w.
+- take note that $w = \frac{z_c}{d}$
+
+:::
+
+---
+
+To find the corresponding image coordinates, we divide:
+
+$$
+x_i = \frac{x}{w} = \frac{x_c}{\frac{z_c}{d}} ~,
+y_i = \frac{y}{w} = \frac{y_c}{\frac{z_c}{d}} ~,
+z_i = \frac{z}{w} = \frac{z_c}{\frac{z_c}{d}} = d,
+$$
+
+so **all** $z_i$ are equal to $d$.
+
+::: notes
+and this is why we put d in the denominator earlier...
 :::
