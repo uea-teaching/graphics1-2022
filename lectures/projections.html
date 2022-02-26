@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. David Greenwood">
+  <title>Projections</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.2.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Projections</h1>
+  <p class="subtitle">Graphics 1 CMP-5010B</p>
+  <p class="author">Dr. David Greenwood</p>
+  <p class="date">February, 2022</p>
+</section>
+
+<section id="content" class="title-slide slide level1">
+<h1>Content</h1>
+<ul>
+<li>The Camera Model</li>
+<li>Perspective Projection</li>
+<li>Orthographic Projection</li>
+</ul>
+</section>
+
+<section>
+<section id="projection" class="title-slide slide level1">
+<h1>Projection</h1>
+<p>From 3D to 2D…</p>
+</section>
+<section id="projection-1" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">Projection</h2>
+<p>To give a meaningful account of projection in graphics we have to move to 3D.</p>
+<ul>
+<li>Projection from 3D results in a 2D image.</li>
+</ul>
+</section>
+<section id="projection-2" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">Projection</h2>
+<p>There are typically two types of projections we consider in graphics:</p>
+<ul>
+<li>Perspective projection</li>
+<li>Orthographic projection</li>
+</ul>
+</section>
+<section id="camera-model" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">Camera Model</h2>
+<figure>
+<img data-src="assets/png/camera-world.png" style="width:70.0%" alt="Camera Model: E. Angel, Interactive Computer Graphics" /><figcaption aria-hidden="true">Camera Model: E. Angel, Interactive Computer Graphics</figcaption>
+</figure>
+<aside class="notes">
+<p>In graphics we have a coordinate system for the world, in which all objects are placed. We often refer to these as the <strong>world coordinate system</strong>.</p>
+<p>Within the world, we have objects, that have their own coordinate system.</p>
+<p>We have an <strong>image</strong> coordinate system - this is always 2D, and is where we project the objects within the world.</p>
+<p>Then we have a camera coordinate system - this is 3D and is a view of the world with respect to the camera.</p>
+</aside>
+</section>
+<section id="view-frustum" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">View Frustum</h2>
+<figure>
+<img data-src="assets/svg/frustum1.svg" alt="view frustum" /><figcaption aria-hidden="true">view frustum</figcaption>
+</figure>
+<aside class="notes">
+<p>The view frustum (a word difficult to pronounce) is a bound on the objects to be rendered. It is defined by the angle of view, and the near and far clipping planes.</p>
+</aside>
+</section>
+<section id="view-frustum-1" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">View Frustum</h2>
+<figure>
+<img data-src="assets/svg/frustum2.svg" alt="projection on near plane" /><figcaption aria-hidden="true">projection on near plane</figcaption>
+</figure>
+<aside class="notes">
+<p>The locus of convergence of the frustum is the position of the camera. We project at the near clipping plane in image coordinate space.</p>
+</aside>
+</section>
+<section id="view-frustum-2" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">View Frustum</h2>
+<figure>
+<img data-src="assets/svg/frustum3.svg" alt="view frustum culling" /><figcaption aria-hidden="true">view frustum culling</figcaption>
+</figure>
+<aside class="notes">
+<p>Only objects within the view frustum are rendered. This is an important tool for rendering efficiently. In project - near objects are larger, far objects are smaller.</p>
+</aside>
+</section>
+<section id="view-frustum-3" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">View Frustum</h2>
+<figure>
+<img data-src="assets/svg/frustum4.svg" alt="frustum metrics" /><figcaption aria-hidden="true">frustum metrics</figcaption>
+</figure>
+<aside class="notes">
+<p>d = distance from camera to the projection plane (the near plane of the frustum). Z_c = distance from camera to the object - in camera coordinate space.</p>
+</aside>
+</section></section>
+<section>
+<section id="perspective-projection" class="title-slide slide level1" data="auto-animate=&quot;true&quot;">
+<h1 data="auto-animate=&quot;true&quot;">Perspective Projection</h1>
+<p>Extend the idea of <em>homogeneous</em> coordinates to 3D.</p>
+</section>
+<section id="perspective-projection-1" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">Perspective Projection</h2>
+<p>The perspective projection is a projection from 3D to 2D, so we need a 4 x 4 matrix to transform 3D points in homogeneous coordinates.</p>
+</section>
+<section id="section" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;"></h2>
+<p>consider a horizontal cross section of the scene:</p>
+<figure>
+<img data-src="assets/svg/perspective-x.svg" style="width:70.0%" alt="x-section" /><figcaption aria-hidden="true">x-section</figcaption>
+</figure>
+</section>
+<section id="section-1" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;"></h2>
+<p>The relationship between the the 3D camera coordinate <span class="math inline">\(x_c\)</span> and the 2D image coordinate <span class="math inline">\(x_i\)</span> is:</p>
+<div class="columns">
+<div class="column" style="width:70%;">
+<figure>
+<img data-src="assets/svg/perspective-x.svg" style="width:100.0%" alt="x-section" /><figcaption aria-hidden="true">x-section</figcaption>
+</figure>
+</div><div class="column" style="font-size: 1.0em">
+<p><span class="math display">\[\frac{x_i}{d} = \frac{x_c}{z_c}\]</span></p>
+<p><span class="math display">\[\Rightarrow x_i = \frac{x_c}{\frac{z_c}{d}}\]</span></p>
+</div>
+</div>
+<aside class="notes">
+<p>we want to find x_i - the image coordinate - we know the camera coordinate. using similar triangles… there is a reason why we put d in the denominator of the denominator… Take a strong note of x_i</p>
+</aside>
+</section>
+<section id="section-2" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;"></h2>
+<p>The relationship between the the 3D camera coordinate <span class="math inline">\(y_c\)</span> and the 2D image coordinate <span class="math inline">\(y_i\)</span> is:</p>
+<div class="columns">
+<div class="column" style="width:70%;">
+<figure>
+<img data-src="assets/svg/perspective-y.svg" style="width:100.0%" alt="y-section" /><figcaption aria-hidden="true">y-section</figcaption>
+</figure>
+</div><div class="column" style="font-size: 1.0em">
+<p><span class="math display">\[\frac{y_i}{d} = \frac{y_c}{z_c}\]</span></p>
+<p><span class="math display">\[\Rightarrow y_i = \frac{y_c}{\frac{z_c}{d}}\]</span></p>
+</div>
+</div>
+<aside class="notes">
+<p>In a similar way we can find y_i in the vertical cross section. Take a strong note of y_i</p>
+</aside>
+</section>
+<section id="perspective-projection-2" class="slide level2" data="auto-animate=&quot;true&quot;">
+<h2 data="auto-animate=&quot;true&quot;">Perspective Projection</h2>
+<p>We first extend the 3x3 homogeneous matrix for 2D graphics to a 4x4 matrix for 3D graphics.</p>
+</section>
+<section class="slide level2">
+
+<p>A perspective projection from 3D to 2D can then be expressed as:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 / d &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+x_c \\ y_c \\ z_c \\ 1
+\end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>the first time we have used the 4th row… take note of the -1/d term… and the last zero in the 4th column.</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<p>Let’s work out the matrix multiplication for each coordinate after projection:</p>
+<p><span class="math display">\[
+x = x_c ~, ~ y = y_c ~, ~ z = z_c ~, ~ w = \frac{z_c}{d}
+\]</span></p>
+<div>
+<ul>
+<li class="fragment">However, these are homogenous coordinates, i.e. they are scaled by a factor of w.</li>
+<li class="fragment">take note that <span class="math inline">\(w = \frac{z_c}{d}\)</span></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<p>To find the corresponding image coordinates, we divide:</p>
+<p><span class="math display">\[
+x_i = \frac{x}{w} = \frac{x_c}{\frac{z_c}{d}} ~,
+y_i = \frac{y}{w} = \frac{y_c}{\frac{z_c}{d}} ~,
+z_i = \frac{z}{w} = \frac{z_c}{\frac{z_c}{d}} = d,
+\]</span></p>
+<p>so <strong>all</strong> <span class="math inline">\(z_i\)</span> are equal to <span class="math inline">\(d\)</span>.</p>
+<aside class="notes">
+<p>and this is why we put d in the denominator earlier…</p>
+</aside>
+</section>
+<section id="perspective-projection-3" class="slide level2">
+<h2>Perspective Projection</h2>
+<p><span class="math display">\[
+\begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 / d &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+x_c \\ y_c \\ z_c \\ 1
+\end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>to show the matrix again - this is the matrix that performs perspective projection from 3D to 2D.</p>
+</aside>
+</section></section>
+<section>
+<section id="orthographic-projection" class="title-slide slide level1">
+<h1>Orthographic Projection</h1>
+<p>parallel projection…</p>
+</section>
+<section id="orthographic-projection-1" class="slide level2">
+<h2>Orthographic Projection</h2>
+<p>Orthographic projection projects a 3D object to a 2D plane using parallel projection lines, perpendicular to the image plane.</p>
+</section>
+<section id="orthographic-projection-2" class="slide level2">
+<h2>Orthographic Projection</h2>
+<p>Parallel projection lines do <em>not</em> converge to a fixed camera point.</p>
+<aside class="notes">
+<p>well, the do, but at a point at infinity.</p>
+</aside>
+</section>
+<section id="orthographic-projection-3" class="slide level2">
+<h2>Orthographic Projection</h2>
+<figure>
+<img data-src="assets/svg/ortho.svg" alt="orthographic projection" /><figcaption aria-hidden="true">orthographic projection</figcaption>
+</figure>
+<aside class="notes">
+<p>near or far objects now appear at the same size.</p>
+</aside>
+</section>
+<section id="orthographic-projection-4" class="slide level2">
+<h2>Orthographic Projection</h2>
+<p><span class="math display">\[
+\begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_c \\ y_c \\ z_c \\ 1
+\end{bmatrix}
+\]</span></p>
+<aside class="notes">
+<p>the matrix is interesting… think about our scaling matrix… what is happening here? All scaling is 1, except z which is 0.</p>
+</aside>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+<ul>
+<li>The Camera Model</li>
+<li>Perspective Projection</li>
+<li>Orthographic Projection</li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Hearn, D. et al. (2004). Computer Graphics with OpenGL.</li>
+<li>Strang, Gilbert, et al. (1993) Introduction to linear algebra.</li>
+</ul>
+<aside class="notes">
+<p>So we come to the end of transformations. We finally arrived at the 4x4 homogenous matrix - this is universal in graphics pipelines! we touched on the idea of camera models, perspective projection, and orthographic projection. please refer to the texts for more details, especially if the linear algebra is new to you.</p>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+        height: 900,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // The display mode that will be used to show slides
+        display: 'block',
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
