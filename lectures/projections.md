@@ -220,3 +220,65 @@ to show the matrix again - this is the matrix that performs perspective projecti
 :::
 
 # Orthographic Projection
+
+parallel projection...
+
+## Orthographic Projection
+
+Orthographic projection projects a 3D object to a 2D plane using parallel projection lines, perpendicular to the image plane.
+
+## Orthographic Projection
+
+Parallel projection lines do _not_ converge to a fixed camera point.
+
+::: notes
+well, the do, but at a point at infinity.
+:::
+
+## Orthographic Projection
+
+![orthographic projection](assets/svg/ortho.svg)
+
+::: notes
+near or far objects now appear at the same size.
+:::
+
+## Orthographic Projection
+
+$$
+\begin{bmatrix} x \\ y \\ z \\ w \end{bmatrix} =
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_c \\ y_c \\ z_c \\ 1
+\end{bmatrix}
+$$
+
+::: notes
+the matrix is interesting...
+think about our scaling matrix...
+what is happening here?
+All scaling is 1, except z which is 0.
+:::
+
+# Summary
+
+- The Camera Model
+- Perspective Projection
+- Orthographic Projection
+
+Reading:
+
+- Hearn, D. et al. (2004). Computer Graphics with OpenGL.
+- Strang, Gilbert, et al. (1993) Introduction to linear algebra.
+
+::: notes
+So we come to the end of transformations.
+We finally arrived at the 4x4 homogenous matrix - this is universal in graphics pipelines!
+we touched on the idea of camera models, perspective projection, and orthographic projection.
+please refer to the texts for more details, especially if the linear algebra is new to you.
+:::
