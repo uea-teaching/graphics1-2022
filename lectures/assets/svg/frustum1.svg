@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+  width="1000" height="700" viewBox="0, 0, 1000, 700">
+  <g id="edges">
+    <path d="M540.5,100.5 L180.5,540.5" fill-opacity="0" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="6,4" />
+    <path d="M780.5,140.5 L180.5,540.5" fill-opacity="0" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="6,4" />
+    <path d="M540.5,340.5 L180.5,540.5" fill-opacity="0" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="6,4" />
+    <path d="M780.5,380.5 L180.5,540.5" fill-opacity="0" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="6,4" />
+  </g>
+  <g id="frustum">
+    <path d="M360.5,320.5 L481.167,340.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M481.167,340.5 L481.167,459.299" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M481.167,459.299 L360.5,439.299" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M360.5,439.299 L360.5,320.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M540.5,340.5 L540.5,100.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M540.5,100.5 L780.5,140.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M780.5,140.5 L780.5,380.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M540.5,340.5 L780.5,380.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M360.5,320.5 L540.5,100.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M481.167,340.5 L780.5,140.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M481.167,459.299 L780.5,380.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <path d="M360.5,439.299 L540.5,340.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+    <text transform="matrix(1, 0, 0, 1, 815.096, 95)">
+      <tspan x="-75.096" y="8" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#7D7D7D">View Frustum
+      </tspan>
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="800"
+  height="640" viewBox="0, 0, 1000, 800">
+  <g id="Layer_1">
+    <g>
+      <path d="M100.5,600.5 L100.5,114.1" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+      <path d="M104.7,114.1 L100.5,102.9 L96.3,114.1 z" fill="#006CAA" fill-opacity="1" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+    </g>
+    <g>
+      <path d="M100.5,600.5 L886.9,600.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+      <path d="M886.9,604.7 L898.1,600.5 L886.9,596.3 z" fill="#006CAA" fill-opacity="1" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 931.5, 591.75)">
+      <tspan x="-21.996" y="3.25" font-family="HelveticaNeue-Bold" font-size="36" fill="#929292">Zc</tspan>
+    </text>
+    <g>
+      <path d="M400.5,600.5 L400.5,114.1" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+      <path d="M404.7,114.1 L400.5,102.9 L396.3,114.1 z" fill="#006CAA" fill-opacity="1" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+    </g>
+    <path d="M400.5,600.5 L400.5,660.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" stroke-dasharray="9,6" />
+    <path d="M800.5,600.5 L800.5,720.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" stroke-dasharray="9,6" />
+    <path d="M100.5,600.5 L100.5,720.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" stroke-dasharray="9,6" />
+    <g>
+      <path d="M114.1,720.5 L786.9,720.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+      <path d="M114.1,716.3 L102.9,720.5 L114.1,724.7 M114.1,720.5 L102.9,720.5" fill-opacity="0" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+      <path d="M786.9,724.7 L798.1,720.5 L786.9,716.3 M786.9,720.5 L798.1,720.5" fill-opacity="0" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+    </g>
+    <g>
+      <path d="M414.1,660.5 L786.9,660.5" fill-opacity="0" stroke="#006CAA" stroke-width="3" />
+      <path d="M414.1,656.3 L402.9,660.5 L414.1,664.7 M414.1,660.5 L402.9,660.5" fill-opacity="0" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+      <path d="M786.9,664.7 L798.1,660.5 L786.9,656.3 M786.9,660.5 L798.1,660.5" fill-opacity="0" stroke="#006CAA"
+        stroke-width="3" stroke-opacity="1" />
+    </g>
+    <path d="M100.5,300.5 L800.5,600.5" fill-opacity="0" stroke="#F37B00" stroke-width="3" />
+    <text transform="matrix(1, 0, 0, 1, 331.5, 711.75)">
+      <tspan x="-18.012" y="3.25" font-family="HelveticaNeue-MediumItalic" font-size="36" fill="#929292">Z</tspan>
+      <tspan x="4.668" y="3.25" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#929292">c</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 600, 650)">
+      <tspan x="-51.042" y="5" font-family="HelveticaNeue-MediumItalic" font-size="36" fill="#929292">Z</tspan>
+      <tspan x="-28.362" y="5" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#929292">i</tspan>
+      <tspan x="-22.578" y="5" font-family="HelveticaNeue-MediumItalic" font-size="36" fill="#929292"> = d</tspan>
+    </text>
+  </g>
+  <g id="x-labels">
+    <text transform="matrix(1, 0, 0, 1, 68.5, 91.75)">
+      <tspan x="-22.338" y="3.25" font-family="HelveticaNeue-Bold" font-size="36" fill="#929292">Xc</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 431.5, 91.75)">
+      <tspan x="-12.006" y="3.25" font-family="HelveticaNeue-Bold" font-size="36" fill="#929292">X</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 68.5, 291.75)">
+      <tspan x="-18.336" y="3.25" font-family="HelveticaNeue-MediumItalic" font-size="36" fill="#929292">X</tspan>
+      <tspan x="4.992" y="3.25" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#929292">c</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 431.5, 411.75)">
+      <tspan x="-14.556" y="3.25" font-family="HelveticaNeue-MediumItalic" font-size="36" fill="#929292">X</tspan>
+      <tspan x="8.772" y="3.25" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#929292">i</tspan>
+    </text>
+  </g>
+</svg>
