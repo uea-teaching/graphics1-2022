@@ -89,10 +89,95 @@ $$\textbf{r} = \textbf{r}_0 + \lambda\textbf{v}$$
 we don't define a coordinate space here, as r0 is a position vector from any origin.
 :::
 
-## Cartesian Line Equation
+## Cartesian Line Equation {data-auto-animate="true"}
 
-Algebraically, we can define a line with a _linear_ equation:
+Algebraically, we can define a line with an **implicit** _linear_ equation:
+
+::: {style="font-size: 1.8em;"}
+
+$$
+ax + bx + c = 0
+$$
+
+:::
 
 ::: notes
 or algebraic form.
 :::
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+We can derive the implicit form of the line equation from the vector equation.
+
+- Consider coordinates of points on the line as vectors projected to the x-axis and y-axis.
+- Apply the vector equation to the x-axis and y-axis projection to obtain the implicit form.
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+::: columns
+::::: {.column width=60%}
+![Parametric Line](assets/svg/implicit-line.svg)
+:::::
+::::: {.column style="font-size: 1.0em;"}
+
+Projecting to the x-axis and y-axis.
+
+$$
+\begin{aligned}
+\textbf{x} &= \textbf{x}_0 + \lambda(\textbf{x}_1 - \textbf{x}_0) \\
+\textbf{y} &= \textbf{y}_0 + \lambda(\textbf{y}_1 - \textbf{y}_0)
+\end{aligned}
+$$
+
+:::::
+:::
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+We can remove the scalar $\lambda$ using simultaneous equations:
+
+$$
+\begin{aligned}
+\textbf{x} &= \textbf{x}_0 + \lambda(\textbf{x}_1 - \textbf{x}_0)
+\hspace{20pt} \times (\textbf{y}_1 - \textbf{y}_0) \\
+- \textbf{y} &= \textbf{y}_0 + \lambda(\textbf{y}_1 - \textbf{y}_0)
+\hspace{20pt} \times (\textbf{x}_1 - \textbf{x}_0)
+\end{aligned}
+$$
+
+::: notes
+we multiply each equation... then subtract...
+:::
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+Giving:
+
+$$
+\begin{aligned}
+\textbf{x} (\textbf{y}_1 - \textbf{y}_0) - \textbf{y} (\textbf{x}_1 - \textbf{x}_0) &= \textbf{x}_0 (\textbf{y}_1 - \textbf{y}_0) - \textbf{y}_0 (\textbf{x}_1 - \textbf{x}_0) \\
+a \textbf{x} + b \textbf{y} &= -c
+\end{aligned}
+$$
+
+with:
+
+$$
+\begin{aligned}
+a &= \textbf{y}_1 - \textbf{y}_0 \\
+b &= \textbf{x}_0 - \textbf{x}_1 \\
+c &= -b\textbf{y}_0 - a\textbf{x}_0
+\end{aligned}
+$$
+
+::: notes
+bold x and y are the vectors projected to the axes...
+:::
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+The vectors $\textbf{x}$ and $\textbf{y}$ can be replaced with scalar values $x$ and $y$, yielding:
+
+$$
+ax + bx + c = 0 \hspace{20pt} \square
+$$
