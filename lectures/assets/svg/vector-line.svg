@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1000" height="1000" viewBox="0, 0, 1000, 1000">
+  <g id="axis" display="none">
+    <g>
+      <path d="M100.5,900.5 L100.5,118.7" fill-opacity="0" stroke="#959595" stroke-width="5"/>
+      <path d="M105.9,118.7 L100.5,104.3 L95.1,118.7 z" fill="#959595" fill-opacity="1" stroke="#959595" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M100.5,900.5 L882.3,900.5" fill-opacity="0" stroke="#959595" stroke-width="5"/>
+      <path d="M882.3,905.9 L896.7,900.5 L882.3,895.1 z" fill="#959595" fill-opacity="1" stroke="#959595" stroke-width="5" stroke-opacity="1"/>
+    </g>
+  </g>
+  <g id="line">
+    <path d="M40.5,700.5 L940.5,240.5" fill-opacity="0" stroke="#959595" stroke-width="4"/>
+  </g>
+  <g id="vectors">
+    <g>
+      <path d="M300.5,567.833 L582.286,424.686" fill-opacity="0" stroke="#38C400" stroke-width="6"/>
+      <path d="M585.004,430.035 L596.551,417.439 L579.569,419.337 z" fill="#38C400" fill-opacity="1" stroke="#38C400" stroke-width="6" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M300.5,567.833 L443.297,494.788" fill-opacity="0" stroke="#2BA4FF" stroke-width="5"/>
+      <path d="M445.756,499.596 L456.117,488.23 L440.838,489.981 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M300,577 C294.477,577 290,572.523 290,567 C290,561.477 294.477,557 300,557 C305.523,557 310,561.477 310,567 C310,572.523 305.523,577 300,577 z" fill="#EE0000"/>
+      <path d="M100.5,900.5 L300.5,567.833" fill-opacity="0" stroke="#EE0000" stroke-width="4"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 369.104, 500)">
+      <tspan x="-12" y="17.5" font-family="HelveticaNeue-MediumItalic" font-size="48" fill="#2BA4FF">v</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 619.547, 433.833)">
+      <tspan x="-8.88" y="17.5" font-family="HelveticaNeue-MediumItalic" font-size="48" fill="#38C400">r</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 280.656, 537.833)">
+      <tspan x="-15.552" y="17.5" font-family="HelveticaNeue-MediumItalic" font-size="48" fill="#EE0000">r</tspan>
+      <tspan x="2.208" y="17.5" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#EE0000">0</tspan>
+    </text>
+  </g>
+</svg>
