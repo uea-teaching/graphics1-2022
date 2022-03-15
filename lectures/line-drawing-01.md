@@ -132,6 +132,10 @@ $$
 :::::
 :::
 
+::: notes
+note that x and y are bold and are vectors, not scalars.
+:::
+
 ## Cartesian Line Equation {data-auto-animate="true"}
 
 We can remove the scalar $\lambda$ using simultaneous equations:
@@ -181,3 +185,46 @@ The vectors $\textbf{x}$ and $\textbf{y}$ can be replaced with scalar values $x$
 $$
 ax + bx + c = 0 \hspace{20pt} \square
 $$
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+The implicit equation has the form:
+
+$$
+f(x, y) = C
+$$
+
+where $C$ is a constant.
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+There is also an **explicit** algebraic equation of the form:
+
+$$
+y = f(x)
+$$
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+From:
+
+$$
+\begin{aligned}
+ax + by + c = 0 &\Rightarrow y =  - \frac{a}{b}x - \frac{c}{b} \\
+    &\Rightarrow y = mx + C
+\end{aligned}
+$$
+
+where:
+
+$$
+m = - \frac{a}{b}~, ~ C = - \frac{c}{b}
+$$
+
+::: notes
+note the difference between big C and small c.
+:::
+
+## Cartesian Line Equation {data-auto-animate="true"}
+
+Although the explicit equation $y = mx + c$ may be familiar, for computer graphics it is inconvenient, since for vertical lines $m = \inf$.
