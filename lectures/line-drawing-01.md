@@ -471,3 +471,39 @@ void lineDDA (int x0, int y0, int xEnd, int yEnd){
 ::: notes
 code from the course text
 :::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+DDA has a few problems:
+
+::: incremental
+
+- fails to take advantage of the integral nature of pixels
+- floating point variables to store the slope.
+- costly division operations to calculate the slope.
+
+:::
+
+::: notes
+not only that we store the slope as a floating point number, but we cast back to int to draw the line.
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+The algorithm has a few problems:
+
+- fails to take advantage of the integral nature of pixels
+- floating point variables to store the slope.
+- costly division operations to calculate the slope.
+
+We will address these short comings in the next lecture.
+
+# Summary
+
+- Theory and Concepts
+- Scan Conversion
+- Digital Differential Analyser (DDA)
+
+Reading:
+
+- Hearn & Baker, _Computer Graphics with OpenGL_, 4th Edition, Chapter 5
