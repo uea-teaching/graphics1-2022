@@ -337,7 +337,7 @@ grid positions are pixels on the screen or image
 Given $\delta x = x_{i+1} - x_i = 1$:
 
 $$
-y_{i+1} = m + y_i
+y_{i+1} = y_i + m
 $$
 
 Specifically for:
@@ -414,6 +414,60 @@ anyone have any suggestions?
 
 ## Digital Differential Analyser (DDA) {data-auto-animate="true"}
 
-For lines with a positive slope greater than 1.0, we reverse the roles of $x$ and $y$.
+For lines with an absolute positive slope greater than 1.0, we reverse the roles of $x$ and $y$.
 
 That is, we sample at unit $y$ intervals, $\delta y = 1$, and calculate consecutive x values as:
+
+$$
+x_{i+1} = x_i + \frac{1}{m}
+$$
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+To cover the remaining octants, we _decrement_ $x$ and $y$.
+
+Hence, for top, right, left and bottom octants, we have:
+
+$$
+\begin{aligned}
+|m| > 1~&,~           ~\delta y =~~1,& x_{i+1} &= x_i + \frac{1}{m} \\
+0 \leq |m| \leq 1~&,~ ~\delta x =~~1,& y_{i+1} &= y_i + m \\
+0 \leq |m| \leq 1~&,~ ~\delta x = -1,& y_{i+1} &= y_i + m \\
+|m| > 1~&,~           ~\delta y = -1,& x_{i+1} &= x_i + \frac{1}{m}
+\end{aligned}
+$$
+
+::: notes
+this now covers all octants.
+:::
+
+---
+
+![all octants](assets/svg/all-octants.svg){width="65%"}
+
+---
+
+```{.c data-line-numbers="1-18"}
+void lineDDA (int x0, int y0, int xEnd, int yEnd){
+    int dx=xEnd-x0, dy=yEnd-y0, steps, k;
+    float xIncrement, yIncrement, x = x0, y = y0;
+
+   if (fabs (dx) > fabs (dy))
+      steps = fabs (dx);
+   else
+      steps = fabs (dy);
+
+   xIncrement = float (dx) / float (steps);
+   yIncrement = float (dy) / float (steps);
+
+   setPixel (round (x), round (y));
+   for (k = 0; k < steps; k++) {
+        x += xIncrement;
+        y += yIncrement;
+        setPixel (round (x), round (y));
+} }
+```
+
+::: notes
+code from the course text
+:::
