@@ -186,6 +186,10 @@ $$
 ax + bx + c = 0 \hspace{20pt} \square
 $$
 
+::: notes
+Q.E.D. quod erat demonstrandum - what was demonstrated...
+:::
+
 ## Cartesian Line Equation {data-auto-animate="true"}
 
 The implicit equation has the form:
@@ -196,6 +200,10 @@ $$
 
 where $C$ is a constant.
 
+::: notes
+so the this is a function of two variables, x, y.
+:::
+
 ## Cartesian Line Equation {data-auto-animate="true"}
 
 There is also an **explicit** algebraic equation of the form:
@@ -204,21 +212,26 @@ $$
 y = f(x)
 $$
 
+::: notes
+so the this is a function of x, x is an independent variable, y is a dependent variable.
+:::
+
 ## Cartesian Line Equation {data-auto-animate="true"}
 
 From:
 
 $$
 \begin{aligned}
-ax + by + c = 0 &\Rightarrow y =  - \frac{a}{b}x - \frac{c}{b} \\
-    &\Rightarrow y = mx + C
+ax + by + c =& ~0 \\
+\Rightarrow y =&  - \frac{a}{b}x - \frac{c}{b} \\
+\Rightarrow y =& mx + d
 \end{aligned}
 $$
 
 where:
 
 $$
-m = - \frac{a}{b}~, ~ C = - \frac{c}{b}
+m = - \frac{a}{b}~, ~ d = - \frac{c}{b}
 $$
 
 ::: notes
@@ -227,4 +240,53 @@ note the difference between big C and small c.
 
 ## Cartesian Line Equation {data-auto-animate="true"}
 
-Although the explicit equation $y = mx + c$ may be familiar, for computer graphics it is inconvenient, since for vertical lines $m = \inf$.
+Although the explicit equation $y = mx + c$ may be familiar, for computer graphics it is inconvenient, since for vertical lines $m = \infty$.
+
+# Scan Conversion
+
+Lines in mathematics are continuous and have _infinite_ resolution.
+
+A computer screen has finite resolution using discrete picture elements, or **pixels**.
+
+::: notes
+we may be rendering to screen, or rendering to an image file.
+:::
+
+## Scan Conversion
+
+For rendering, we will discretise the line equation using finite deltas.
+
+$$
+y = m x + c \Rightarrow \Delta y = \Delta m x + c
+$$
+
+::: notes
+finite differences...
+:::
+
+## Scan Conversion
+
+- We always render line **segments**.
+- Line segments have a defined start and end point.
+- Hence, we can derive the slope and intercept of our line.
+
+$$
+\begin{aligned}
+m &= \frac{y_{end} - y_0}{x_{end} - x_0} \\
+c &= y_0 - m x_0
+\end{aligned}
+$$
+
+::: notes
+you can clearly see here the danger of division by zero.
+:::
+
+## Scan Conversion
+
+**NB:** We will ignore the intercept $c$ for the derivations.
+
+- it should be added to the right-hand side of the equation for lines with $c \neq 0$
+
+::: notes
+for our algorithms under discussion, we will ignore the intercept $c$ for now.
+:::
