@@ -252,19 +252,19 @@ A computer screen has finite resolution using discrete picture elements, or **pi
 we may be rendering to screen, or rendering to an image file.
 :::
 
-## Scan Conversion
+## Scan Conversion {data-auto-animate="true"}
 
 For rendering, we will discretise the line equation using finite deltas.
 
 $$
-y = m x + c \Rightarrow \Delta y = \Delta m x + c
+y = m x + c \Rightarrow \delta y = \delta m x + c
 $$
 
 ::: notes
 finite differences...
 :::
 
-## Scan Conversion
+## Scan Conversion {data-auto-animate="true"}
 
 - We always render line **segments**.
 - Line segments have a defined start and end point.
@@ -281,7 +281,7 @@ $$
 you can clearly see here the danger of division by zero.
 :::
 
-## Scan Conversion
+## Scan Conversion {data-auto-animate="true"}
 
 **NB:** We will ignore the intercept $c$ for the derivations.
 
@@ -289,4 +289,63 @@ you can clearly see here the danger of division by zero.
 
 ::: notes
 for our algorithms under discussion, we will ignore the intercept $c$ for now.
+so, all our discussion will be about lines that pass through the origin.
+:::
+
+# Digital Differential Analyser (DDA)
+
+The digital differential analyser (DDA) is a scan-conversion line algorithm based on calculating either $\delta y$ or $\delta x$
+
+::: notes
+and as I have said previously we will ignore the intercept $c$ for now.
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+Calculating $\delta x$.
+Since the distance between points is measured in pixels;
+if we move pixel by pixel along the positive $x$ axis, we have:
+
+$$
+\delta x = x_{i+1} - x_i = 1
+$$
+
+::: notes
+we just step right, one pixel at a time...
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+Calculating $\delta y$.
+
+$$
+\begin{aligned}
+\delta y &= m \delta x \\
+y_{i+1} - y_i &= m (x_{i+1} - x_i)
+\end{aligned}
+$$
+
+Where $i$ is a grid position of a discreet point on the line, and $i + 1$ is an immediate neighbour on the grid.
+
+::: notes
+grid positions are pixels on the screen or image
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+Given $\delta x = x_{i+1} - x_i = 1$:
+
+$$
+y_{i+1} = m + y_i
+$$
+
+Specifically for:
+
+$$
+0 \leq |m| \leq 1
+$$
+
+::: notes
+be careful here, we have stated x increases by one to the right...
+so for lines steeper than m = 1, we will have gaps between pixels.
 :::
