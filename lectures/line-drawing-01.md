@@ -283,7 +283,7 @@ you can clearly see here the danger of division by zero.
 
 ## Scan Conversion {data-auto-animate="true"}
 
-**NB:** We will ignore the intercept $c$ for the derivations.
+**NB:** We will ignore the intercept $c$ for the following derivations.
 
 - it should be added to the right-hand side of the equation for lines with $c \neq 0$
 
@@ -325,7 +325,8 @@ y_{i+1} - y_i &= m (x_{i+1} - x_i)
 \end{aligned}
 $$
 
-Where $i$ is a grid position of a discreet point on the line, and $i + 1$ is an immediate neighbour on the grid.
+Where $i$ is a grid position of a discreet point on the line,
+and $i + 1$ is an immediate neighbour on the grid.
 
 ::: notes
 grid positions are pixels on the screen or image
@@ -349,3 +350,70 @@ $$
 be careful here, we have stated x increases by one to the right...
 so for lines steeper than m = 1, we will have gaps between pixels.
 :::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+::: columns
+::::: column
+![render octants](assets/svg/octants.svg)
+:::::
+::::: column
+So far, our algorithm will draw lines when:
+
+$$
+0 \leq |m| \leq 1~ \text{and} ~ x \geq 0
+$$
+
+:::::
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+```{.c}
+#include <stdlib.h>
+#include <math.h>
+
+inline int round (const float a) {
+    return int (a + 0.5);
+    }
+
+// Assume a function setPixel exists.
+...
+```
+
+::: notes
+before we look at pseudo code for DDA , we need a couple of helper functions...
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+```{.c data-line-numbers="1-9|1|2-4|6-8"}
+void naiveDDA (int x0, int y0, int xEnd, int yEnd){
+    int x = x0;
+    float y = float (y0);
+    float m = float (yEnd - y0) / float (xEnd - x0);
+
+   for (x = x0; x <= xEnd; x++) {
+        setPixel (x, round (y));
+        y += m;
+} }
+```
+
+::: notes
+our naive version of DDA that just draws in the right hand octants.
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+How do we draw in the other octants?
+
+::: notes
+or - what goes wrong for lines that are steep?
+anyone have any suggestions?
+:::
+
+## Digital Differential Analyser (DDA) {data-auto-animate="true"}
+
+For lines with a positive slope greater than 1.0, we reverse the roles of $x$ and $y$.
+
+That is, we sample at unit $y$ intervals, $\delta y = 1$, and calculate consecutive x values as:
