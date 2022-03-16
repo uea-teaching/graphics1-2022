@@ -96,7 +96,7 @@ Algebraically, we can define a line with an **implicit** _linear_ equation:
 ::: {style="font-size: 1.8em;"}
 
 $$
-ax + bx + c = 0
+ax + by + c = 0
 $$
 
 :::
@@ -183,7 +183,7 @@ bold x and y are the vectors projected to the axes...
 The vectors $\textbf{x}$ and $\textbf{y}$ can be replaced with scalar values $x$ and $y$, yielding:
 
 $$
-ax + bx + c = 0 \hspace{20pt} \square
+ax + by + c = 0 \hspace{20pt} \square
 $$
 
 ::: notes
