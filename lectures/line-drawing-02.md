@@ -135,9 +135,9 @@ We have these floating point numbers we want to get rid of...
 
 ## {data-auto-animate="true"}
 
-First we have: $m = \frac{y1 - y0}{x1 - x0}$
+First we have: $m = \frac{y_1 - y_0}{x_1 - x_0}$
 
-- To remove the fraction, we multiply by $(x1 - x0)$.
+- To remove the fraction, we multiply by $(x_1 - x_0)$.
 - To remove the comparison to $1/2$ we multiply by 2.
 
 hence:
@@ -151,10 +151,23 @@ $$
 
 ## {data-auto-animate="true"}
 
+We also want to set a `start_value` for `fraction`:
+
+$$
+start\_value = 2(y_1 - y_0) - (x_1 - x_0)
+$$
+
+::: notes
+skip explanantion...
+but it starts with m, offset by 1/2, then we multiply by 2(x1 - x0).
+:::
+
+## {data-auto-animate="true"}
+
 ```{ .python}
 x = x0
 y = y0
-fraction = start_value
+fraction = 2 * (y1 - y0) - (x1 - x0)
 fraction_step = 2 * (y1 - y0)
 draw(x, y)
 while x < x1:
@@ -169,4 +182,17 @@ while x < x1:
 ::: notes
 Also, we would prefer to compare to 0, rather than 1.
 so our algorithm is...
+in real code we would also compute 2DX once...
 :::
+
+## Bresenham's Line Algorithm {data-auto-animate="true"}
+
+There are other approaches to deriving the Bresenham Line Algorithm.
+The parts are the same, but some details are presented differently.
+
+The course text makes the decision to move up in `y` based on the distance
+between the _true_ line and the nearest pixel.
+
+- Hearn & Baker, _Computer Graphics with OpenGL_, 4th Edition, Chapter 5
+
+# Midpoint Line Algorithm {data-auto-animate="true"}
