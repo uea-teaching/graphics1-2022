@@ -91,7 +91,7 @@ as we progress with pseudo code...
 Assuming the line is given by $y = mx + c$:
 
 - we are setting ` y = round(mx) + c`
-- each step of $x$ will increment $y$ by $m$
+- each unit step of $x$ will increment $y$ by $m$
 
 ::: notes
 we can ignore c from now on...
@@ -111,7 +111,7 @@ as the algorithm progresses, when the fraction is over half, we want to move up 
 
 ## {data-auto-animate="true"}
 
-```{.python}
+```{ .python}
 x = x0
 y = y0
 fraction = start_value
@@ -148,3 +148,25 @@ fraction\_step &= \frac{y1 - y0}{x1 - x0} \times (x1 - x0) \times 2 \\
         &= 2 (y1 - y0)
 \end{aligned}
 $$
+
+## {data-auto-animate="true"}
+
+```{ .python}
+x = x0
+y = y0
+fraction = start_value
+fraction_step = 2 * (y1 - y0)
+draw(x, y)
+while x < x1:
+    x = x + 1
+    fraction = fraction + fraction_step
+    if fraction >= 0:
+        y = y + 1
+        fraction = fraction - 2 * (x1 - x0)
+    draw(x, y)
+```
+
+::: notes
+Also, we would prefer to compare to 0, rather than 1.
+so our algorithm is...
+:::
