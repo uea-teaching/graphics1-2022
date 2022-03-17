@@ -15,8 +15,12 @@ date: Spring 2022
 
 Improving the efficiency of the DDA line drawing algorithm.
 
+- remove floating point operations
+- minimise the number of operations
+
 ::: notes
-DDA draws lines on our pixel grid. But, there are lots of floating point conversions.
+DDA draws lines on our pixel grid.
+But, there are lots of floating point conversions.
 :::
 
 ## {data-auto-animate="true"}
@@ -31,6 +35,7 @@ Let's make clear some assumptions:
 
 ::: notes
 we already covered the concept of octants...we draw only in the first octant.
+The upper right octant...
 and strictly, pixels are on or off...
 :::
 
