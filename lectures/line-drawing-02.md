@@ -201,3 +201,85 @@ between the _true_ line and the nearest pixel.
 - Hearn & Baker, _Computer Graphics with OpenGL_, 4th Edition, Chapter 5
 
 # Midpoint Line Algorithm {data-auto-animate="true"}
+
+Midpoint is a variation of Bresenham's Line Algorithm.
+
+Same improvement goals:
+
+- remove floating point operations
+- minimise the number of operations
+
+::: notes
+of course it is functionally identical - it draws lines on our pixel grid.
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+The midpoint algorithm uses 8 compass points to describe the _next_ pixel to draw:
+
+- E, NE, N, NW, W, SW, S, SE
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+We will describe the algorithm just for the _upper right octant_.
+
+- The only possible next directions are E and NE.
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+::: columns
+::::: column
+![midpoint pixel directions](assets/svg/mid-grid1.svg)
+:::::
+::::: column
+For a **previous** pixel `p` in the upper right quadrant, we label the two candidate pixels E and NE.
+
+We will describe criteria based on the midpoint between the two candidates.
+
+:::::
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+The algorithm decides if a **true** line passes either above, below or through the midpoint.
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+![Three possible cases](assets/svg/mid-point-3.svg)
+
+::: notes
+here we show the previous pixel
+the true line in green, in each of 3 possible cases.
+The x is the same, but the y is different.
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+`IF the true line is below or on the midpoint: pick the E pixel.`
+
+`ELSE: pick the NE pixel.`
+
+::: notes
+almost pseudo code... we will have to reinforce the logic somewhat...
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+We will use the _implicit_ line equation:
+
+$$
+ax + by + c = 0
+$$
+
+We know that:
+
+$$
+a = \Delta y~, b = -\Delta x~ \Rightarrow f(x, y) = x \Delta y - y \Delta x + c = 0
+$$
+
+**N.B.** henceforth we will assume $c=0$.
+
+::: notes
+we know this from the earlier lecture.
+We will not have C involved for brevity
+:::
