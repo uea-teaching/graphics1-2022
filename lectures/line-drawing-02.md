@@ -277,9 +277,72 @@ $$
 a = \Delta y~, b = -\Delta x~ \Rightarrow f(x, y) = x \Delta y - y \Delta x + c = 0
 $$
 
-**N.B.** henceforth we will assume $c=0$.
+**N.B.** henceforth we will assume $c=0$, and remove from the derivations.
 
 ::: notes
 we know this from the earlier lecture.
 We will not have C involved for brevity
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+**IF** the line goes exactly through the midpoint then we have the decision variable:
+
+$$
+\begin{aligned}
+D &= f(x_p + 1, y_p + \tfrac{1}{2}) \\
+  &= a_{(m)} (x_p + 1) + b_{(m)} (y_p + \tfrac{1}{2}) \\
+  &= 0
+\end{aligned}
+$$
+
+recall, in the upper right octant: $a > 0, ~b < 0$
+
+::: notes
+D is a decision variable.
+because a=y0-y1 and b=x0-x1, from previous lecture.
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+**IF** the line goes _below_ the midpoint:
+
+$$a<a_{(m)} \land b>b_{(m)} \Rightarrow D < 0 \Rightarrow E$$
+
+The actual value of $D(E)$ is:
+
+$$
+\begin{aligned}
+D(E)    &= f(x_p + 1, y_p) \\
+        &= a(x_p + 1) + b y_p \\
+        &= a x_p + a + b y_p \\
+        &= f(x_p, y_p) + a
+\end{aligned}
+$$
+
+::: notes
+the true a is less than the midpoint a, and the true b is greater than the midpoint b.
+we want to take a decision to go East.
+here it is just important to do the same consistent thing when we are at the midpoint.
+:::
+
+## Midpoint Line Algorithm {data-auto-animate="true"}
+
+**ELSE** the line goes _above_ the midpoint:
+
+$$a>a_{(m)} \land b<b_{(m)} \Rightarrow D > 0 \Rightarrow NE$$
+
+The actual value of $D(NE)$ is:
+
+$$
+\begin{aligned}
+D(NE)   &= f(x_p + 1, y_p + 1) \\
+        &= a(x_p + 1) + b(y_p + 1) \\
+        &= a x_p + a + b y_p + b \\
+        &= f(x_p, y_p) + a + b
+\end{aligned}
+$$
+
+::: notes
+and, finally, the line goes above - we now pick the NE pixel.
 :::
