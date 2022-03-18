@@ -430,7 +430,7 @@ $$
 \begin{aligned}
 D_{init} &= f(x_0 + 1, y_0 + \tfrac{1}{2}) \\
   &= a (x_0 + 1) + b (y_0 + \tfrac{1}{2}) \\
-  &= a x_0 + a + b y_0 + \tfrac{1}{2} b \\
+  &= a x_0 + b y_0 + a + \tfrac{1}{2} b \\
   &= f(x_0, y_0) + a + \tfrac{1}{2} b
 \end{aligned}
 $$
