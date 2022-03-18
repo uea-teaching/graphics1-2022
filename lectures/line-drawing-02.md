@@ -284,7 +284,7 @@ we know this from the earlier lecture.
 We will not have C involved for brevity
 :::
 
-## Midpoint Line Algorithm {data-auto-animate="true"}
+## Decision Variable {data-auto-animate="true"}
 
 **IF** the line goes exactly through the midpoint then we have the decision variable:
 
@@ -299,11 +299,11 @@ $$
 recall, in the upper right octant: $a > 0, ~b < 0$
 
 ::: notes
-D is a decision variable.
+D is a decision variable - when it goes exactly through the midpoint, we pick the E pixel.
 because a=y0-y1 and b=x0-x1, from previous lecture.
 :::
 
-## Midpoint Line Algorithm {data-auto-animate="true"}
+## Decision Variable {data-auto-animate="true"}
 
 **IF** the line goes _below_ the midpoint:
 
@@ -326,7 +326,7 @@ we want to take a decision to go East.
 here it is just important to do the same consistent thing when we are at the midpoint.
 :::
 
-## Midpoint Line Algorithm {data-auto-animate="true"}
+## Decision Variable {data-auto-animate="true"}
 
 **ELSE** the line goes _above_ the midpoint:
 
@@ -345,4 +345,69 @@ $$
 
 ::: notes
 and, finally, the line goes above - we now pick the NE pixel.
+:::
+
+## Decision Variable {data-auto-animate="true"}
+
+To avoid having to recalculate actual decision variable values each
+time we move one pixel in x, we can derive a decision variable _increment_ instead.
+
+We do this by looking ahead to the **next** pixel.
+
+## Decision Variable Increment {data-auto-animate="true"}
+
+::: columns
+::::: column
+![D(E)](assets/svg/below-mid.svg)
+:::::
+::::: column
+If we choose the E pixel then the next midpoint will be at:
+
+$$
+\begin{aligned}
+D_{mE} &= f(x_p + 2, y_p + \tfrac{1}{2}) \\
+  &= a (x_p + 2) + b (y_p + \tfrac{1}{2})
+\end{aligned}
+$$
+
+Subtracting the original $D$ gives:
+
+$$
+\begin{aligned}
+\Delta E &= D_{mE} - D \\
+    &= a \\
+    &= \Delta y
+\end{aligned}
+$$
+
+:::::
+:::
+
+## Decision Variable Increment {data-auto-animate="true"}
+
+::: columns
+::::: column
+![D(NE)](assets/svg/above-mid.svg)
+:::::
+::::: column
+If we choose the NE pixel then the next midpoint will be at:
+
+$$
+\begin{aligned}
+D_{mNE} &= f(x_p + 2, y_p + \tfrac{3}{2}) \\
+  &= a (x_p + 2) + b (y_p + \tfrac{3}{2})
+\end{aligned}
+$$
+
+Subtracting the original $D$ gives:
+
+$$
+\begin{aligned}
+\Delta NE &= D_{mNE} - D \\
+    &= a+b \\
+    &= \Delta y - \Delta x
+\end{aligned}
+$$
+
+:::::
 :::
