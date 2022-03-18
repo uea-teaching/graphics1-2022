@@ -410,3 +410,54 @@ $$
 
 :::::
 :::
+
+## Initial Decision Variable {data-auto-animate="true"}
+
+If the decision variable relies on the previous pixel,
+what is the decision variable for the first pixel?
+
+## Initial Decision Variable {data-auto-animate="true"}
+
+Since the start point is on the line:
+
+$$
+f(x_0, y_0) = 0
+$$
+
+Substituting into the decision variable gives:
+
+$$
+\begin{aligned}
+D_{init} &= f(x_0 + 1, y_0 + \tfrac{1}{2}) \\
+  &= a (x_0 + 1) + b (y_0 + \tfrac{1}{2}) \\
+  &= a x_0 + a + b y_0 + \tfrac{1}{2} b \\
+  &= f(x_0, y_0) + a + \tfrac{1}{2} b
+\end{aligned}
+$$
+
+## Initial Decision Variable {data-auto-animate="true"}
+
+This yields:
+
+$$D_{init} = a + \tfrac{b}{2}$$
+
+We want to remove floating point arithmetic, so we can multiply by $2$,
+however, we must _also_ do this to the decision variable _increments_.
+
+## Initial Decision Variable {data-auto-animate="true"}
+
+Finally, our initial decision variable is:
+
+$$
+D_{init} = 2a + b = 2 \Delta y - \Delta x
+$$
+
+and the decision variable increments are:
+
+$$
+\Delta E = 2 \Delta y,~ \Delta NE = 2 (\Delta y - \Delta x)
+$$
+
+::: notes
+finally, we have arrived - we can show an implementation...
+:::
