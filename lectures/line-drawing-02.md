@@ -62,7 +62,6 @@ pseudo code
 ::: notes
 now look at this image... if we are moving left to right, what do we say about how to draw the pixel?
 it is only either to the right of the previous pixel, or up and right!
-so - we
 :::
 
 ## {data-auto-animate="true"}
@@ -232,9 +231,9 @@ We will describe the algorithm just for the _upper right octant_.
 ![midpoint pixel directions](assets/svg/mid-grid1.svg)
 :::::
 ::::: column
-For a **previous** pixel `p` in the upper right quadrant, we label the two candidate pixels E and NE.
+For a **previous** pixel `p` in the upper right octant, we label the two _candidate_ pixels E and NE.
 
-We will describe criteria based on the midpoint between the two candidates.
+We will define criteria based on the midpoint between the two candidates.
 
 :::::
 :::
@@ -286,7 +285,7 @@ We will not have C involved for brevity
 
 ## Decision Variable {data-auto-animate="true"}
 
-**IF** the line goes exactly through the midpoint then we have the decision variable:
+**IF** the line goes exactly through the midpoint then we have the _decision_ variable:
 
 $$
 \begin{aligned}
@@ -358,10 +357,10 @@ We do this by looking ahead to the **next** pixel.
 
 ::: columns
 ::::: column
-![D(E)](assets/svg/below-mid.svg)
+![chosen E pixel](assets/svg/below-mid.svg)
 :::::
 ::::: column
-If we choose the E pixel then the next midpoint will be at:
+If we have chosen the E pixel then the next midpoint will be at:
 
 $$
 \begin{aligned}
@@ -387,10 +386,10 @@ $$
 
 ::: columns
 ::::: column
-![D(NE)](assets/svg/above-mid.svg)
+![chosen NE pixel](assets/svg/above-mid.svg)
 :::::
 ::::: column
-If we choose the NE pixel then the next midpoint will be at:
+If we have chosen the NE pixel then the next midpoint will be at:
 
 $$
 \begin{aligned}
