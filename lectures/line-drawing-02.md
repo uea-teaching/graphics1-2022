@@ -1,5 +1,5 @@
 ---
-title: Effective Line Drawing
+title: Efficient Line Drawing
 subtitle: Graphics 1 CMP-5010B
 author: Dr. David Greenwood
 date: Spring 2022
@@ -481,3 +481,80 @@ void lineMid(int x0, int y0, int xEnd, int yEnd){
     setPixel(x,y);
 }  }
 ```
+
+::: notes
+here is a cpp implementation - all integers - only addition in the loop.
+:::
+
+# Aliasing
+
+Aliasing is a distortion artifact when representing a high-resolution image at a lower resolution.
+
+- stair steps
+- jagged edges
+
+::: notes
+we've seen this in our line drawing here. It is that stair-stepped effect / jagged edge to lines.
+:::
+
+## Anti-Aliasing {data-auto-animate="true"}
+
+To mitigate aliasing, we can use a technique called _anti-aliasing_.
+
+We will consider a few possible approaches.
+
+::: notes
+
+:::
+
+## Anti-Aliasing {data-auto-animate="true"}
+
+The first approach is to consider a higher resolution display.
+
+- This has happened naturally, as hardware has improved.
+- We can consider this a "brute force" approach.
+
+::: notes
+there are practical limitations of course - but all methods of anti-aliasing aim to give the appearance of higher resolution display.
+:::
+
+## Anti-Aliasing {data-auto-animate="true"}
+
+We can render an artificially thick line.
+
+- Reduce colour intensity as we move away from the true line.
+
+![anti-aliased line](assets/svg/pixel-line-aa.svg){width="80%"}
+
+## Anti-Aliasing {data-auto-animate="true"}
+
+We can render to a sub-pixel grid.
+
+- then use sampling to get the colour at the pixel.
+
+## Anti-Aliasing {data-auto-animate="true"}
+
+We can filter the image.
+
+- usually some _low-pass_ filter
+- e.g. box or gaussian filter
+- filtering is performed using **convolution** with a _kernel_
+- often combined with sub-pixel sampling.
+
+# Summary
+
+- Bresenham's Line Algorithm
+- Midpoint Line Algorithm
+- Antialiasing
+
+Reading:
+
+- Hearn & Baker, _Computer Graphics with OpenGL_, 4th Edition, Chapter 5
+- Bresenham, J. E. (1965) "Algorithm for computer control of a digital plotter"
+
+::: notes
+We've talked about lines today - we may not render edges directly, but they are there implicitly as boundaries of polygons.
+Next weeks lecture will cover polygons...
+
+Old algorithm - becoming important to understand again when learning from images.
+:::
