@@ -9,6 +9,7 @@
 !scripts/
 !scripts/*.py
 !scripts/*.json
+!scripts/*.cpp
 
 !lectures/
 !lectures/Makefile
