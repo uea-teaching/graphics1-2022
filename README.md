@@ -22,3 +22,5 @@ There is also a Makefile in the root of this repo if you already have Docker ins
 - Homogeneous Coordinates
 - Combined Transformations
 - Projective Transformations
+- Introduction to Line Drawing
+- Efficient Line Drawing
