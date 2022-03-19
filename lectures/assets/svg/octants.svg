@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1000" height="1000" viewBox="0, 0, 1000, 1000">
+  <g id="octants">
+    <path d="M100,100 L900,100 L900,900 L100,900 L100,100 z" fill="#FFE5E5"/>
+    <path d="M500,500 L900,100 L900,900 z" fill="#D2FFC0"/>
+    <path d="M100.5,900.5 L900.5,100.5" fill-opacity="0" stroke="#000000" stroke-width="3"/>
+    <path d="M100.5,100.5 L900.5,900.5" fill-opacity="0" stroke="#000000" stroke-width="3"/>
+  </g>
+  <g id="axes">
+    <g>
+      <path d="M500.5,960.5 L500.5,58.7" fill-opacity="0" stroke="#2BA4FF" stroke-width="5"/>
+      <path d="M505.9,58.7 L500.5,44.3 L495.1,58.7 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M40.5,500.5 L942.3,500.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="5"/>
+      <path d="M942.3,505.9 L956.7,500.5 L942.3,495.1 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="5" stroke-opacity="1"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 468, 53)">
+      <tspan x="-12" y="17.5" font-family="HelveticaNeue-MediumItalic" font-size="48" fill="#2BA4FF">y</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 926, 469.5)">
+      <tspan x="-12" y="17.5" font-family="HelveticaNeue-MediumItalic" font-size="48" fill="#2BA4FF">x</tspan>
+    </text>
+  </g>
+</svg>
