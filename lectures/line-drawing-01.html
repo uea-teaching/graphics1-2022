@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. David Greenwood">
+  <title>Introduction to Line Drawing</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.2.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Introduction to Line Drawing</h1>
+  <p class="subtitle">Graphics 1 CMP-5010B</p>
+  <p class="author">Dr. David Greenwood</p>
+  <p class="date">Spring 2022</p>
+</section>
+
+<section id="contents" class="title-slide slide level1" data-transition="convex">
+<h1 data-transition="convex">Contents</h1>
+<ul>
+<li>Theory and Concepts</li>
+<li>Scan Conversion</li>
+<li>Digital Differential Analyser (DDA)</li>
+</ul>
+</section>
+
+<section>
+<section id="lines" class="title-slide slide level1">
+<h1>Lines</h1>
+<p>A <strong>line</strong> is an <em>infinitely</em> thin, infinitely long collection of points extending in two opposite directions.</p>
+<aside class="notes">
+<p>We know intuitively what a line is, it is actually difficult to give a good mathematical definition.</p>
+</aside>
+</section>
+<section id="lines-1" class="slide level2">
+<h2>Lines</h2>
+<p>A line <strong>segment</strong> has two <em>endpoints</em> and all the points of the line between them.</p>
+<aside class="notes">
+<p>You can measure the length of a segment, but not of a line.</p>
+</aside>
+</section>
+<section id="lines-2" class="slide level2">
+<h2>Lines</h2>
+<p>A <strong>ray</strong> is part of a line with one endpoint and extends infinitely in <em>one</em> direction.</p>
+<aside class="notes">
+<p>You cannot measure the length of a ray.</p>
+</aside>
+</section>
+<section id="representing-lines" class="slide level2">
+<h2>Representing Lines</h2>
+<p>We will consider two line representations:</p>
+<ul>
+<li>Parametric, or vector form.</li>
+<li>Cartesian form.</li>
+</ul>
+</section>
+<section id="parametric-line-equation" class="slide level2">
+<h2>Parametric Line Equation</h2>
+<p>A line can be defined as the set of all points in space that satisfy two criteria:</p>
+<ol type="1">
+<li>Contains a point, which we identify by a position vector <span class="math inline">\(\textbf{r}_0\)</span>.</li>
+<li>The vector between <span class="math inline">\(\textbf{r}_0\)</span> and <em>any</em> position vector <span class="math inline">\(\textbf{r}\)</span> <em>on</em> the line, is <strong>parallel</strong> to a given vector <span class="math inline">\(\textbf{v}\)</span>.</li>
+</ol>
+</section>
+<section id="parametric-line-equation-1" class="slide level2">
+<h2>Parametric Line Equation</h2>
+<p>The vector with initial point <span class="math inline">\(\textbf{r}_0\)</span> and terminal point <span class="math inline">\(\textbf{r}\)</span> is given by:</p>
+<p><span class="math display">\[
+\textbf{s} = \textbf{r} - \textbf{r}_0
+\]</span></p>
+<p>This vector must be parallel to <span class="math inline">\(\textbf{v}\)</span> hence, for some scalar <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[\textbf{s} = \lambda\textbf{v}\]</span></p>
+</section>
+<section id="parametric-line-equation-2" class="slide level2">
+<h2>Parametric Line Equation</h2>
+<p>Any position vector <span class="math inline">\(\textbf{r}\)</span>, corresponding to a point <span class="math inline">\(P\)</span> on the line has the form:</p>
+<p><span class="math display">\[\textbf{r} = \textbf{r}_0 + \lambda\textbf{v}\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is a scalar called a <em>parameter</em>, and this is the <strong>vector</strong> equation.</p>
+<aside class="notes">
+<p>it follows… The parameter is allowed to be any value, so that any point on the line can be obtained from this equation, which is called the vector equation of the line.</p>
+</aside>
+</section>
+<section id="parametric-line-equation-3" class="slide level2">
+<h2>Parametric Line Equation</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/vector-line.svg" alt="Parametric Line" /><figcaption aria-hidden="true">Parametric Line</figcaption>
+</figure>
+</div><div class="column" style="font-size: 1.8em;">
+<p><span class="math display">\[\textbf{r} = \textbf{r}_0 + \lambda\textbf{v}\]</span></p>
+</div>
+</div>
+<aside class="notes">
+<p>we don’t define a coordinate space here, as r0 is a position vector from any origin.</p>
+</aside>
+</section>
+<section id="cartesian-line-equation" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>Algebraically, we can define a line with an <strong>implicit</strong> <em>linear</em> equation:</p>
+<div style="font-size: 1.8em;">
+<p><span class="math display">\[
+ax + by + c = 0
+\]</span></p>
+</div>
+<aside class="notes">
+<p>or algebraic form.</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>We can derive the implicit form of the line equation from the vector equation.</p>
+<ul>
+<li>Consider coordinates of points on the line as vectors projected to the x-axis and y-axis.</li>
+<li>Apply the vector equation to the x-axis and y-axis projection to obtain the implicit form.</li>
+</ul>
+</section>
+<section id="cartesian-line-equation-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/implicit-line.svg" alt="Parametric Line" /><figcaption aria-hidden="true">Parametric Line</figcaption>
+</figure>
+</div><div class="column" style="font-size: 1.0em;">
+<p>Projecting to the x-axis and y-axis.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\textbf{x} &amp;= \textbf{x}_0 + \lambda(\textbf{x}_1 - \textbf{x}_0) \\
+\textbf{y} &amp;= \textbf{y}_0 + \lambda(\textbf{y}_1 - \textbf{y}_0)
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+<aside class="notes">
+<p>note that x and y are bold and are vectors, not scalars.</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>We can remove the scalar <span class="math inline">\(\lambda\)</span> using simultaneous equations:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\textbf{x} &amp;= \textbf{x}_0 + \lambda(\textbf{x}_1 - \textbf{x}_0)
+\hspace{20pt} \times (\textbf{y}_1 - \textbf{y}_0) \\
+- \textbf{y} &amp;= \textbf{y}_0 + \lambda(\textbf{y}_1 - \textbf{y}_0)
+\hspace{20pt} \times (\textbf{x}_1 - \textbf{x}_0)
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>we multiply each equation… then subtract…</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>Giving:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\textbf{x} (\textbf{y}_1 - \textbf{y}_0) - \textbf{y} (\textbf{x}_1 - \textbf{x}_0) &amp;= \textbf{x}_0 (\textbf{y}_1 - \textbf{y}_0) - \textbf{y}_0 (\textbf{x}_1 - \textbf{x}_0) \\
+a \textbf{x} + b \textbf{y} &amp;= -c
+\end{aligned}
+\]</span></p>
+<p>with:</p>
+<p><span class="math display">\[
+\begin{aligned}
+a &amp;= \textbf{y}_1 - \textbf{y}_0 \\
+b &amp;= \textbf{x}_0 - \textbf{x}_1 \\
+c &amp;= -b\textbf{y}_0 - a\textbf{x}_0
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>bold x and y are the vectors projected to the axes…</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>The vectors <span class="math inline">\(\textbf{x}\)</span> and <span class="math inline">\(\textbf{y}\)</span> can be replaced with scalar values <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, yielding:</p>
+<p><span class="math display">\[
+ax + by + c = 0 \hspace{20pt} \square
+\]</span></p>
+<aside class="notes">
+<p>Q.E.D. quod erat demonstrandum - what was demonstrated…</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-6" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>The implicit equation has the form:</p>
+<p><span class="math display">\[
+f(x, y) = C
+\]</span></p>
+<p>where <span class="math inline">\(C\)</span> is a constant.</p>
+<aside class="notes">
+<p>so the this is a function of two variables, x, y.</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-7" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>There is also an <strong>explicit</strong> algebraic equation of the form:</p>
+<p><span class="math display">\[
+y = f(x)
+\]</span></p>
+<aside class="notes">
+<p>so the this is a function of x, x is an independent variable, y is a dependent variable.</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-8" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>From:</p>
+<p><span class="math display">\[
+\begin{aligned}
+ax + by + c =&amp; ~0 \\
+\Rightarrow y =&amp;  - \frac{a}{b}x - \frac{c}{b} \\
+\Rightarrow y =&amp; mx + d
+\end{aligned}
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+m = - \frac{a}{b}~, ~ d = - \frac{c}{b}
+\]</span></p>
+<aside class="notes">
+<p>note the difference between big C and small c.</p>
+</aside>
+</section>
+<section id="cartesian-line-equation-9" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Cartesian Line Equation</h2>
+<p>Although the explicit equation <span class="math inline">\(y = mx + c\)</span> may be familiar, for computer graphics it is inconvenient, since for vertical lines <span class="math inline">\(m = \infty\)</span>.</p>
+</section></section>
+<section>
+<section id="scan-conversion" class="title-slide slide level1">
+<h1>Scan Conversion</h1>
+<p>Lines in mathematics are continuous and have <em>infinite</em> resolution.</p>
+<p>A computer screen has finite resolution using discrete picture elements, or <strong>pixels</strong>.</p>
+<aside class="notes">
+<p>we may be rendering to screen, or rendering to an image file.</p>
+</aside>
+</section>
+<section id="scan-conversion-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan Conversion</h2>
+<p>For rendering, we will discretise the line equation using finite deltas.</p>
+<p><span class="math display">\[
+y = m x + c \Rightarrow \delta y = \delta m x + c
+\]</span></p>
+<aside class="notes">
+<p>finite differences…</p>
+</aside>
+</section>
+<section id="scan-conversion-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan Conversion</h2>
+<ul>
+<li>We always render line <strong>segments</strong>.</li>
+<li>Line segments have a defined start and end point.</li>
+<li>Hence, we can derive the slope and intercept of our line.</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned}
+m &amp;= \frac{y_{end} - y_0}{x_{end} - x_0} \\
+c &amp;= y_0 - m x_0
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>you can clearly see here the danger of division by zero.</p>
+</aside>
+</section>
+<section id="scan-conversion-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan Conversion</h2>
+<p><strong>NB:</strong> We will ignore the intercept <span class="math inline">\(c\)</span> for the following derivations.</p>
+<ul>
+<li>it should be added to the right-hand side of the equation for lines with <span class="math inline">\(c \neq 0\)</span></li>
+</ul>
+<aside class="notes">
+<p>for our algorithms under discussion, we will ignore the intercept <span class="math inline">\(c\)</span> for now. so, all our discussion will be about lines that pass through the origin.</p>
+</aside>
+</section></section>
+<section>
+<section id="digital-differential-analyser-dda" class="title-slide slide level1">
+<h1>Digital Differential Analyser (DDA)</h1>
+<p>The digital differential analyser (DDA) is a scan-conversion line algorithm based on calculating either <span class="math inline">\(\delta y\)</span> or <span class="math inline">\(\delta x\)</span></p>
+<aside class="notes">
+<p>and as I have said previously we will ignore the intercept <span class="math inline">\(c\)</span> for now.</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>Calculating <span class="math inline">\(\delta x\)</span>. Since the distance between points is measured in pixels; if we move pixel by pixel along the positive <span class="math inline">\(x\)</span> axis, we have:</p>
+<p><span class="math display">\[
+\delta x = x_{i+1} - x_i = 1
+\]</span></p>
+<aside class="notes">
+<p>we just step right, one pixel at a time…</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>Calculating <span class="math inline">\(\delta y\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\delta y &amp;= m \delta x \\
+y_{i+1} - y_i &amp;= m (x_{i+1} - x_i)
+\end{aligned}
+\]</span></p>
+<p>Where <span class="math inline">\(i\)</span> is a grid position of a discreet point on the line, and <span class="math inline">\(i + 1\)</span> is an immediate neighbour on the grid.</p>
+<aside class="notes">
+<p>grid positions are pixels on the screen or image</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>Given <span class="math inline">\(\delta x = x_{i+1} - x_i = 1\)</span>:</p>
+<p><span class="math display">\[
+y_{i+1} = y_i + m
+\]</span></p>
+<p>Specifically for:</p>
+<p><span class="math display">\[
+0 \leq |m| \leq 1
+\]</span></p>
+<aside class="notes">
+<p>be careful here, we have stated x increases by one to the right… so for lines steeper than m = 1, we will have gaps between pixels.</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/octants.svg" alt="render octants" /><figcaption aria-hidden="true">render octants</figcaption>
+</figure>
+</div><div class="column">
+<p>So far, our algorithm will draw lines when:</p>
+<p><span class="math display">\[
+0 \leq |m| \leq 1~ \text{and} ~ x \geq 0
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="digital-differential-analyser-dda-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<pre ><code class="c">#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+
+inline int round (const float a) {
+    return int (a + 0.5);
+    }
+
+// Assume a function setPixel exists.
+...</code></pre>
+<aside class="notes">
+<p>before we look at pseudo code for DDA , we need a couple of helper functions…</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-6" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<pre ><code class="c" data-line-numbers="1-9|1|2-4|6-8">void naiveDDA (int x0, int y0, int xEnd, int yEnd){
+    int x = x0;
+    float y = float (y0);
+    float m = float (yEnd - y0) / float (xEnd - x0);
+
+   for (x = x0; x &lt;= xEnd; x++) {
+        setPixel (x, round (y));
+        y += m;
+} }</code></pre>
+<aside class="notes">
+<p>our naive version of DDA that just draws in the right hand octants.</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-7" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>How do we draw in the other octants?</p>
+<aside class="notes">
+<p>or - what goes wrong for lines that are steep? anyone have any suggestions?</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-8" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>For lines with an absolute positive slope greater than 1.0, we reverse the roles of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p>That is, we sample at unit <span class="math inline">\(y\)</span> intervals, <span class="math inline">\(\delta y = 1\)</span>, and calculate consecutive x values as:</p>
+<p><span class="math display">\[
+x_{i+1} = x_i + \frac{1}{m}
+\]</span></p>
+</section>
+<section id="digital-differential-analyser-dda-9" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>To cover the remaining octants, we <em>decrement</em> <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p>Hence, for top, right, left and bottom octants, we have:</p>
+<p><span class="math display">\[
+\begin{aligned}
+|m| &gt; 1~&amp;,~           ~\delta y =~~1,&amp; x_{i+1} &amp;= x_i + \frac{1}{m} \\
+0 \leq |m| \leq 1~&amp;,~ ~\delta x =~~1,&amp; y_{i+1} &amp;= y_i + m \\
+0 \leq |m| \leq 1~&amp;,~ ~\delta x = -1,&amp; y_{i+1} &amp;= y_i + m \\
+|m| &gt; 1~&amp;,~           ~\delta y = -1,&amp; x_{i+1} &amp;= x_i + \frac{1}{m}
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>this now covers all octants.</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="assets/svg/all-octants.svg" style="width:65.0%" alt="all octants" /><figcaption aria-hidden="true">all octants</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<pre ><code class="c" data-line-numbers="1-18">void lineDDA (int x0, int y0, int xEnd, int yEnd){
+    int dx=xEnd-x0, dy=yEnd-y0, steps, k;
+    float xIncrement, yIncrement, x = x0, y = y0;
+
+   if (fabs (dx) &gt; fabs (dy))
+      steps = fabs (dx);
+   else
+      steps = fabs (dy);
+
+   xIncrement = float (dx) / float (steps);
+   yIncrement = float (dy) / float (steps);
+
+   setPixel (round (x), round (y));
+   for (k = 0; k &lt; steps; k++) {
+        x += xIncrement;
+        y += yIncrement;
+        setPixel (round (x), round (y));
+} }</code></pre>
+<aside class="notes">
+<p>code from the course text</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-10" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>DDA has a few problems:</p>
+<div>
+<ul>
+<li class="fragment">fails to take advantage of the integral nature of pixels</li>
+<li class="fragment">floating point variables to store the slope.</li>
+<li class="fragment">costly division operations to calculate the slope.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>not only that we store the slope as a floating point number, but we cast back to int to draw the line.</p>
+</aside>
+</section>
+<section id="digital-differential-analyser-dda-11" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Digital Differential Analyser (DDA)</h2>
+<p>The algorithm has a few problems:</p>
+<ul>
+<li>fails to take advantage of the integral nature of pixels</li>
+<li>floating point variables to store the slope.</li>
+<li>costly division operations to calculate the slope.</li>
+</ul>
+<p>We will address these short comings in the next lecture.</p>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+<ul>
+<li>Theory and Concepts</li>
+<li>Scan Conversion</li>
+<li>Digital Differential Analyser (DDA)</li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Hearn &amp; Baker, <em>Computer Graphics with OpenGL</em>, 4th Edition, Chapter 5</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+        height: 900,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // The display mode that will be used to show slides
+        display: 'block',
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
