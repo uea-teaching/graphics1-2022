@@ -28,3 +28,9 @@ Lectures are available as online html or printable pdf.
 
 - Projections: [online](lectures/projections.html)
   or printable [pdf](lectures/projections.bmr.pdf).
+
+- Introduction to Line Drawing: [online](lectures/line-drawing-01.html)
+  or printable [pdf](lectures/line-drawing-01.bmr.pdf).
+
+- Efficient Line Drawing: [online](lectures/line-drawing-02.html)
+  or printable [pdf](lectures/line-drawing-02.bmr.pdf).
