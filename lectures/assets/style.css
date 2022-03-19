@@ -56,6 +56,10 @@ code {
   overflow: hidden;
 }
 
+.reveal pre code {
+  max-height: 540px;
+}
+
 .column figure {
   display: flex;
   flex-direction: column;
