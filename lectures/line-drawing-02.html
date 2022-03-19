@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. David Greenwood">
+  <title>Efficient Line Drawing</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.2.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Efficient Line Drawing</h1>
+  <p class="subtitle">Graphics 1 CMP-5010B</p>
+  <p class="author">Dr. David Greenwood</p>
+  <p class="date">Spring 2022</p>
+</section>
+
+<section id="contents" class="title-slide slide level1">
+<h1>Contents</h1>
+<ul>
+<li>Bresenham’s Line Algorithm</li>
+<li>Midpoint Line Algorithm</li>
+<li>Antialiasing</li>
+</ul>
+</section>
+
+<section>
+<section id="bresenhams-line-algorithm" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Bresenham’s Line Algorithm</h1>
+<p>Improving the efficiency of the DDA line drawing algorithm.</p>
+<ul>
+<li>remove floating point operations</li>
+<li>minimise the number of operations</li>
+</ul>
+<aside class="notes">
+<p>DDA draws lines on our pixel grid. But, there are lots of floating point conversions.</p>
+</aside>
+</section>
+<section id="section" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>Let’s make clear some assumptions:</p>
+<ul>
+<li>pixel coordinates are integers</li>
+<li>left to right for <span class="math inline">\(x\)</span></li>
+<li>bottom to top for <span class="math inline">\(y\)</span>.</li>
+<li><span class="math inline">\(x_0 &lt; x_1~\)</span> and <span class="math inline">\(~y_0 &lt; y_1\)</span></li>
+<li>the slope of the line is between 0 and 1, i.e. <span class="math inline">\(0 \leq m \leq 1\)</span></li>
+</ul>
+<aside class="notes">
+<p>we already covered the concept of octants…we draw only in the first octant. The upper right octant… and strictly, pixels are on or off…</p>
+</aside>
+</section>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>Following these assumptions, the simplest algorithm is:</p>
+<pre ><code class="python">for x = x0 to x1:
+    decide y value
+    draw(x, y)</code></pre>
+<p>What is an <em>efficient</em> way to decide the <span class="math inline">\(y\)</span> value?</p>
+<aside class="notes">
+<p>pseudo code</p>
+</aside>
+</section>
+<section id="section-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/svg/pixel-line.svg" alt="pixel line" /><figcaption aria-hidden="true">pixel line</figcaption>
+</figure>
+<aside class="notes">
+<p>now look at this image… if we are moving left to right, what do we say about how to draw the pixel? it is only either to the right of the previous pixel, or up and right!</p>
+</aside>
+</section>
+<section id="section-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>As we step in the <span class="math inline">\(x\)</span> direction, we observe that:</p>
+<ul>
+<li><span class="math inline">\(y\)</span> stays the same</li>
+<li><strong>or</strong> <span class="math inline">\(y\)</span> increases by 1.</li>
+</ul>
+</section>
+<section id="section-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>We can include this observation in our algorithm:</p>
+<pre ><code class="python">x = x0
+y = y0
+draw(x, y)
+while x &lt; x1:
+    x = x + 1
+    if y should increment:
+        y = y + 1
+    draw(x, y)</code></pre>
+<aside class="notes">
+<p>as we progress with pseudo code…</p>
+</aside>
+</section>
+<section id="section-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>Assuming the line is given by <span class="math inline">\(y = mx + c\)</span>:</p>
+<ul>
+<li>we are setting <code>y = round(mx) + c</code></li>
+<li>each unit step of <span class="math inline">\(x\)</span> will increment <span class="math inline">\(y\)</span> by <span class="math inline">\(m\)</span></li>
+</ul>
+<aside class="notes">
+<p>we can ignore c from now on…</p>
+</aside>
+</section>
+<section id="section-6" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>Let <code>fraction</code> be the amount <span class="math inline">\(y\)</span> has increased since the last <span class="math inline">\(y\)</span> increase.</p>
+<ul>
+<li>We want to increment <span class="math inline">\(y\)</span> when <code>fraction</code> is <span class="math inline">\(\geq \frac{1}{2}\)</span>.</li>
+</ul>
+<aside class="notes">
+<p>now introduce a variable <code>fraction</code>… since the last time y increased… as the algorithm progresses, when the fraction is over half, we want to move up in y…</p>
+</aside>
+</section>
+<section id="section-7" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<pre ><code class="python">x = x0
+y = y0
+fraction = start_value
+fraction_step = (y1 - y0) / (x1 - x0)
+draw(x, y)
+while x &lt; x1:
+    x = x + 1
+    fraction = fraction + fraction_step
+    if fraction &gt;= 1/2:
+        y = y + 1
+        fraction = fraction - 1
+    draw(x, y)</code></pre>
+<aside class="notes">
+<p>Now, we are more or less where we where with DDA. fraction step is m from the line equation. we will have fraction +/- 1/2. We have these floating point numbers we want to get rid of…</p>
+</aside>
+</section>
+<section id="section-8" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>First we have: <span class="math inline">\(m = \frac{y_1 - y_0}{x_1 - x_0}\)</span></p>
+<ul>
+<li>To remove the fraction, we multiply by <span class="math inline">\((x_1 - x_0)\)</span>.</li>
+<li>To remove the comparison to <span class="math inline">\(1/2\)</span> we multiply by 2.</li>
+</ul>
+<p>hence:</p>
+<p><span class="math display">\[
+\begin{aligned}
+fraction\_step &amp;= \frac{y1 - y0}{x1 - x0} \times (x1 - x0) \times 2 \\
+        &amp;= 2 (y1 - y0)
+\end{aligned}
+\]</span></p>
+</section>
+<section id="section-9" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>We also want to set a <code>start_value</code> for <code>fraction</code>:</p>
+<p><span class="math display">\[
+start\_value = 2(y_1 - y_0) - (x_1 - x_0)
+\]</span></p>
+<aside class="notes">
+<p>skip explanantion… but it starts with m, offset by 1/2, then we multiply by 2(x1 - x0).</p>
+</aside>
+</section>
+<section id="section-10" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<pre ><code class="python">x = x0
+y = y0
+fraction = 2 * (y1 - y0) - (x1 - x0)
+fraction_step = 2 * (y1 - y0)
+draw(x, y)
+while x &lt; x1:
+    x = x + 1
+    fraction = fraction + fraction_step
+    if fraction &gt;= 0:
+        y = y + 1
+        fraction = fraction - 2 * (x1 - x0)
+    draw(x, y)</code></pre>
+<aside class="notes">
+<p>Also, we would prefer to compare to 0, rather than 1. so our algorithm is… in real code we would also compute 2DX once…</p>
+</aside>
+</section>
+<section id="bresenhams-line-algorithm-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Bresenham’s Line Algorithm</h2>
+<p>There are other approaches to deriving the Bresenham Line Algorithm. The parts are the same, but some details are presented differently.</p>
+<p>The course text makes the decision to move up in <code>y</code> based on the distance between the <em>true</em> line and the nearest pixel.</p>
+<ul>
+<li>Hearn &amp; Baker, <em>Computer Graphics with OpenGL</em>, 4th Edition, Chapter 5</li>
+</ul>
+</section></section>
+<section>
+<section id="midpoint-line-algorithm" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Midpoint Line Algorithm</h1>
+<p>Midpoint is a variation of Bresenham’s Line Algorithm.</p>
+<p>Same improvement goals:</p>
+<ul>
+<li>remove floating point operations</li>
+<li>minimise the number of operations</li>
+</ul>
+<aside class="notes">
+<p>of course it is functionally identical - it draws lines on our pixel grid.</p>
+</aside>
+</section>
+<section id="midpoint-line-algorithm-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<p>The midpoint algorithm uses 8 compass points to describe the <em>next</em> pixel to draw:</p>
+<ul>
+<li>E, NE, N, NW, W, SW, S, SE</li>
+</ul>
+</section>
+<section id="midpoint-line-algorithm-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<p>We will describe the algorithm just for the <em>upper right octant</em>.</p>
+<ul>
+<li>The only possible next directions are E and NE.</li>
+</ul>
+</section>
+<section id="midpoint-line-algorithm-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/mid-grid1.svg" alt="midpoint pixel directions" /><figcaption aria-hidden="true">midpoint pixel directions</figcaption>
+</figure>
+</div><div class="column">
+<p>For a <strong>previous</strong> pixel <code>p</code> in the upper right octant, we label the two <em>candidate</em> pixels E and NE.</p>
+<p>We will define criteria based on the midpoint between the two candidates.</p>
+</div>
+</div>
+</section>
+<section id="midpoint-line-algorithm-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<p>The algorithm decides if a <strong>true</strong> line passes either above, below or through the midpoint.</p>
+</section>
+<section id="midpoint-line-algorithm-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<figure>
+<img data-src="assets/svg/mid-point-3.svg" alt="Three possible cases" /><figcaption aria-hidden="true">Three possible cases</figcaption>
+</figure>
+<aside class="notes">
+<p>here we show the previous pixel the true line in green, in each of 3 possible cases. The x is the same, but the y is different.</p>
+</aside>
+</section>
+<section id="midpoint-line-algorithm-6" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<p><code>IF the true line is below or on the midpoint: pick the E pixel.</code></p>
+<p><code>ELSE: pick the NE pixel.</code></p>
+<aside class="notes">
+<p>almost pseudo code… we will have to reinforce the logic somewhat…</p>
+</aside>
+</section>
+<section id="midpoint-line-algorithm-7" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Midpoint Line Algorithm</h2>
+<p>We will use the <em>implicit</em> line equation:</p>
+<p><span class="math display">\[
+ax + by + c = 0
+\]</span></p>
+<p>We know that:</p>
+<p><span class="math display">\[
+a = \Delta y~, b = -\Delta x~ \Rightarrow f(x, y) = x \Delta y - y \Delta x + c = 0
+\]</span></p>
+<p><strong>N.B.</strong> henceforth we will assume <span class="math inline">\(c=0\)</span>, and remove from the derivations.</p>
+<aside class="notes">
+<p>we know this from the earlier lecture. We will not have C involved for brevity</p>
+</aside>
+</section>
+<section id="decision-variable" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Decision Variable</h2>
+<p><strong>IF</strong> the line goes exactly through the midpoint then we have the <em>decision</em> variable:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D &amp;= f(x_p + 1, y_p + \tfrac{1}{2}) \\
+  &amp;= a_{(m)} (x_p + 1) + b_{(m)} (y_p + \tfrac{1}{2}) \\
+  &amp;= 0
+\end{aligned}
+\]</span></p>
+<p>recall, in the upper right octant: <span class="math inline">\(a &gt; 0, ~b &lt; 0\)</span></p>
+<aside class="notes">
+<p>D is a decision variable - when it goes exactly through the midpoint, we pick the E pixel. because a=y0-y1 and b=x0-x1, from previous lecture.</p>
+</aside>
+</section>
+<section id="decision-variable-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Decision Variable</h2>
+<p><strong>IF</strong> the line goes <em>below</em> the midpoint:</p>
+<p><span class="math display">\[a&lt;a_{(m)} \land b&gt;b_{(m)} \Rightarrow D &lt; 0 \Rightarrow E\]</span></p>
+<p>The actual value of <span class="math inline">\(D(E)\)</span> is:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D(E)    &amp;= f(x_p + 1, y_p) \\
+        &amp;= a(x_p + 1) + b y_p \\
+        &amp;= a x_p + a + b y_p \\
+        &amp;= f(x_p, y_p) + a
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>the true a is less than the midpoint a, and the true b is greater than the midpoint b. we want to take a decision to go East. here it is just important to do the same consistent thing when we are at the midpoint.</p>
+</aside>
+</section>
+<section id="decision-variable-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Decision Variable</h2>
+<p><strong>ELSE</strong> the line goes <em>above</em> the midpoint:</p>
+<p><span class="math display">\[a&gt;a_{(m)} \land b&lt;b_{(m)} \Rightarrow D &gt; 0 \Rightarrow NE\]</span></p>
+<p>The actual value of <span class="math inline">\(D(NE)\)</span> is:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D(NE)   &amp;= f(x_p + 1, y_p + 1) \\
+        &amp;= a(x_p + 1) + b(y_p + 1) \\
+        &amp;= a x_p + a + b y_p + b \\
+        &amp;= f(x_p, y_p) + a + b
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>and, finally, the line goes above - we now pick the NE pixel.</p>
+</aside>
+</section>
+<section id="decision-variable-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Decision Variable</h2>
+<p>To avoid having to recalculate actual decision variable values each time we move one pixel in x, we can derive a decision variable <em>increment</em> instead.</p>
+<p>We do this by looking ahead to the <strong>next</strong> pixel.</p>
+</section>
+<section id="decision-variable-increment" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Decision Variable Increment</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/below-mid.svg" alt="chosen E pixel" /><figcaption aria-hidden="true">chosen E pixel</figcaption>
+</figure>
+</div><div class="column">
+<p>If we have chosen the E pixel then the next midpoint will be at:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D_{mE} &amp;= f(x_p + 2, y_p + \tfrac{1}{2}) \\
+  &amp;= a (x_p + 2) + b (y_p + \tfrac{1}{2})
+\end{aligned}
+\]</span></p>
+<p>Subtracting the original <span class="math inline">\(D\)</span> gives:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta E &amp;= D_{mE} - D \\
+    &amp;= a \\
+    &amp;= \Delta y
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="decision-variable-increment-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Decision Variable Increment</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/above-mid.svg" alt="chosen NE pixel" /><figcaption aria-hidden="true">chosen NE pixel</figcaption>
+</figure>
+</div><div class="column">
+<p>If we have chosen the NE pixel then the next midpoint will be at:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D_{mNE} &amp;= f(x_p + 2, y_p + \tfrac{3}{2}) \\
+  &amp;= a (x_p + 2) + b (y_p + \tfrac{3}{2})
+\end{aligned}
+\]</span></p>
+<p>Subtracting the original <span class="math inline">\(D\)</span> gives:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta NE &amp;= D_{mNE} - D \\
+    &amp;= a+b \\
+    &amp;= \Delta y - \Delta x
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="initial-decision-variable" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Initial Decision Variable</h2>
+<p>If the decision variable relies on the previous pixel, what is the decision variable for the first pixel?</p>
+</section>
+<section id="initial-decision-variable-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Initial Decision Variable</h2>
+<p>Since the start point is on the line:</p>
+<p><span class="math display">\[
+f(x_0, y_0) = 0
+\]</span></p>
+<p>Substituting into the decision variable gives:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D_{init} &amp;= f(x_0 + 1, y_0 + \tfrac{1}{2}) \\
+  &amp;= a (x_0 + 1) + b (y_0 + \tfrac{1}{2}) \\
+  &amp;= a x_0 + b y_0 + a + \tfrac{1}{2} b \\
+  &amp;= f(x_0, y_0) + a + \tfrac{1}{2} b
+\end{aligned}
+\]</span></p>
+</section>
+<section id="initial-decision-variable-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Initial Decision Variable</h2>
+<p>This yields:</p>
+<p><span class="math display">\[D_{init} = a + \tfrac{b}{2}\]</span></p>
+<p>We want to remove floating point arithmetic, so we can multiply by <span class="math inline">\(2\)</span>, however, we must <em>also</em> do this to the decision variable <em>increments</em>.</p>
+</section>
+<section id="initial-decision-variable-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Initial Decision Variable</h2>
+<p>Finally, our initial decision variable is:</p>
+<p><span class="math display">\[
+D_{init} = 2a + b = 2 \Delta y - \Delta x
+\]</span></p>
+<p>and the decision variable increments are:</p>
+<p><span class="math display">\[
+\Delta E = 2 \Delta y,~ \Delta NE = 2 (\Delta y - \Delta x)
+\]</span></p>
+<aside class="notes">
+<p>finally, we have arrived - we can show an implementation…</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<pre ><code class="c">void lineMid(int x0, int y0, int xEnd, int yEnd){
+    int dx=xEnd-x0, dy=yEnd-y0, x=x0, y=y0;
+    int E_inc = 2*dy, NE_inc = 2*(dy-dx), D = 2*dy-dx;
+
+    setPixel(x,y);
+    while(x&lt;xEnd){
+        if (D &gt; 0){
+            D += NE_inc;
+            x++; y++;
+        } else {
+            D += E_inc;
+            x++;
+        }
+    setPixel(x,y);
+}  }</code></pre>
+<aside class="notes">
+<p>here is a cpp implementation - all integers - only addition in the loop.</p>
+</aside>
+</section></section>
+<section>
+<section id="aliasing" class="title-slide slide level1">
+<h1>Aliasing</h1>
+<p>Aliasing is a distortion artifact when representing a high-resolution image at a lower resolution.</p>
+<ul>
+<li>stair steps</li>
+<li>jagged edges</li>
+</ul>
+<aside class="notes">
+<p>we’ve seen this in our line drawing here. It is that stair-stepped effect / jagged edge to lines.</p>
+</aside>
+</section>
+<section id="anti-aliasing" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Anti-Aliasing</h2>
+<p>To mitigate aliasing, we can use a technique called <em>anti-aliasing</em>.</p>
+<p>We will consider a few possible approaches.</p>
+<aside class="notes">
+
+</aside>
+</section>
+<section id="anti-aliasing-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Anti-Aliasing</h2>
+<p>The first approach is to consider a higher resolution display.</p>
+<ul>
+<li>This has happened naturally, as hardware has improved.</li>
+<li>We can consider this a “brute force” approach.</li>
+</ul>
+<aside class="notes">
+<p>there are practical limitations of course - but all methods of anti-aliasing aim to give the appearance of higher resolution display.</p>
+</aside>
+</section>
+<section id="anti-aliasing-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Anti-Aliasing</h2>
+<p>We can render an artificially thick line.</p>
+<ul>
+<li>Reduce colour intensity as we move away from the true line.</li>
+</ul>
+<figure>
+<img data-src="assets/svg/pixel-line-aa.svg" style="width:80.0%" alt="anti-aliased line" /><figcaption aria-hidden="true">anti-aliased line</figcaption>
+</figure>
+</section>
+<section id="anti-aliasing-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Anti-Aliasing</h2>
+<p>We can render to a sub-pixel grid.</p>
+<ul>
+<li>then use sampling to get the colour at the pixel.</li>
+</ul>
+</section>
+<section id="anti-aliasing-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Anti-Aliasing</h2>
+<p>We can filter the image.</p>
+<ul>
+<li>usually some <em>low-pass</em> filter</li>
+<li>e.g. box or gaussian filter</li>
+<li>filtering is performed using <strong>convolution</strong> with a <em>kernel</em></li>
+<li>often combined with sub-pixel sampling.</li>
+</ul>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+<ul>
+<li>Bresenham’s Line Algorithm</li>
+<li>Midpoint Line Algorithm</li>
+<li>Antialiasing</li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Hearn &amp; Baker, <em>Computer Graphics with OpenGL</em>, 4th Edition, Chapter 5</li>
+<li>Bresenham, J. E. (1965) “Algorithm for computer control of a digital plotter”</li>
+</ul>
+<aside class="notes">
+<p>We’ve talked about lines today - we may not render edges directly, but they are there implicitly as boundaries of polygons. Next weeks lecture will cover polygons…</p>
+<p>Old algorithm - becoming important to understand again when learning from images.</p>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+        height: 900,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // The display mode that will be used to show slides
+        display: 'block',
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
