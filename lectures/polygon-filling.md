@@ -152,7 +152,7 @@ what should we do when the scan line passes through a vertex?
 
 ## {data-auto-animate="true"}
 
-![complex polygon - a](assets/svg/poly_2_2.svg){width=75%}
+![scanning problem](assets/svg/poly_2_2.svg){width=75%}
 
 ::: notes
 what is happening here?
@@ -177,7 +177,7 @@ what is happening here?
 
 ::: columns
 ::::: {.column width=60%}
-![counting vertex $a$ twice provides a solution](assets/svg/poly_2_3.svg)
+![Counting vertex $a$ twice provides a solution.](assets/svg/poly_2_3.svg)
 :::::
 ::::: {.column width=40%}
 
@@ -186,4 +186,41 @@ Solution:
 - count the vertex _twice_
 
 :::::
+:::
+
+## {data-auto-animate="true"}
+
+::: columns
+::::: {.column width=60%}
+![Counting vertices twice does not always work.](assets/svg/poly_2_4.svg)
+:::::
+::::: {.column width=40%}
+
+Problem:
+
+- Counting the vertex twice does not always work!
+
+:::::
+:::
+
+::: notes
+There is a difference between vertex a and vertex b, however.
+:::
+
+## {data-auto-animate="true"}
+
+::: columns
+::::: {.column width=60%}
+![Difference between vertex $a$ and $b$.](assets/svg/poly_2_1.svg)
+:::::
+::::: {.column width=40%}
+
+- consider the _edges_ at each vertex
+- vertex $b$ is **monotonic** in $y$
+
+:::::
+:::
+
+::: notes
+There is a difference between vertex $a$ and $b$ we can take advantage of.
 :::
