@@ -224,3 +224,61 @@ There is a difference between vertex a and vertex b, however.
 ::: notes
 There is a difference between vertex $a$ and $b$ we can take advantage of.
 :::
+
+## {data-auto-animate="true"}
+
+::: columns
+::::: {.column width=60%}
+![Difference between vertex $a$ and $b$.](assets/svg/poly_2_1.svg)
+:::::
+::::: {.column width=40%}
+
+If we move around the polygon in a clockwise direction:
+
+- edges that enter and leave vertex **a** go in **opposite** $y$ directions.
+- edges that enter and leave vertex **b** go in the **same** $y$ direction.
+- edges through vertex **b** are **monotonic** in $y$
+
+:::::
+:::
+
+::: notes
+Let's put further definition on this...
+:::
+
+## {data-auto-animate="true"}
+
+We can _split_ the vertex for _monotonic_ edges:
+
+![split vertex](assets/svg/split_vertex.svg){width=85%}
+
+## {data-auto-animate="true"}
+
+The **lower** edge is shortened to create two _new_ edge points.
+
+![split vertex](assets/svg/split_vertex.svg){width=85%}
+
+::: notes
+I've labelled the scan lines - recall we progress in integer steps.
+NB. the gradient of the edge is maintained when we split the vertex.
+:::
+
+## Scan-Line Algorithm {data-auto-animate="true"}
+
+```
+process vertices of monotonic edges
+
+for line in y=0 to y=height:
+    counter = 0
+    for pixel in x=0 to x=width:
+        if edge or edge-point:
+            counter +=1
+        if vertex:
+            counter +=2
+        if counter is odd:
+            draw(line, pixel)
+```
+
+::: notes
+we can call these split vertices edge points...
+:::
