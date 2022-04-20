@@ -90,4 +90,100 @@ One of the reasons many graphics pipelines decompose to tris - they are easier t
 
 ::: notes
 can be arbitrarily complex - many vertices and edges - ngons
+we need to keep track of when we enter and exit the polygon - somehow...
+:::
+
+# Scan-Line Algorithm {data-auto-animate="true"}
+
+The scan-line algorithm must work for **both** convex and concave polygons.
+
+## Scan-Line Algorithm {data-auto-animate="true"}
+
+```
+for line in y=0 to y=height:
+    counter = 0
+    for pixel in x=0 to x=width:
+        if edge:
+            counter +=1
+        if counter is odd:
+            draw(line, pixel)
+```
+
+::: notes
+how about this algorithm? Does this do what we need to do?
+Does it work for both convex and concave polygons?
+:::
+
+## {data-auto-animate="true"}
+
+![concave polygon](assets/svg/poly_1_1.svg){width=75%}
+
+::: notes
+here we have a concave polygon, as we pass a scan line up the screen, what happens?
+:::
+
+## {data-auto-animate="true"}
+
+![concave scan](assets/svg/poly_1_2.svg){width=75%}
+
+::: notes
+It seems our algorithm works fine - as we enter from the left we add one to the counter and draw.
+When we leave we increment again and stop drawing, and so on...
+:::
+
+## Scan-Line Algorithm {data-auto-animate="true"}
+
+The algorithm seems to work well.
+
+- Have we considered all cases?
+
+::: notes
+are there any circumstances we have not considered yet?
+:::
+
+## {data-auto-animate="true"}
+
+![complex polygon](assets/svg/poly_2_1.svg){width=75%}
+
+::: notes
+here is a more complex polygon - I've labelled some vertices.
+what should we do when the scan line passes through a vertex?
+:::
+
+## {data-auto-animate="true"}
+
+![complex polygon - a](assets/svg/poly_2_2.svg){width=75%}
+
+::: notes
+what is happening here?
+:::
+
+## {data-auto-animate="true"}
+
+::: columns
+::::: {.column width=60%}
+![naive algorithm wrongly fills the cavity](assets/svg/poly_2_2.svg)
+:::::
+::::: {.column width=40%}
+
+- Enter the left edge, increment the counter and draw.
+- Pass through vertex $a$, increment the counter and stop drawing.
+- Leave the right edge, increment the counter and draw.
+
+:::::
+:::
+
+## {data-auto-animate="true"}
+
+::: columns
+::::: {.column width=60%}
+![counting vertex $a$ twice provides a solution](assets/svg/poly_2_3.svg)
+:::::
+::::: {.column width=40%}
+
+Solution:
+
+- count the vertex _twice_
+
+:::::
 :::
