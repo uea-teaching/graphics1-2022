@@ -280,5 +280,62 @@ for line in y=0 to y=height:
 ```
 
 ::: notes
+As pseudocode...
 we can call these split vertices edge points...
+The first line in our code here describes quite a process - let's look at how we
+will implement a scan-line algorithm.
 :::
+
+# Scan-Line Implementation {data-auto-animate="true"}
+
+Expanding the pseudocode.
+
+::: notes
+There are quite a few details not shown in the pseudocode that we need to resolve.
+:::
+
+## Scan-Line Implementation {data-auto-animate="true"}
+
+The first step is to build an array of _linked lists_, called a Bucket Sorted Edge Table (**BSET**).
+
+## Scan-Line Implementation {data-auto-animate="true"}
+
+Each **node** in the _linked list_ has 3 members related to a vertex, and a pointer to the next node:
+
+- y value of the _other_ vertex on the edge
+- x value of _this_ vertex
+- inverse slope of the edge
+- pointer to the next node
+
+::: notes
+one edge has two vertices
+we process from bottom to top - the other y value is the maximum y value of that edge.
+:::
+
+## Scan-Line Implementation {data-auto-animate="true"}
+
+To determine edge intersections it uses the familiar slope of a line:
+
+$$
+m = \frac{y_{k+1} - y_{k}}{x_{k+1} - x_{k}} = \frac{1}{x_{k+1} - x_{k}}
+\Rightarrow
+x_{k+1} = x_{k} + \frac{1}{m}
+$$
+
+## Scan-Line Implementation {data-auto-animate="true"}
+
+Before we start to build the Bucket Sorted Edge Table (**BSET**), we _split_ any vertices on **monotonic** edges.
+
+::: incremental
+
+- The BSET is built from the vertex with the lowest y value to the vertex with the highest y value.
+- If the vertex is part of two edges, the first node is for the left edge, and the second node is for the right edge.
+- Split vertices have only one edge, so only one node is entered.
+
+:::
+
+::: notes
+this probably deserves a figure to explain in more detail.
+:::
+
+## BSET Example {data-auto-animate="true"}
