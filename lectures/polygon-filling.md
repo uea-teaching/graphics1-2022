@@ -216,7 +216,7 @@ There is a difference between vertex a and vertex b, however.
 ::::: {.column width=40%}
 
 - consider the _edges_ at each vertex
-- vertex $b$ is **monotonic** in $y$
+- edges through vertex $b$ are **monotonic** in $y$
 
 :::::
 :::
