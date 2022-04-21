@@ -298,6 +298,10 @@ There are quite a few details not shown in the pseudocode that we need to resolv
 
 The first step is to build an array of _linked lists_, called a Bucket Sorted Edge Table (**BSET**).
 
+::: notes
+This table is indexed by y value, starting at zero.
+:::
+
 ## Scan-Line Implementation {data-auto-animate="true"}
 
 Each **node** in the _linked list_ has 3 members related to a vertex, and a pointer to the next node:
@@ -364,3 +368,86 @@ Before we move on - questions??
 :::
 
 ## Scan-Line Run Time {data-auto-animate="true"}
+
+The BSET is an initialisation step.
+
+- It is created once.
+
+At runtime, we use another data structure:
+
+- Active Linked List (**ALL**).
+
+## Active Linked List {data-auto-animate="true"}
+
+- Initially, the ALL points to NULL.
+- Search the BSET for the first non NULL entry.
+- Set the ALL to the first non NULL entry.
+
+::: notes
+so we do a linear search of the edge table, until we come to the first node that is not null.
+we set the active list to that node.
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+For our example, the ALL is first set to $y_a$.
+
+![Active List](assets/svg/ALL-1.svg)
+
+The `draw` function will now draw from $x_a$ to $x_a$, that is, just a single point.
+
+::: notes
+we draw from one x to the next x...
+here the x value is the same - so we implicitly draw the vertex twice.
+please ask questions - it's really important this is well understood.
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+Next, the scan line moves up to $Y_a + 1$.
+
+- There is **no** entry in the BSET for this $y$ value.
+- Therefore the current ALL has the $x$ values updated:
+
+$$
+x^{'}_{a} = x_{a} + \frac{1}{m_{ae}}, \quad x^{''}_{a} = x_{a} + \frac{1}{m_{ab}}
+$$
+
+::: notes
+so in each node in the ALL, we add the inverse slope to the x value.
+we have moved up each edge emerging from the vertex.
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+Now, we have a new ALL:
+
+![Updated Active List](assets/svg/ALL-2.svg)
+
+::: incremental
+
+- The `draw` function will now draw from $x^{'}_{a}$ to $x^{''}_{a}$.
+- The x values are repeated for each line
+- until a new BSET entry is found.
+- In our example, when we reach $y_d$.
+
+:::
+
+::: notes
+as we progress upward in y, we set x points increasingly further apart.
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+::: columns
+::::: column
+![$y_d$ scan](assets/svg/bset-poly.svg)
+:::::
+::::: column
+
+- Scan line is now at $y_d$.
+- Fetch the BSET entry for $y_d$.
+- merge with the ALL in increasing order of x values.
+
+:::::
+:::
