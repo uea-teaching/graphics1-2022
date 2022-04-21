@@ -512,8 +512,13 @@ The scan line will keep increasing until we reach the top of the screen.
 
 ## Scan-Line Implementation {data-auto-animate="true"}
 
-We observe that splitting the $c$ vertex automatically avoids double drawing of monotonic vertices.
+We observe that splitting the $c$ vertex automatically avoids
+double drawing of monotonic vertices.
 
 ::: notes
 The algorithm can cope with multiple polygons with minimal adjustments.
 :::
+
+# Boundary Fill {data-auto-animate="true"}
+
+An alternative method for filling polygons.
