@@ -427,7 +427,7 @@ Now, we have a new ALL:
 ::: incremental
 
 - The `draw` function will now draw from $x^{'}_{a}$ to $x^{''}_{a}$.
-- The x values are repeated for each line
+- The x values are updated for each line
 - until a new BSET entry is found.
 - In our example, when we reach $y_d$.
 
@@ -446,8 +446,74 @@ as we progress upward in y, we set x points increasingly further apart.
 ::::: column
 
 - Scan line is now at $y_d$.
-- Fetch the BSET entry for $y_d$.
+- Fetch BSET entry for $y_d$.
 - merge with the ALL in increasing order of x values.
 
 :::::
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+Now, we have the ALL:
+
+![$y_d$ Active List](assets/svg/ALL-3.svg)
+
+- We draw from $x_{d}$ to $x_{d}$ **and** $x^{'}_{a}$ to $x^{''}_{a}$.
+- All x values are then updated for each line with the inverse slope.
+
+::: notes
+the value of xd is lower than xa, so we insert the new entry on the left.
+have you noticed the ALL is always pairs of nodes - start - stop drawing.
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+::: columns
+::::: column
+![$y_e$ scan](assets/svg/bset-poly.svg)
+:::::
+::::: column
+
+What happens at $y_e$?
+
+:::::
+:::
+
+::: notes
+can we agree that we draw in two steps as we head toward vertex e?
+what happens then?
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+We monitor the maximum y value of the nodes in the ALL.
+
+- when we exceed any maximum y value, we remove those nodes from the ALL.
+
+![remove $y_e$ entries](assets/svg/ALL-4.svg)
+
+::: notes
+we continually monitor y values in the ALL nodes - if the scan line goes higher we remove.
+Ultimately this is how we stop drawing when we have passed the polygon entirely.
+:::
+
+## Active Linked List {data-auto-animate="true"}
+
+In our example, we have one more fetch from the BSET.
+
+![$y_c$](assets/svg/ALL-5.svg)
+
+We have merged the $y_c$ entry and removed the $y_{c^{'}}$ nodes.
+
+::: notes
+the algorithm will carry on filling upward until we remove the last nodes.
+The scan line will keep increasing until we reach the top of the screen.
+:::
+
+## Scan-Line Implementation {data-auto-animate="true"}
+
+We observe that splitting the $c$ vertex automatically avoids double drawing of monotonic vertices.
+
+::: notes
+The algorithm can cope with multiple polygons with minimal adjustments.
 :::
