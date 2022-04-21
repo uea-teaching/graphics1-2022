@@ -339,3 +339,28 @@ this probably deserves a figure to explain in more detail.
 :::
 
 ## BSET Example {data-auto-animate="true"}
+
+::: columns
+::::: column
+![polygon scan](assets/svg/bset-poly.svg)
+:::::
+::::: column
+![BSET](assets/svg/bset-example.svg)
+:::::
+:::
+
+::: notes
+the first thing to notice is we have split vertex c, and placed a lower point c'.
+
+the poly is somewhere in the middle of the screen - so as we scan up - y0, y1 points to null, until we reach the the value of y at vertex a - now we can make an entry in the BSET.
+
+that first vertex has 2 edges, so we have 2 nodes in the BSET (left right edges).
+node - other y value, x value, inverse slope, next node
+we move up to yd - this is similar...
+we do not make an entry for ye, because it is already in the table (yd).
+the vertex is split - so only has one edge, so only one node.
+
+Before we move on - questions??
+:::
+
+## Scan-Line Run Time {data-auto-animate="true"}
