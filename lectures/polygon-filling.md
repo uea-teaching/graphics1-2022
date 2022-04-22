@@ -660,3 +660,17 @@ Some caveats:
 ::: notes
 these are some things to watch out for if you implement this algorithm.
 :::
+
+# Summary
+
+- Polygon Filling
+- Scan Line Algorithm
+- Boundary Fill Algorithm
+
+Reading:
+
+- Hearn & Baker, _Computer Graphics with OpenGL_, 4th Edition, Chapter 4.10
+
+::: notes
+hearn & baker has a good chapter on polygon filling - my slides follow quite closely - so you should find the book a good supplement.
+:::
