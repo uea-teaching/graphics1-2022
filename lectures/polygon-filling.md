@@ -563,6 +563,7 @@ then each pixel has its neighbours coloured.
 
 A detail of design is to choose connectivity.
 we can decide how many neighbours we want to colour.
+You will encounter the idea of connectivity in lots of computer vision applications.
 :::
 
 ## Four Connectivity {data-auto-animate="true"}
@@ -585,4 +586,77 @@ Four connectivity requires fewer recursive calls, but more steps to complete.
 ::::: column
 ![4 fill](assets/gif/4-conn-fill.gif){width="100%"}
 :::::
+:::
+
+::: notes
+the 4-conn algorithm is a little simpler - but takes more steps to fill a shape.
+:::
+
+## Eight Connectivity {data-auto-animate="true"}
+
+::: columns
+::::: column
+![8 connectivity](assets/svg/8-conn.svg)
+:::::
+::::: column
+Eight connectivity usually completes a fill with fewer steps.
+:::::
+:::
+
+## Eight Connectivity {data-auto-animate="true"}
+
+::: columns
+::::: column
+![8 connectivity](assets/svg/8-conn.svg){width="70%"}
+:::::
+::::: column
+![8 fill](assets/gif/8-conn-fill.gif){width="100%"}
+:::::
+:::
+
+::: notes
+the code is a little more complex - but 8 connectivity usually fills in fewer steps.
+:::
+
+## Eight Connectivity {data-auto-animate="true"}
+
+Eight connectivity fills thin bridges more reliably.
+
+![filling thin bridges](assets/svg/8-conn-thin.svg){width="60%"}
+
+::: notes
+only 8 conn will bridge to the green pixel.
+:::
+
+## Boundary Fill {data-auto-animate="true"}
+
+```
+func fill4(x, y, fill_colour, edge_colour):
+    if pixel(x, y) == edge_colour:
+        return
+    if pixel(x, y) == fill_colour:
+        return
+    fill4(x+1, y, fill_colour, edge_colour)
+    fill4(x-1, y, fill_colour, edge_colour)
+    fill4(x, y+1, fill_colour, edge_colour)
+    fill4(x, y-1, fill_colour, edge_colour)
+```
+
+::: notes
+pseudo code for 4-fill - recursive functions always look compact
+base cases...
+recursive cases...
+what would fill 8 look like?
+:::
+
+## Boundary Fill {data-auto-animate="true"}
+
+Some caveats:
+
+- due to recursion - not memory efficient.
+- leaks due to unclosed boundary
+- premature stop if interior pixel is already fill colour.
+
+::: notes
+these are some things to watch out for if you implement this algorithm.
 :::
