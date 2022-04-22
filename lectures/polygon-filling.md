@@ -653,7 +653,7 @@ what would fill 8 look like?
 
 Some caveats:
 
-- due to recursion - not memory efficient.
+- recursive algorithm - so not memory efficient.
 - leaks due to unclosed boundary
 - premature stop if interior pixel is already fill colour.
 
