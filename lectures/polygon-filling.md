@@ -521,4 +521,68 @@ The algorithm can cope with multiple polygons with minimal adjustments.
 
 # Boundary Fill {data-auto-animate="true"}
 
-An alternative method for filling polygons.
+Another popular method for filling polygons.
+
+::: notes
+This algorithm is popular in image processing software but can be used for polygon filling in graphics as well.
+
+also called flood fill
+:::
+
+## Boundary Fill {data-auto-animate="true"}
+
+idea:
+
+::: incremental
+
+- find the edges of the polygon.
+- initialise a seed pixel
+- from the seed, recursively colour the neighbours.
+- stop when polygon is filled.
+
+:::
+
+::: notes
+the idea is to find the boundaries, ie the edges of the polygons.
+we colour some seed pixel - somewhere in the centre of mass.
+then each pixel has its neighbours coloured.
+:::
+
+## Connectivity {data-auto-animate="true"}
+
+::: columns
+::::: column
+![4 connectivity](assets/svg/4-conn.svg)
+:::::
+::::: column
+![8 connectivity](assets/svg/8-conn.svg)
+:::::
+:::
+
+::: notes
+
+A detail of design is to choose connectivity.
+we can decide how many neighbours we want to colour.
+:::
+
+## Four Connectivity {data-auto-animate="true"}
+
+::: columns
+::::: column
+![4 connectivity](assets/svg/4-conn.svg)
+:::::
+::::: column
+Four connectivity requires fewer recursive calls, but more steps to complete.
+:::::
+:::
+
+## Four Connectivity {data-auto-animate="true"}
+
+::: columns
+::::: column
+![4 connectivity](assets/svg/4-conn.svg){width="70%"}
+:::::
+::::: column
+![4 fill](assets/gif/4-conn-fill.gif){width="100%"}
+:::::
+:::
