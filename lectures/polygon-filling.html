@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. David Greenwood">
+  <title>Polygon Filling</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.2.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Polygon Filling</h1>
+  <p class="subtitle">Graphics 1 CMP-5010B</p>
+  <p class="author">Dr. David Greenwood</p>
+  <p class="date">Spring 2022</p>
+</section>
+
+<section id="content" class="title-slide slide level1">
+<h1>Content</h1>
+<ul>
+<li>Polygon Filling</li>
+<li>Scan Line Algorithm</li>
+<li>Boundary Fill Algorithm</li>
+</ul>
+<aside class="notes">
+<p>We can start with what we mean by polygon filling - then we will look at a couple of different approaches to solve the problem. Scan-line algorithm - works line by line and left to right to fill the polygon. Boundary fill algorithm - works by growing a seed pixel within the boundary of the polygon.</p>
+</aside>
+</section>
+
+<section>
+<section id="polygon-filling" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Polygon Filling</h1>
+<p>Identify pixels that belong to the <em>interior</em> of a polygon. Once identified, we can:</p>
+<div>
+<ul>
+<li class="fragment">pass the pixel to the rasteriser</li>
+<li class="fragment">assign colour to the pixel</li>
+<li class="fragment">assign a depth value to the pixel</li>
+<li class="fragment">sample a texture for the pixel</li>
+</ul>
+</div>
+<aside class="notes">
+<p>once we identify the pixel, we can perform a number of operations, given that knowledge.</p>
+</aside>
+</section>
+<section id="polygon-filling-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Polygon Filling</h2>
+<div>
+<ul>
+<li class="fragment">A polygon is a set of vertices that are connected by <em>edges</em>.</li>
+<li class="fragment">We need <em>efficient</em> algorithms to fill polygons.</li>
+<li class="fragment">We can extend ideas from line drawing to polygon filling.</li>
+<li class="fragment">Not all polygons are handled equally!</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Graphics applications often use many, many polygons.</p>
+</aside>
+</section>
+<section id="convex-polygons" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Convex Polygons</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/convex_poly.svg" alt="convex polygon" /><figcaption aria-hidden="true">convex polygon</figcaption>
+</figure>
+</div><div class="column">
+<ul>
+<li>interior angles <span class="math inline">\(\leq 180^{\circ}\)</span></li>
+<li>scan lines enter the interior once and exit once</li>
+<li>triangles are always convex</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>I want to be clear here - a scan line is the line we intend to draw horizontally across the screen. If we encounter a convex polygon it enters, then exits only once. Triangles are convex. One of the reasons many graphics pipelines decompose to tris - they are easier to handle.</p>
+</aside>
+</section>
+<section id="concave-polygons" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Concave Polygons</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/concave_poly.svg" alt="concave polygon" /><figcaption aria-hidden="true">concave polygon</figcaption>
+</figure>
+</div><div class="column">
+<ul>
+<li>arbitrarily complex polygons</li>
+<li>scan lines enter and exit many times</li>
+<li>more difficult to fill</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>can be arbitrarily complex - many vertices and edges - ngons we need to keep track of when we enter and exit the polygon - somehow…</p>
+</aside>
+</section></section>
+<section>
+<section id="scan-line-algorithm" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Scan-Line Algorithm</h1>
+<p>The scan-line algorithm must work for <strong>both</strong> convex and concave polygons.</p>
+</section>
+<section id="scan-line-algorithm-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Algorithm</h2>
+<pre ><code >for line in y=0 to y=height:
+    counter = 0
+    for pixel in x=0 to x=width:
+        if edge:
+            counter +=1
+        if counter is odd:
+            draw(line, pixel)</code></pre>
+<aside class="notes">
+<p>how about this algorithm? Does this do what we need to do? Does it work for both convex and concave polygons?</p>
+</aside>
+</section>
+<section id="section" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/svg/poly_1_1.svg" style="width:75.0%" alt="concave polygon" /><figcaption aria-hidden="true">concave polygon</figcaption>
+</figure>
+<aside class="notes">
+<p>here we have a concave polygon, as we pass a scan line up the screen, what happens?</p>
+</aside>
+</section>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/svg/poly_1_2.svg" style="width:75.0%" alt="concave scan" /><figcaption aria-hidden="true">concave scan</figcaption>
+</figure>
+<aside class="notes">
+<p>It seems our algorithm works fine - as we enter from the left we add one to the counter and draw. When we leave we increment again and stop drawing, and so on…</p>
+</aside>
+</section>
+<section id="scan-line-algorithm-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Algorithm</h2>
+<p>The algorithm seems to work well.</p>
+<ul>
+<li>Have we considered all cases?</li>
+</ul>
+<aside class="notes">
+<p>are there any circumstances we have not considered yet?</p>
+</aside>
+</section>
+<section id="section-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/svg/poly_2_1.svg" style="width:75.0%" alt="complex polygon" /><figcaption aria-hidden="true">complex polygon</figcaption>
+</figure>
+<aside class="notes">
+<p>here is a more complex polygon - I’ve labelled some vertices. what should we do when the scan line passes through a vertex?</p>
+</aside>
+</section>
+<section id="section-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<figure>
+<img data-src="assets/svg/poly_2_2.svg" style="width:75.0%" alt="scanning problem" /><figcaption aria-hidden="true">scanning problem</figcaption>
+</figure>
+<aside class="notes">
+<p>what is happening here?</p>
+</aside>
+</section>
+<section id="section-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/poly_2_2.svg" alt="naive algorithm wrongly fills the cavity" /><figcaption aria-hidden="true">naive algorithm wrongly fills the cavity</figcaption>
+</figure>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>Enter the left edge, increment the counter and draw.</li>
+<li>Pass through vertex <span class="math inline">\(a\)</span>, increment the counter and stop drawing.</li>
+<li>Leave the right edge, increment the counter and draw.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="section-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/poly_2_3.svg" alt="Counting vertex a twice provides a solution." /><figcaption aria-hidden="true">Counting vertex <span class="math inline">\(a\)</span> twice provides a solution.</figcaption>
+</figure>
+</div><div class="column" style="width:40%;">
+<p>Solution:</p>
+<ul>
+<li>count the vertex <em>twice</em></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="section-6" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/poly_2_4.svg" alt="Counting vertices twice does not always work." /><figcaption aria-hidden="true">Counting vertices twice does not always work.</figcaption>
+</figure>
+</div><div class="column" style="width:40%;">
+<p>Problem:</p>
+<ul>
+<li>Counting the vertex twice does not always work!</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>There is a difference between vertex a and vertex b, however.</p>
+</aside>
+</section>
+<section id="section-7" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/poly_2_1.svg" alt="Difference between vertex a and b." /><figcaption aria-hidden="true">Difference between vertex <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</figcaption>
+</figure>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>consider the <em>edges</em> at each vertex</li>
+<li>edges through vertex <span class="math inline">\(b\)</span> are <strong>monotonic</strong> in <span class="math inline">\(y\)</span></li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>There is a difference between vertex <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> we can take advantage of.</p>
+</aside>
+</section>
+<section id="section-8" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<figure>
+<img data-src="assets/svg/poly_2_1.svg" alt="Difference between vertex a and b." /><figcaption aria-hidden="true">Difference between vertex <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</figcaption>
+</figure>
+</div><div class="column" style="width:40%;">
+<p>If we move around the polygon in a clockwise direction:</p>
+<ul>
+<li>edges that enter and leave vertex <strong>a</strong> go in <strong>opposite</strong> <span class="math inline">\(y\)</span> directions.</li>
+<li>edges that enter and leave vertex <strong>b</strong> go in the <strong>same</strong> <span class="math inline">\(y\)</span> direction.</li>
+<li>edges through vertex <strong>b</strong> are <strong>monotonic</strong> in <span class="math inline">\(y\)</span></li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>Let’s put further definition on this…</p>
+</aside>
+</section>
+<section id="section-9" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>We can <em>split</em> the vertex for <em>monotonic</em> edges:</p>
+<figure>
+<img data-src="assets/svg/split_vertex.svg" style="width:85.0%" alt="split vertex" /><figcaption aria-hidden="true">split vertex</figcaption>
+</figure>
+</section>
+<section id="section-10" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true"></h2>
+<p>The <strong>lower</strong> edge is shortened to create two <em>new</em> edge points.</p>
+<figure>
+<img data-src="assets/svg/split_vertex.svg" style="width:85.0%" alt="split vertex" /><figcaption aria-hidden="true">split vertex</figcaption>
+</figure>
+<aside class="notes">
+<p>I’ve labelled the scan lines - recall we progress in integer steps. NB. the gradient of the edge is maintained when we split the vertex.</p>
+</aside>
+</section>
+<section id="scan-line-algorithm-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Algorithm</h2>
+<pre ><code >process vertices of monotonic edges
+
+for line in y=0 to y=height:
+    counter = 0
+    for pixel in x=0 to x=width:
+        if edge or edge-point:
+            counter +=1
+        if vertex:
+            counter +=2
+        if counter is odd:
+            draw(line, pixel)</code></pre>
+<aside class="notes">
+<p>As pseudocode… we can call these split vertices edge points… The first line in our code here describes quite a process - let’s look at how we will implement a scan-line algorithm.</p>
+</aside>
+</section></section>
+<section>
+<section id="scan-line-implementation" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Scan-Line Implementation</h1>
+<p>Expanding the pseudocode.</p>
+<aside class="notes">
+<p>There are quite a few details not shown in the pseudocode that we need to resolve.</p>
+</aside>
+</section>
+<section id="scan-line-implementation-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Implementation</h2>
+<p>The first step is to build an array of <em>linked lists</em>, called a Bucket Sorted Edge Table (<strong>BSET</strong>).</p>
+<aside class="notes">
+<p>This table is indexed by y value, starting at zero.</p>
+</aside>
+</section>
+<section id="scan-line-implementation-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Implementation</h2>
+<p>Each <strong>node</strong> in the <em>linked list</em> has 3 members related to a vertex, and a pointer to the next node:</p>
+<ul>
+<li>y value of the <em>other</em> vertex on the edge</li>
+<li>x value of <em>this</em> vertex</li>
+<li>inverse slope of the edge</li>
+<li>pointer to the next node</li>
+</ul>
+<aside class="notes">
+<p>one edge has two vertices we process from bottom to top - the other y value is the maximum y value of that edge.</p>
+</aside>
+</section>
+<section id="scan-line-implementation-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Implementation</h2>
+<p>To determine edge intersections it uses the familiar slope of a line:</p>
+<p><span class="math display">\[
+m = \frac{y_{k+1} - y_{k}}{x_{k+1} - x_{k}} = \frac{1}{x_{k+1} - x_{k}}
+\Rightarrow
+x_{k+1} = x_{k} + \frac{1}{m}
+\]</span></p>
+</section>
+<section id="scan-line-implementation-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Implementation</h2>
+<p>Before we start to build the Bucket Sorted Edge Table (<strong>BSET</strong>), we <em>split</em> any vertices on <strong>monotonic</strong> edges.</p>
+<div>
+<ul>
+<li class="fragment">The BSET is built from the vertex with the lowest y value to the vertex with the highest y value.</li>
+<li class="fragment">If the vertex is part of two edges, the first node is for the left edge, and the second node is for the right edge.</li>
+<li class="fragment">Split vertices have only one edge, so only one node is entered.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>this probably deserves a figure to explain in more detail.</p>
+</aside>
+</section>
+<section id="bset-example" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">BSET Example</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/bset-poly.svg" alt="polygon scan" /><figcaption aria-hidden="true">polygon scan</figcaption>
+</figure>
+</div><div class="column">
+<figure>
+<img data-src="assets/svg/bset-example.svg" alt="BSET" /><figcaption aria-hidden="true">BSET</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>the first thing to notice is we have split vertex c, and placed a lower point c’.</p>
+<p>the poly is somewhere in the middle of the screen - so as we scan up - y0, y1 points to null, until we reach the the value of y at vertex a - now we can make an entry in the BSET.</p>
+<p>that first vertex has 2 edges, so we have 2 nodes in the BSET (left right edges). node - other y value, x value, inverse slope, next node we move up to yd - this is similar… we do not make an entry for ye, because it is already in the table (yd). the vertex is split - so only has one edge, so only one node.</p>
+<p>Before we move on - questions??</p>
+</aside>
+</section>
+<section id="scan-line-run-time" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Run Time</h2>
+<p>The BSET is an initialisation step.</p>
+<ul>
+<li>It is created once.</li>
+</ul>
+<p>At runtime, we use another data structure:</p>
+<ul>
+<li>Active Linked List (<strong>ALL</strong>).</li>
+</ul>
+</section>
+<section id="active-linked-list" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<ul>
+<li>Initially, the ALL points to NULL.</li>
+<li>Search the BSET for the first non NULL entry.</li>
+<li>Set the ALL to the first non NULL entry.</li>
+</ul>
+<aside class="notes">
+<p>so we do a linear search of the edge table, until we come to the first node that is not null. we set the active list to that node.</p>
+</aside>
+</section>
+<section id="active-linked-list-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<p>For our example, the ALL is first set to <span class="math inline">\(y_a\)</span>.</p>
+<figure>
+<img data-src="assets/svg/ALL-1.svg" alt="Active List" /><figcaption aria-hidden="true">Active List</figcaption>
+</figure>
+<p>The <code>draw</code> function will now draw from <span class="math inline">\(x_a\)</span> to <span class="math inline">\(x_a\)</span>, that is, just a single point.</p>
+<aside class="notes">
+<p>we draw from one x to the next x… here the x value is the same - so we implicitly draw the vertex twice. please ask questions - it’s really important this is well understood.</p>
+</aside>
+</section>
+<section id="active-linked-list-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<p>Next, the scan line moves up to <span class="math inline">\(Y_a + 1\)</span>.</p>
+<ul>
+<li>There is <strong>no</strong> entry in the BSET for this <span class="math inline">\(y\)</span> value.</li>
+<li>Therefore the current ALL has the <span class="math inline">\(x\)</span> values updated:</li>
+</ul>
+<p><span class="math display">\[
+x^{&#39;}_{a} = x_{a} + \frac{1}{m_{ae}}, \quad x^{&#39;&#39;}_{a} = x_{a} + \frac{1}{m_{ab}}
+\]</span></p>
+<aside class="notes">
+<p>so in each node in the ALL, we add the inverse slope to the x value. we have moved up each edge emerging from the vertex.</p>
+</aside>
+</section>
+<section id="active-linked-list-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<p>Now, we have a new ALL:</p>
+<figure>
+<img data-src="assets/svg/ALL-2.svg" alt="Updated Active List" /><figcaption aria-hidden="true">Updated Active List</figcaption>
+</figure>
+<div>
+<ul>
+<li class="fragment">The <code>draw</code> function will now draw from <span class="math inline">\(x^{&#39;}_{a}\)</span> to <span class="math inline">\(x^{&#39;&#39;}_{a}\)</span>.</li>
+<li class="fragment">The x values are updated for each line</li>
+<li class="fragment">until a new BSET entry is found.</li>
+<li class="fragment">In our example, when we reach <span class="math inline">\(y_d\)</span>.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>as we progress upward in y, we set x points increasingly further apart.</p>
+</aside>
+</section>
+<section id="active-linked-list-4" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/bset-poly.svg" alt="y_d scan" /><figcaption aria-hidden="true"><span class="math inline">\(y_d\)</span> scan</figcaption>
+</figure>
+</div><div class="column">
+<ul>
+<li>Scan line is now at <span class="math inline">\(y_d\)</span>.</li>
+<li>Fetch BSET entry for <span class="math inline">\(y_d\)</span>.</li>
+<li>merge with the ALL in increasing order of x values.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="active-linked-list-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<p>Now, we have the ALL:</p>
+<figure>
+<img data-src="assets/svg/ALL-3.svg" alt="y_d Active List" /><figcaption aria-hidden="true"><span class="math inline">\(y_d\)</span> Active List</figcaption>
+</figure>
+<ul>
+<li>We draw from <span class="math inline">\(x_{d}\)</span> to <span class="math inline">\(x_{d}\)</span> <strong>and</strong> <span class="math inline">\(x^{&#39;}_{a}\)</span> to <span class="math inline">\(x^{&#39;&#39;}_{a}\)</span>.</li>
+<li>All x values are then updated for each line with the inverse slope.</li>
+</ul>
+<aside class="notes">
+<p>the value of xd is lower than xa, so we insert the new entry on the left. have you noticed the ALL is always pairs of nodes - start - stop drawing.</p>
+</aside>
+</section>
+<section id="active-linked-list-6" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/bset-poly.svg" alt="y_e scan" /><figcaption aria-hidden="true"><span class="math inline">\(y_e\)</span> scan</figcaption>
+</figure>
+</div><div class="column">
+<p>What happens at <span class="math inline">\(y_e\)</span>?</p>
+</div>
+</div>
+<aside class="notes">
+<p>can we agree that we draw in two steps as we head toward vertex e? what happens then?</p>
+</aside>
+</section>
+<section id="active-linked-list-7" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<p>We monitor the maximum y value of the nodes in the ALL.</p>
+<ul>
+<li>when we exceed any maximum y value, we remove those nodes from the ALL.</li>
+</ul>
+<figure>
+<img data-src="assets/svg/ALL-4.svg" alt="remove y_e entries" /><figcaption aria-hidden="true">remove <span class="math inline">\(y_e\)</span> entries</figcaption>
+</figure>
+<aside class="notes">
+<p>we continually monitor y values in the ALL nodes - if the scan line goes higher we remove. Ultimately this is how we stop drawing when we have passed the polygon entirely.</p>
+</aside>
+</section>
+<section id="active-linked-list-8" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Active Linked List</h2>
+<p>In our example, we have one more fetch from the BSET.</p>
+<figure>
+<img data-src="assets/svg/ALL-5.svg" alt="y_c" /><figcaption aria-hidden="true"><span class="math inline">\(y_c\)</span></figcaption>
+</figure>
+<p>We have merged the <span class="math inline">\(y_c\)</span> entry and removed the <span class="math inline">\(y_{c^{&#39;}}\)</span> nodes.</p>
+<aside class="notes">
+<p>the algorithm will carry on filling upward until we remove the last nodes. The scan line will keep increasing until we reach the top of the screen.</p>
+</aside>
+</section>
+<section id="scan-line-implementation-5" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Scan-Line Implementation</h2>
+<p>We observe that splitting the <span class="math inline">\(c\)</span> vertex automatically avoids double drawing of monotonic vertices.</p>
+<aside class="notes">
+<p>The algorithm can cope with multiple polygons with minimal adjustments.</p>
+</aside>
+</section></section>
+<section>
+<section id="boundary-fill" class="title-slide slide level1" data-auto-animate="true">
+<h1 data-auto-animate="true">Boundary Fill</h1>
+<p>Another popular method for filling polygons.</p>
+<aside class="notes">
+<p>This algorithm is popular in image processing software but can be used for polygon filling in graphics as well.</p>
+<p>also called flood fill</p>
+</aside>
+</section>
+<section id="boundary-fill-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Boundary Fill</h2>
+<p>idea:</p>
+<div>
+<ul>
+<li class="fragment">find the edges of the polygon.</li>
+<li class="fragment">initialise a seed pixel</li>
+<li class="fragment">from the seed, recursively colour the neighbours.</li>
+<li class="fragment">stop when polygon is filled.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>the idea is to find the boundaries, ie the edges of the polygons. we colour some seed pixel - somewhere in the centre of mass. then each pixel has its neighbours coloured.</p>
+</aside>
+</section>
+<section id="connectivity" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Connectivity</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/4-conn.svg" alt="4 connectivity" /><figcaption aria-hidden="true">4 connectivity</figcaption>
+</figure>
+</div><div class="column">
+<figure>
+<img data-src="assets/svg/8-conn.svg" alt="8 connectivity" /><figcaption aria-hidden="true">8 connectivity</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>A detail of design is to choose connectivity. we can decide how many neighbours we want to colour. You will encounter the idea of connectivity in lots of computer vision applications.</p>
+</aside>
+</section>
+<section id="four-connectivity" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Four Connectivity</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/4-conn.svg" alt="4 connectivity" /><figcaption aria-hidden="true">4 connectivity</figcaption>
+</figure>
+</div><div class="column">
+<p>Four connectivity requires fewer recursive calls, but more steps to complete.</p>
+</div>
+</div>
+</section>
+<section id="four-connectivity-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Four Connectivity</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/4-conn.svg" style="width:70.0%" alt="4 connectivity" /><figcaption aria-hidden="true">4 connectivity</figcaption>
+</figure>
+</div><div class="column">
+<figure>
+<img data-src="assets/gif/4-conn-fill.gif" style="width:100.0%" alt="4 fill" /><figcaption aria-hidden="true">4 fill</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>the 4-conn algorithm is a little simpler - but takes more steps to fill a shape.</p>
+</aside>
+</section>
+<section id="eight-connectivity" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Eight Connectivity</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/8-conn.svg" alt="8 connectivity" /><figcaption aria-hidden="true">8 connectivity</figcaption>
+</figure>
+</div><div class="column">
+<p>Eight connectivity usually completes a fill with fewer steps.</p>
+</div>
+</div>
+</section>
+<section id="eight-connectivity-1" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Eight Connectivity</h2>
+<div class="columns">
+<div class="column">
+<figure>
+<img data-src="assets/svg/8-conn.svg" style="width:70.0%" alt="8 connectivity" /><figcaption aria-hidden="true">8 connectivity</figcaption>
+</figure>
+</div><div class="column">
+<figure>
+<img data-src="assets/gif/8-conn-fill.gif" style="width:100.0%" alt="8 fill" /><figcaption aria-hidden="true">8 fill</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>the code is a little more complex - but 8 connectivity usually fills in fewer steps.</p>
+</aside>
+</section>
+<section id="eight-connectivity-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Eight Connectivity</h2>
+<p>Eight connectivity fills thin bridges more reliably.</p>
+<figure>
+<img data-src="assets/svg/8-conn-thin.svg" style="width:60.0%" alt="filling thin bridges" /><figcaption aria-hidden="true">filling thin bridges</figcaption>
+</figure>
+<aside class="notes">
+<p>only 8 conn will bridge to the green pixel.</p>
+</aside>
+</section>
+<section id="boundary-fill-2" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Boundary Fill</h2>
+<pre ><code >func fill4(x, y, fill_colour, edge_colour):
+    if pixel(x, y) == edge_colour:
+        return
+    if pixel(x, y) == fill_colour:
+        return
+    fill4(x+1, y, fill_colour, edge_colour)
+    fill4(x-1, y, fill_colour, edge_colour)
+    fill4(x, y+1, fill_colour, edge_colour)
+    fill4(x, y-1, fill_colour, edge_colour)</code></pre>
+<aside class="notes">
+<p>pseudo code for 4-fill - recursive functions always look compact base cases… recursive cases… what would fill 8 look like?</p>
+</aside>
+</section>
+<section id="boundary-fill-3" class="slide level2" data-auto-animate="true">
+<h2 data-auto-animate="true">Boundary Fill</h2>
+<p>Some caveats:</p>
+<ul>
+<li>recursive algorithm - so not memory efficient.</li>
+<li>leaks due to unclosed boundary</li>
+<li>premature stop if interior pixel is already fill colour.</li>
+</ul>
+<aside class="notes">
+<p>these are some things to watch out for if you implement this algorithm.</p>
+</aside>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+<ul>
+<li>Polygon Filling</li>
+<li>Scan Line Algorithm</li>
+<li>Boundary Fill Algorithm</li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Hearn &amp; Baker, <em>Computer Graphics with OpenGL</em>, 4th Edition, Chapter 4.10</li>
+</ul>
+<aside class="notes">
+<p>hearn &amp; baker has a good chapter on polygon filling - my slides follow quite closely - so you should find the book a good supplement.</p>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="https://unpkg.com/reveal.js@^4/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/math/math.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4/plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Global override for autoplaying embedded media (video/audio/iframe)
+        // - null: Media will only autoplay if data-autoplay is present
+        // - true: All media will autoplay, regardless of individual setting
+        // - false: No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+        // Global override for preloading lazy-loaded iframes
+        // - null: Iframes with data-src AND data-preload will be loaded when within
+        //   the viewDistance, iframes with only data-src will be loaded when visible
+        // - true: All iframes with data-src will be loaded when within the viewDistance
+        // - false: All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+        height: 900,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // The display mode that will be used to show slides
+        display: 'block',
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
