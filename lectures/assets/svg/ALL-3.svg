@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1160" height="100" viewBox="0, 0, 1160, 100">
+  <g id="Layer_1">
+    <g>
+      <path d="M548,50.5 L574.4,50.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      <path d="M574.4,54.7 L585.6,50.5 L574.4,46.3 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <g id="Node">
+      <g>
+        <g>
+          <path d="M589.645,20.5 L789.903,20.5 L789.354,80.5 L589.645,80.5 L589.645,20.5 z" fill="#E0F2FF"/>
+          <path d="M589.645,20.5 L789.903,20.5 L789.354,80.5 L589.645,80.5 L589.645,20.5 z" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        </g>
+        <path d="M649.645,20.5 L649.645,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        <path d="M709.645,20.5 L709.645,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 620.682, 51)">
+        <tspan x="-16.41" y="8" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">Ye</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 677.811, 49.75)">
+        <tspan x="-22.23" y="8.75" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">X'a</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 749.394, 53)">
+        <tspan x="-34.908" y="4.5" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#2BA4FF">1/Mae</tspan>
+      </text>
+    </g>
+    <g>
+      <path d="M789.645,48.499 L816.045,48.499" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      <path d="M816.045,52.699 L827.245,48.499 L816.045,44.299 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <g id="Node">
+      <g>
+        <g>
+          <path d="M830.103,20.5 L1030.362,20.5 L1029.812,80.5 L830.103,80.5 L830.103,20.5 z" fill="#E0F2FF"/>
+          <path d="M830.103,20.5 L1030.362,20.5 L1029.812,80.5 L830.103,80.5 L830.103,20.5 z" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        </g>
+        <path d="M890.103,20.5 L890.103,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        <path d="M950.103,20.5 L950.103,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 861.14, 51)">
+        <tspan x="-18.615" y="8" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">Yb</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 919.603, 48)">
+        <tspan x="-26.4" y="10.5" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">X''a</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 989.852, 53)">
+        <tspan x="-35.568" y="4.5" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#2BA4FF">1/Mab</tspan>
+      </text>
+    </g>
+    <g>
+      <path d="M1033.311,50.499 L1059.711,50.499" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      <path d="M1059.711,54.699 L1070.911,50.499 L1059.711,46.299 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <g id="Null">
+      <g>
+        <path d="M1073.312,30.5 L1152.645,30.5 L1152.645,70.5 L1073.312,70.5 L1073.312,30.5 z" fill="#E0F2FF"/>
+        <path d="M1073.312,30.5 L1152.645,30.5 L1152.645,70.5 L1073.312,70.5 L1073.312,30.5 z" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 1112.478, 50.125)">
+        <tspan x="-31.332" y="8.375" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#2BA4FF">NULL</tspan>
+      </text>
+    </g>
+    <g>
+      <path d="M16.5,27.5 L64.5,27.5 L64.5,73.5 L16.5,73.5 L16.5,27.5 z" fill="#2BA4FF"/>
+      <path d="M16.5,27.5 L64.5,27.5 L64.5,73.5 L16.5,73.5 L16.5,27.5 z" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+    </g>
+    <g>
+      <path d="M64.688,50.5 L91.088,50.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      <path d="M91.088,54.7 L102.288,50.5 L91.088,46.3 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <g id="Node">
+      <g>
+        <g>
+          <path d="M106.333,20.5 L306.591,20.5 L306.042,80.5 L106.333,80.5 L106.333,20.5 z" fill="#E0F2FF"/>
+          <path d="M106.333,20.5 L306.591,20.5 L306.042,80.5 L106.333,80.5 L106.333,20.5 z" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        </g>
+        <path d="M166.333,20.5 L166.333,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        <path d="M226.333,20.5 L226.333,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 135.703, 50)">
+        <tspan x="-21.96" y="9" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">Yc'</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 195.166, 49.75)">
+        <tspan x="-18.885" y="8.75" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">Xd</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 266.082, 53)">
+        <tspan x="-35.568" y="4.5" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#2BA4FF">1/Mdc</tspan>
+      </text>
+    </g>
+    <g>
+      <path d="M306.333,48.499 L332.733,48.499" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      <path d="M332.733,52.699 L343.933,48.499 L332.733,44.299 z" fill="#2BA4FF" fill-opacity="1" stroke="#2BA4FF" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <g id="Node">
+      <g>
+        <g>
+          <path d="M346.791,20.5 L547.05,20.5 L546.5,80.5 L346.791,80.5 L346.791,20.5 z" fill="#E0F2FF"/>
+          <path d="M346.791,20.5 L547.05,20.5 L546.5,80.5 L346.791,80.5 L346.791,20.5 z" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        </g>
+        <path d="M406.791,20.5 L406.791,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+        <path d="M466.791,20.5 L466.791,80.5" fill-opacity="0" stroke="#2BA4FF" stroke-width="3"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 377.828, 51)">
+        <tspan x="-16.41" y="8" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">Ye</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 436.958, 48)">
+        <tspan x="-18.885" y="10.5" font-family="HelveticaNeue-MediumItalic" font-size="30" fill="#2BA4FF">Xd</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 506.54, 53)">
+        <tspan x="-35.568" y="4.5" font-family="HelveticaNeue-MediumItalic" font-size="24" fill="#2BA4FF">1/Mde</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
