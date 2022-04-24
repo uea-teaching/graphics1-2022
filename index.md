@@ -35,5 +35,5 @@ Lectures are available as online html or printable pdf.
 - Efficient Line Drawing: [online](lectures/line-drawing-02.html)
   or printable [pdf](lectures/line-drawing-02.bmr.pdf).
 
-- Polygon Filling: [online](lectures/poly-filling.html)
-  or printable [pdf](lectures/poly-filling.bmr.pdf).
+- Polygon Filling: [online](lectures/polygon-filling.html)
+  or printable [pdf](lectures/polygon-filling.bmr.pdf).
