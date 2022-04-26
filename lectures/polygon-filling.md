@@ -636,6 +636,9 @@ func fill4(x, y, fill_colour, edge_colour):
         return
     if pixel(x, y) == fill_colour:
         return
+
+    draw(x, y, fill_colour)
+
     fill4(x+1, y, fill_colour, edge_colour)
     fill4(x-1, y, fill_colour, edge_colour)
     fill4(x, y+1, fill_colour, edge_colour)
