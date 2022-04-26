@@ -626,6 +626,9 @@ x^{&#39;}_{a} = x_{a} + \frac{1}{m_{ae}}, \quad x^{&#39;&#39;}_{a} = x_{a} + \fr
         return
     if pixel(x, y) == fill_colour:
         return
+
+    draw(x, y, fill_colour)
+
     fill4(x+1, y, fill_colour, edge_colour)
     fill4(x-1, y, fill_colour, edge_colour)
     fill4(x, y+1, fill_colour, edge_colour)
